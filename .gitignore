@@ -8,3 +8,9 @@
 /captures
 .externalNativeBuild
 
+.idea/
+library_commen/src/test/
+library_amap/src/androidTest/
+library_amap/src/test/
+library_main/src/androidTest/
+library_main/src/test/

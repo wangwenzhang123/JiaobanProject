@@ -41,6 +41,18 @@ public class SampleListPresenterImp extends BaseRecyclerListPresenter<SampleList
                     }
                 });*/
         sampleDataSource.sampleRequest(m)
+                .compose(this.<BaseAppEntity<SampleBean>>handleEverythingResult()).subscribe(new Consumer<BaseAppEntity<SampleBean>>() {
+            @Override
+            public void accept(BaseAppEntity<SampleBean> sampleBeanBaseAppEntity) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+        sampleDataSource.sampleRequest(m)
                 .compose(this.<BaseAppEntity<SampleBean>>handleEverythingResult())
                 .subscribe(new ExBaseObserver<BaseAppEntity<SampleBean>>() {
                     @Override
