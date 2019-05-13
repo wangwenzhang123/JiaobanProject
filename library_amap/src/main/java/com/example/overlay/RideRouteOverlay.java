@@ -11,8 +11,8 @@ import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.RidePath;
 import com.amap.api.services.route.RideStep;
-import com.wangshen.mycontroctview.R;
-import com.wangshen.mycontroctview.util.AMapUtil;
+import com.example.library_amap.R;
+import com.example.util.AMapUtil;
 
 import java.util.List;
 

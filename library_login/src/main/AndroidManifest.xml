@@ -11,7 +11,12 @@
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.SplashActivity" />
-        <activity android:name=".ui.GuideActivity"></activity>
+        <activity android:name=".ui.GuideActivity" />
+        <activity android:name=".ui.SubmitAuditActivity" />
+        <activity
+            android:name=".ui.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

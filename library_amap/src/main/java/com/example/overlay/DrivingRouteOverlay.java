@@ -15,8 +15,9 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveStep;
 import com.amap.api.services.route.TMC;
-import com.wangshen.mycontroctview.R;
-import com.wangshen.mycontroctview.util.AMapUtil;
+import com.example.library_amap.R;
+import com.example.util.AMapUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;

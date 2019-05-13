@@ -13,7 +13,8 @@ import com.amap.api.services.route.BusPath;
 import com.amap.api.services.route.BusStep;
 import com.amap.api.services.route.RouteBusLineItem;
 import com.amap.api.services.route.RouteRailwayItem;
-import com.wangshen.mycontroctview.R;
+import com.example.library_amap.R;
+
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.noober.background.BackgroundLibrary;
 import com.wangshen.base.dialog.base.BaseDialog;
 import com.wangshen.base.ui.mvp.base.presenter.BasePresenter;
 
@@ -24,6 +25,7 @@ public abstract class BaseActivity extends Activity{
     protected String TGA=getClass().getSimpleName();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        BackgroundLibrary.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(getView());
         ButterKnife.bind(this);

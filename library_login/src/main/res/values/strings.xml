@@ -24,4 +24,23 @@
     <string name="hint_setpassword">长度不少于6位,包含字母或数字</string>
     <string name="invitation">邀请码</string>
     <string name="get_code">获取验证码</string>
+    <string name="phone_login">手机登录：</string>
+    <string name="password_login">密码登录：</string>
+    <string name="forgot_password">忘记密码？</string>
+    <string name="register_first">没有账号，先注册</string>
+    <string name="unit_name">单位名称</string>
+    <string name="contact">联系人</string>
+    <string name="legal_person">法人</string>
+    <string name="contact_phone">联系电话</string>
+    <string name="address">地址</string>
+    <string name="registered_capital">注册资金</string>
+    <string name="serial_number">编号</string>
+    <string name="upload_documents">证件上传</string>
+    <string name="business_license">营业执照</string>
+    <string name="submit_audit">提交审核</string>
+    <string name="submit_wait">提交审核中，将在24小时内反馈，请耐心等待</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="reset_password">密码重置</string>
+    <string name="new_password">新密码</string>
+    <string name="get_verification_code">获取验证码</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.wangshen.base.ui.mvp.base.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.wangshen.base.ui.mvp.base.presenter.BasePresenter;
 
@@ -36,4 +37,8 @@ public interface BaseView {
      * 关闭页面并返回结果
      */
     void finishActivityForResult(int resultCode, Intent data);
+    /**
+     * 跳转界面
+     */
+    void routerIntent(String path, Bundle bundle);
 }

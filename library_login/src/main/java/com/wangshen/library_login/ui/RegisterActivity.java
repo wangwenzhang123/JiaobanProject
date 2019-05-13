@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.library_commen.appkey.ArouterKey;
 import com.wangshen.base.app.AppActivityKey;
 import com.wangshen.base.dialog.base.BaseDialog;
 import com.wangshen.base.ui.mvp.base.ui.BaseMvpActivity;
@@ -18,7 +19,7 @@ import com.wangshen.library_login.presenter.RegisterPresenter;
  * @time 2018/12/28 21:38
  * @change
  */
-@Route(path = AppActivityKey.LOGIN_REGISTER)
+@Route(path = ArouterKey.LOGIN_REGISTERACTIVITY)
 public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> implements RegisterContact.View {
     @Override
     public void finishActivity() {

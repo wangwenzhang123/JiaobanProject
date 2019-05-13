@@ -11,7 +11,7 @@ import com.wangshen.base.ui.mvp.base.view.BaseView;
  */
 public class LoginContact {
    public interface Presnter{
-
+      void login(String phone,String password);
    }
    public interface View extends BaseView{
 

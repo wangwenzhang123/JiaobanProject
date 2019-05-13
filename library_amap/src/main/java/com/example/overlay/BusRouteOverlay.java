@@ -17,7 +17,8 @@ import com.amap.api.services.route.RouteBusWalkItem;
 import com.amap.api.services.route.RouteRailwayItem;
 import com.amap.api.services.route.TaxiItem;
 import com.amap.api.services.route.WalkStep;
-import com.wangshen.mycontroctview.util.AMapUtil;
+import com.example.util.AMapUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
