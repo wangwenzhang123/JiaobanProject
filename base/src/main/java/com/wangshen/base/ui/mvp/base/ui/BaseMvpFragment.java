@@ -2,6 +2,7 @@ package com.wangshen.base.ui.mvp.base.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -57,4 +58,19 @@ public abstract class BaseMvpFragment <P extends BasePresenter> extends BaseFrag
         });
     }
     public abstract P getPresenter();
+
+    @Override
+    public void routerIntent(String path, Bundle bundle) {
+
+    }
+
+    @Override
+    public void finishActivity() {
+
+    }
+
+    @Override
+    public void finishActivityForResult(int resultCode, Intent data) {
+
+    }
 }
