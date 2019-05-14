@@ -70,17 +70,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public void getData() {
 
     }
-
-    @Override
-    public void finishActivity() {
-
-    }
-
-    @Override
-    public void finishActivityForResult(int resultCode, Intent data) {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +79,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @OnClick(R2.id.bt_login)
     public void onBtLoginClicked() {
-
+        routerIntent(ArouterKey.MAIN_MAINACTIVITY,null);
     }
 
     @OnClick(R2.id.tv_forgot_password)

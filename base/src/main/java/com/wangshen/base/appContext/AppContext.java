@@ -1,6 +1,7 @@
 package com.wangshen.base.appContext;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.wangshen.base.BuildConfig;
@@ -9,6 +10,7 @@ import com.wangshen.base.crash.CrashHandler;
 import com.wangshen.base.net.client.KRetrofitConfig;
 import com.wangshen.base.net.client.KRetrofitFactory;
 import com.wangshen.base.net.interceptor.ExCookieInterceptor;
+import com.wangshen.base.util.SharedPreferencesUtil;
 
 /**
  * @name Base
@@ -36,5 +38,6 @@ public class AppContext extends Application {
                 .build();
         KRetrofitFactory.init(config);
         CrashHandler.getInstance().init(this);
+        SharedPreferencesUtil.init(this, Context.MODE_PRIVATE);
     }
 }

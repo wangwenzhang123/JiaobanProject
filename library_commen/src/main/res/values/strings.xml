@@ -46,5 +46,6 @@
     <string name="finance">财务</string>
     <string name="home">首页</string>
     <string name="statistics">数据统计</string>
-
+    <string name="order">订单管理</string>
+    <string name="user">个人中心</string>
 </resources>

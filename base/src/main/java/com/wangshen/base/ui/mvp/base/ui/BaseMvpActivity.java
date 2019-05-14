@@ -1,5 +1,6 @@
 package com.wangshen.base.ui.mvp.base.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -68,5 +69,15 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
     @Override
     public void routerIntent(String path, Bundle bundle) {
         ARouter.getInstance().build(path).with(bundle).navigation(mContext);
+    }
+
+    @Override
+    public void finishActivity() {
+
+    }
+
+    @Override
+    public void finishActivityForResult(int resultCode, Intent data) {
+
     }
 }

@@ -1,5 +1,7 @@
 package com.wangshen.library_main.finance.presenter;
 
+import com.wangshen.base.ui.mvp.base.view.BaseView;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -8,5 +10,10 @@ package com.wangshen.library_main.finance.presenter;
  * @change
  */
 public class FinanceContract {
+    public interface View extends BaseView{
 
+    }
+    public interface Presenter{
+
+    }
 }

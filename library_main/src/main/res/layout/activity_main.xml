@@ -6,35 +6,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.library_main.MainActivity">
-    <FrameLayout
-        android:id="@+id/main_conten"
+    <com.example.library_main.NoScrollViewPager
+
+        android:id="@+id/main_vp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-    </FrameLayout>
+    </com.example.library_main.NoScrollViewPager>
     <RadioGroup
         android:orientation="horizontal"
         android:id="@+id/main_rg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50">
         <RadioButton
+            android:id="@+id/main_rb_finance"
+            style="@style/main_rg"
             android:text="@string/finance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:id="@+id/main_rb_order"
+            style="@style/main_rg"
             android:text="@string/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:checked="true"
+            android:id="@+id/main_rb_home"
+            style="@style/main_rg"
             android:text="@string/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:id="@+id/main_rb_statistics"
+            style="@style/main_rg"
             android:text="@string/statistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:id="@+id/main_rb_user"
+            style="@style/main_rg"
             android:text="@string/user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

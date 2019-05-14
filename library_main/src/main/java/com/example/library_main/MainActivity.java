@@ -1,41 +1,91 @@
 package com.example.library_main;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.RadioGroup;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.library_commen.appkey.ArouterKey;
 import com.wangshen.base.dialog.base.BaseDialog;
 import com.wangshen.base.ui.mvp.base.ui.BaseActivity;
+import com.wangshen.library_main.finance.ui.FinanceFragment;
+import com.wangshen.library_main.home.ui.HomeFragment;
+import com.wangshen.library_main.order.ui.OrderFragment;
+import com.wangshen.library_main.statistics.ui.StatisticsFragment;
+import com.wangshen.library_main.user.ui.UserFragment;
 
-public class MainActivity extends BaseActivity {
+import java.util.ArrayList;
+import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+@Route(path = ArouterKey.MAIN_MAINACTIVITY)
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+
+    @BindView(R2.id.main_vp)
+    NoScrollViewPager mainVp;
+    @BindView(R2.id.main_rg)
+    RadioGroup mainRg;
+    private List<Fragment> fragments=new ArrayList<>();
+    private MyViewPagerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(getView());
+        ARouter.getInstance().inject(this);
+        ButterKnife.bind(this);
+        getData();
+        initView();
+        initLinsenterner();
     }
 
-    @Override
+
     public int getView() {
-        return 0;
+        return R.layout.activity_main;
     }
 
-    @Override
-    public BaseDialog getDialog() {
-        return null;
-    }
-
-    @Override
     public void initView() {
-
+        mainVp.setAdapter(adapter);
+        mainVp.setNoScroll(true);
+        mainVp.setCurrentItem(2);
+        mainRg.setOnCheckedChangeListener(this);
     }
 
-    @Override
+
     public void initLinsenterner() {
 
     }
 
-    @Override
-    public void getData() {
 
+    public void getData() {
+        fragments.add(new FinanceFragment());
+        fragments.add(new OrderFragment());
+        fragments.add(new HomeFragment());
+        fragments.add(new StatisticsFragment());
+        fragments.add(new UserFragment());
+        adapter=new MyViewPagerAdapter(getSupportFragmentManager(),fragments);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        int currentFragment=0;
+        if (i == R.id.main_rb_finance) {
+            currentFragment = 0;
+        } else if (i == R.id.main_rb_order) {
+            currentFragment = 1;
+        } else if (i == R.id.main_rb_home) {
+            currentFragment = 2;
+
+        } else if (i == R.id.main_rb_statistics) {
+            currentFragment = 3;
+
+        } else if (i == R.id.main_rb_user) {
+            currentFragment = 4;
+        }
+        mainVp.setCurrentItem(currentFragment);
     }
 }

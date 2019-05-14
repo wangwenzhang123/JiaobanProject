@@ -1,5 +1,7 @@
 package com.wangshen.library_main.statistics.presenter;
 
+import com.wangshen.base.ui.mvp.base.view.BaseView;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -8,5 +10,7 @@ package com.wangshen.library_main.statistics.presenter;
  * @change
  */
 public class StatisticsContract {
+    public interface View extends BaseView {
 
+    }
 }
