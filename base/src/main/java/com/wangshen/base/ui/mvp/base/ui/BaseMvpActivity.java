@@ -41,6 +41,11 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
     }
 
     @Override
+    public void showToast(String ms) {
+        ToastUtils.showToast(mContext,ms);
+    }
+
+    @Override
     public void hideLoadingDialog() {
         this.runOnUiThread(new Runnable() {
             @Override

@@ -1,10 +1,10 @@
 package com.wangshen.library_login.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -30,22 +30,37 @@ import butterknife.OnClick;
  */
 @Route(path = ArouterKey.LOGIN_REGISTERACTIVITY)
 public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> implements RegisterContact.View {
+
     @BindView(R2.id.register_back)
     ImageView registerBack;
-    @BindView(R2.id.register_business_rl)
-    RelativeLayout registerBusinessRl;
+    @BindView(R2.id.et_unit_name)
+    EditText etUnitName;
+    @BindView(R2.id.et_contact)
+    EditText etContact;
+    @BindView(R2.id.et_legal_person)
+    EditText etLegalPerson;
+    @BindView(R2.id.et_contact_phone)
+    EditText etContactPhone;
+    @BindView(R2.id.et_address)
+    EditText etAddress;
+    @BindView(R2.id.et_registered_capital)
+    EditText etRegisteredCapital;
+    @BindView(R2.id.iv_add)
+    ImageView ivAdd;
+    @BindView(R2.id.ll_legal_positive)
+    LinearLayout llLegalPositive;
+    @BindView(R2.id.iv_legal_positive)
+    ImageView ivLegalPositive;
+    @BindView(R2.id.ll_legal_reverse)
+    LinearLayout llLegalReverse;
+    @BindView(R2.id.iv_legal_reverse)
+    ImageView ivLegalReverse;
+    @BindView(R2.id.ll_business_license)
+    LinearLayout llBusinessLicense;
+    @BindView(R2.id.iv_business_license)
+    ImageView ivBusinessLicense;
     @BindView(R2.id.register_register_bt)
     Button registerRegisterBt;
-
-    @Override
-    public void finishActivity() {
-
-    }
-
-    @Override
-    public void finishActivityForResult(int resultCode, Intent data) {
-
-    }
 
     @Override
     public int getView() {
@@ -95,13 +110,19 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     public void onRegisterBackClicked() {
     }
 
-    @OnClick(R2.id.register_business_rl)
-    public void onRegisterBusinessRlClicked() {
-        selectPic();
+    @OnClick(R2.id.ll_legal_positive)
+    public void onLlLegalPositiveClicked() {
+    }
+
+    @OnClick(R2.id.ll_legal_reverse)
+    public void onLlLegalReverseClicked() {
+    }
+
+    @OnClick(R2.id.ll_business_license)
+    public void onLlBusinessLicenseClicked() {
     }
 
     @OnClick(R2.id.register_register_bt)
     public void onRegisterRegisterBtClicked() {
-
     }
 }

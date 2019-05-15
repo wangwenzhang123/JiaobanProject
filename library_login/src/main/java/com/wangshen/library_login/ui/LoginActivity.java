@@ -1,6 +1,5 @@
 package com.wangshen.library_login.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
 import com.wangshen.base.dialog.base.BaseDialog;
-import com.wangshen.base.ui.mvp.base.presenter.BasePresenter;
 import com.wangshen.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.wangshen.library_login.R;
 import com.wangshen.library_login.R2;
@@ -20,18 +18,15 @@ import com.wangshen.library_login.presenter.LoginPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 @Route(path = ArouterKey.LOGIN_LOGINACTIVITY)
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginContact.View {
 
 
     @BindView(R2.id.imageView)
     ImageView imageView;
-    @BindView(R2.id.phone_login)
-    TextView phoneLogin;
     @BindView(R2.id.rt_phone_login)
     EditText rtPhoneLogin;
-    @BindView(R2.id.password_login)
-    TextView passwordLogin;
     @BindView(R2.id.et_password_login)
     EditText etPasswordLogin;
     @BindView(R2.id.bt_login)
@@ -40,6 +35,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     TextView tvForgotPassword;
     @BindView(R2.id.tv_login_register)
     TextView tvLoginRegister;
+    @BindView(R2.id.bt_register)
+    Button btRegister;
 
     @Override
     public LoginPresenter getPresenter() {
@@ -70,6 +67,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public void getData() {
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,16 +77,21 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @OnClick(R2.id.bt_login)
     public void onBtLoginClicked() {
-        routerIntent(ArouterKey.MAIN_MAINACTIVITY,null);
+        presenter.login(rtPhoneLogin.getText().toString(), etPasswordLogin.getText().toString());
     }
 
     @OnClick(R2.id.tv_forgot_password)
     public void onTvForgotPasswordClicked() {
-
+        routerIntent(ArouterKey.LOGIN_FORGOTPASSWORDACTIVITY, null);
     }
 
     @OnClick(R2.id.tv_login_register)
     public void onTvLoginRegisterClicked() {
+
+    }
+
+    @OnClick(R2.id.bt_register)
+    public void onViewClicked() {
         routerIntent(ArouterKey.LOGIN_REGISTERACTIVITY,null);
     }
 }

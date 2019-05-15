@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.library_commen.appkey.ArouterKey;
 import com.wangshen.library_login.R;
-
+@Route(path = ArouterKey.LOGIN_FORGOTPASSWORDACTIVITY)
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Override

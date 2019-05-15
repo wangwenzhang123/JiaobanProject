@@ -52,11 +52,22 @@ public class SplashActivity extends BaseActivity {
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void getFrist() {
-        if (SharedPreferencesUtil.getInstance().isFirstRun(mContext)){
-            startActivity(new Intent(this,LoginActivity.class));
-        }else {
-            startActivity(new Intent(this,LoginActivity.class));
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (SharedPreferencesUtil.getInstance().isFirstRun(mContext)){
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                }else {
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                }
+            }
+        }).start();
+
     }
 
     @Override

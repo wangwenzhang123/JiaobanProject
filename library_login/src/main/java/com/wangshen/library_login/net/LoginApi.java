@@ -16,7 +16,7 @@ import retrofit2.http.POST;
 public interface LoginApi {
     @FormUrlEncoded
     @POST("sample/sampleRequst")
-    Observable<BaseAppEntity<Object>> login(@Field("billnumber") String params);
+    Observable<BaseAppEntity<Object>> login(@Field("phone") String phone,@Field("password") String password);
     @FormUrlEncoded
     @POST("sample/sampleRequst")
     Observable<BaseAppEntity<Object>> regist(@Body RequestRegisterBean params);

@@ -47,6 +47,11 @@ public abstract class BaseMvpFragment <P extends BasePresenter> extends BaseFrag
     }
 
     @Override
+    public void showToast(String ms) {
+        ToastUtils.showToast(mContext,ms);
+    }
+
+    @Override
     public void showLoadingDialog() {
         mContext.runOnUiThread(new Runnable() {
             @Override

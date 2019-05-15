@@ -41,4 +41,10 @@ public interface BaseView {
      * 跳转界面
      */
     void routerIntent(String path, Bundle bundle);
+
+    /**
+     * show Toast
+     * @param ms
+     */
+    void showToast(String ms);
 }

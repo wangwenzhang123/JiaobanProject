@@ -9,4 +9,5 @@ public class ArouterKey {
     public static final String LOGIN_REGISTERACTIVITY="/login/RegisterActivity";
     public static final String MAIN_MAINACTIVITY="/main/MainActivity";
     public static final String LOGIN_SUBMITAUDITACTIVITY="/login/SubmitAuditActivity";
+    public static final String LOGIN_FORGOTPASSWORDACTIVITY="/login/ForgotPasswordActivity";
 }
