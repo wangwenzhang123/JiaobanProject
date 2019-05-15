@@ -15,7 +15,7 @@ import com.wangshen.library_login.R;
 import com.wangshen.library_login.R2;
 import com.wangshen.library_login.presenter.RegisterContact;
 import com.wangshen.library_login.presenter.RegisterPresenter;
-import com.wildma.pictureselector.PictureSelector;
+import com.winfo.photoselector.PhotoSelector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,8 +79,9 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
 
     @Override
     public void selectPic() {
-        PictureSelector.create(RegisterActivity.this, 0)
-                .selectPicture();
+        PhotoSelector.builder()
+                .setSingle(true)
+                .start(RegisterActivity.this, 0);
     }
 
     @Override
