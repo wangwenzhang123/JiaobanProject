@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:name="com.wangshen.base.appContext.AppContext"
         android:theme="@style/AppTheme">
-        <activity android:name="com.wangshen.library_login.ui.SplashActivity">
+        <activity android:name="com.wangshen.library_login.ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

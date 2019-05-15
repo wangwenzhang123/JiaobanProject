@@ -35,5 +35,5 @@ dependencies {
     api project(':base')
     api "com.github.hotchemi:permissionsdispatcher:3.1.0"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
-    api 'com.github.wildma:PictureSelector:1.1.2'
+    api 'com.winfo.photoselector:PhotoSelector:1.2.1'
 }

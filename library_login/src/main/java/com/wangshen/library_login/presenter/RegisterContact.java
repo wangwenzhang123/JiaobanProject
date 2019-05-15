@@ -1,6 +1,7 @@
 package com.wangshen.library_login.presenter;
 
 import com.wangshen.base.ui.mvp.base.view.BaseView;
+import com.wangshen.library_login.net.request.RequestRegisterBean;
 
 /**
  * @name Base
@@ -11,9 +12,9 @@ import com.wangshen.base.ui.mvp.base.view.BaseView;
  */
 public class RegisterContact {
    public interface Presnter{
-
+      void register(RequestRegisterBean requestRegisterBean);
    }
    public interface View extends BaseView{
-
+      void selectPic();
    }
 }
