@@ -20,18 +20,23 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50">
         <RadioButton
+
+            android:drawableTop="@drawable/selector_main_finance"
             android:id="@+id/main_rb_finance"
             style="@style/main_rg"
             android:text="@string/finance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+
+            android:drawableTop="@drawable/selector_main_order"
             android:id="@+id/main_rb_order"
             style="@style/main_rg"
             android:text="@string/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:drawableTop="@drawable/selector_main_home"
             android:checked="true"
             android:id="@+id/main_rb_home"
             style="@style/main_rg"
@@ -39,12 +44,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:drawableTop="@drawable/selector_main_statistics"
             android:id="@+id/main_rb_statistics"
             style="@style/main_rg"
             android:text="@string/statistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+
+            android:drawableTop="@drawable/selector_main_user"
             android:id="@+id/main_rb_user"
             style="@style/main_rg"
             android:text="@string/user"

@@ -118,6 +118,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                     List<String> images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Log.e(TGA,"1="+images.get(0));
                     Glide.with(mContext).load(images.get(0)).into(ivLegalPositive);
+                    presenter.upload(images.get(0));
                     break;
                 case IVLEGALREVERSE_CODE:
                     //images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);

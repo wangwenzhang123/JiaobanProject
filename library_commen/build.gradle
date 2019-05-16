@@ -36,4 +36,5 @@ dependencies {
     api "com.github.hotchemi:permissionsdispatcher:3.1.0"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
     api 'com.winfo.photoselector:PhotoSelector:1.2.1'
+    compile 'com.github.pinguo-zhouwei:MZBannerView:v2.0.0'
 }

@@ -13,8 +13,10 @@ import com.wangshen.library_login.net.request.RequestRegisterBean;
 public class RegisterContact {
    public interface Presnter{
       void register(RequestRegisterBean requestRegisterBean);
+      void upload(String path);
    }
    public interface View extends BaseView{
       void selectPic(int  code);
+
    }
 }

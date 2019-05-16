@@ -31,10 +31,11 @@ public class AppContext extends Application {
         KRetrofitConfig config = new KRetrofitConfig.Builder()
                 .baseUrl(BaseUrl.BASEURL)
                 .retryOnConnectionFailure(false)
-                .setConnectTimeout(20)
-                .setReadTimeout(20)
-                .setWriteTimeout(20)
+                .setConnectTimeout(40)
+                .setReadTimeout(40)
+                .setWriteTimeout(40)
                 .addInterceptor(new ExCookieInterceptor())
+
                 .build();
         KRetrofitFactory.init(config);
         CrashHandler.getInstance().init(this);

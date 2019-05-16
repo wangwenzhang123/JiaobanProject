@@ -53,6 +53,7 @@ public class KRetrofitFactory {
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(httpConfig.getBaseUrl())
+                .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build())
