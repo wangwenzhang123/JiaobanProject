@@ -7,6 +7,7 @@ import com.wangshen.base.net.bean.BaseAppEntity;
 import com.wangshen.base.net.client.KRetrofitFactory;
 import com.wangshen.base.ui.mvp.base.presenter.BasePresenter;
 import com.wangshen.library_login.net.LoginApi;
+import com.wangshen.library_login.net.request.respose.LoginBean;
 
 import io.reactivex.functions.Consumer;
 
@@ -35,10 +36,10 @@ public class LoginPresenter extends BasePresenter<LoginContact.View> implements 
             return;
         }
         loginApi.login(phone,password)
-                .compose(this.handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<Object>>() {
+                .compose(this.<BaseAppEntity<LoginBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<LoginBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<Object> objectBaseAppEntity) throws Exception {
+                    public void accept(BaseAppEntity<LoginBean> objectBaseAppEntity) throws Exception {
                         getView().routerIntent(ArouterKey.MAIN_MAINACTIVITY,null);
                     }
                 }, new Consumer<Throwable>() {

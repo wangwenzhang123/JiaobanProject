@@ -15,6 +15,6 @@ public class RegisterContact {
       void register(RequestRegisterBean requestRegisterBean);
    }
    public interface View extends BaseView{
-      void selectPic();
+      void selectPic(int  code);
    }
 }

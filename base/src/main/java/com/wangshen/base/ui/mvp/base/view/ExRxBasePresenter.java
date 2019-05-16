@@ -6,6 +6,7 @@ import com.wangshen.base.ui.mvp.base.ui.BaseActivity;
 
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * description：
@@ -57,4 +58,11 @@ public interface ExRxBasePresenter {
      * 统一处理所有异常，报错接口异常和业务异常
      */
     <T extends ExBaseEntity> ObservableTransformer<T, T> handleOnlyNetworkResult(boolean showLoading);
+    /**
+     * 异常提示统一处理入口
+     *
+     * @param defaultErrorInfo 默认文案
+     * @return
+     */
+    Consumer<Throwable> handleThrowableConsumer(String defaultErrorInfo);
 }

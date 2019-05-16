@@ -1,6 +1,9 @@
 package com.wangshen.base.ui.mvp.base.presenter;
 
+import android.text.TextUtils;
+
 import com.wangshen.base.net.bean.ExBaseEntity;
+import com.wangshen.base.net.exception.KResultException;
 import com.wangshen.base.net.transformer.KResponseTransformer;
 import com.wangshen.base.ui.mvp.base.ui.BaseActivity;
 import com.wangshen.base.ui.mvp.base.view.BaseView;
@@ -70,23 +73,20 @@ public class BasePresenter<V extends BaseView> implements ExRxBasePresenter{
     }
 
     @Override
-    public <T extends ExBaseEntity> ObservableTransformer<T, T> handleEverythingResult(final String loadingMessage) {
-        return new ObservableTransformer<T, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-                return handleCommon(upstream, true, loadingMessage)
-                        .flatMap(new KResponseTransformer.ResponseFunction<T>());
-            }
-        };
+    public <T extends ExBaseEntity> ObservableTransformer<T, T> handleEverythingResult(final boolean showLoading) {
+        return handleEverythingResult(showLoading, "");
     }
 
     @Override
-    public <T extends ExBaseEntity> ObservableTransformer<T, T> handleEverythingResult(final boolean showLoading) {
+    public <T extends ExBaseEntity> ObservableTransformer<T, T> handleEverythingResult(final String loadingMessage) {
+        return handleEverythingResult(true, loadingMessage);
+    }
+
+    private <T extends ExBaseEntity> ObservableTransformer<T, T> handleEverythingResult(final boolean showLoading, final String loadingMessage) {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
-                return handleCommon(upstream, showLoading, null)
-                        .flatMap(new KResponseTransformer.ResponseFunction<T>());
+                return handleCommon(upstream, showLoading, loadingMessage, false);
             }
         };
     }
@@ -98,25 +98,24 @@ public class BasePresenter<V extends BaseView> implements ExRxBasePresenter{
 
     @Override
     public <T extends ExBaseEntity> ObservableTransformer<T, T> handleOnlyNetworkResult(final String loadingMessage) {
-        return new ObservableTransformer<T, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
-                return handleCommon(upstream, true, loadingMessage);
-            }
-        };
+        return handleEverythingResult(true, loadingMessage);
     }
 
     @Override
     public <T extends ExBaseEntity> ObservableTransformer<T, T> handleOnlyNetworkResult(final boolean showLoading) {
+        return handleEverythingResult(showLoading, "");
+    }
+
+    private <T extends ExBaseEntity> ObservableTransformer<T, T> handleOnlyNetworkResult(final boolean showLoading, final String loadingMessage) {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
-                return handleCommon(upstream, showLoading, null);
+                return handleCommon(upstream, showLoading, loadingMessage, true);
             }
         };
     }
 
-    private <T extends ExBaseEntity> Observable<T> handleCommon(Observable<T> upstream, final boolean showLoading, final String loadingMessage) {
+    private <T extends ExBaseEntity> Observable<T> handleCommon(Observable<T> upstream, final boolean showLoading, final String loadingMessage, final boolean handleOnlyNetworkResult) {
         return upstream
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -136,6 +135,19 @@ public class BasePresenter<V extends BaseView> implements ExRxBasePresenter{
                         if (isViewAttached() && showLoading) {
                             getView().hideLoadingDialog();
                         }
+                        //统一处理登录态失效
+                        if (t.isExpireLogin()) {
+                            //getView().reLogin();
+                        }
+                    }
+                })
+                .doOnNext(new Consumer<T>() {
+                    @Override
+                    public void accept(T t) throws Exception {
+                        //是否处理业务异常
+                        if (!t.isSuccessful() && !handleOnlyNetworkResult) {
+                            throw new KResultException(t.getCode(), t.getMessage());
+                        }
                     }
                 })
                 .doOnError(new Consumer<Throwable>() {
@@ -146,6 +158,24 @@ public class BasePresenter<V extends BaseView> implements ExRxBasePresenter{
                         }
                     }
                 });
+    }
+
+    @Override
+    public Consumer<Throwable> handleThrowableConsumer(final String defaultErrorInfo) {
+        return new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                handleThrowableMessage(throwable, defaultErrorInfo);
+            }
+        };
+    }
+
+    public void handleThrowableMessage(Throwable throwable, final String defaultErrorInfo) {
+        if (isViewAttached()) {
+            getView().hideLoadingDialog();
+            String message = TextUtils.isEmpty(throwable.getMessage()) ? defaultErrorInfo : throwable.getMessage();
+            getView().showToast(message);
         }
+    }
 
 }

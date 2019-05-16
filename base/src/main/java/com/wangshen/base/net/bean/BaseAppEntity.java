@@ -24,7 +24,7 @@ public class BaseAppEntity<T> implements ExBaseEntity {
     private boolean success;
     private String code;
     private String msg;
-    private T content;
+    private T model;
 
     @Override
     public boolean isSuccessful() {
@@ -67,10 +67,10 @@ public class BaseAppEntity<T> implements ExBaseEntity {
     }
 
     public T getContent() {
-        return content;
+        return model;
     }
 
-    public void setContent(T content) {
-        this.content = content;
+    public void setContent(T model) {
+        this.model = model;
     }
 }

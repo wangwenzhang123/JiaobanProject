@@ -10,4 +10,6 @@
     <string name="input_contact_phone">请输入联系电话</string>
     <string name="input_address">请输入公司地址</string>
     <string name="input_registered_capital">请输入注册资金</string>
+    <string name="retrieve_password">找回密码</string>
+    <string name="input_phone">请输入注册手机号</string>
 </resources>
