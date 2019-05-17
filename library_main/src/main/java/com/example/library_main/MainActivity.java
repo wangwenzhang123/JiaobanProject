@@ -62,21 +62,23 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
     public void getData() {
-        fragments.add(new FinanceFragment());
         fragments.add(new OrderFragment());
+        fragments.add(new FinanceFragment());
+
         fragments.add(new HomeFragment());
         fragments.add(new StatisticsFragment());
         fragments.add(new UserFragment());
         adapter=new MyViewPagerAdapter(getSupportFragmentManager(),fragments);
+        mainVp.setOffscreenPageLimit(4);
     }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         int currentFragment=0;
         if (i == R.id.main_rb_finance) {
-            currentFragment = 0;
-        } else if (i == R.id.main_rb_order) {
             currentFragment = 1;
+        } else if (i == R.id.main_rb_order) {
+            currentFragment = 0;
         } else if (i == R.id.main_rb_home) {
             currentFragment = 2;
 

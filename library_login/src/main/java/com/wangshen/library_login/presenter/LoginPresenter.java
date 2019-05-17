@@ -7,7 +7,7 @@ import com.wangshen.base.net.bean.BaseAppEntity;
 import com.wangshen.base.net.client.KRetrofitFactory;
 import com.wangshen.base.ui.mvp.base.presenter.BasePresenter;
 import com.wangshen.library_login.net.LoginApi;
-import com.wangshen.library_login.net.request.respose.LoginBean;
+import com.wangshen.library_login.net.respose.LoginBean;
 
 import io.reactivex.functions.Consumer;
 

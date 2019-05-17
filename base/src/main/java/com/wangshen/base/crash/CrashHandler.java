@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Looper;
 
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.wangshen.base.BuildConfig;
 import com.wangshen.base.util.ToastUtils;
 
@@ -88,10 +89,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                     stackTraceString = stackTraceString.substring(0, maxStackTraceSize - disclaimer.length()) + disclaimer;
                 }
 
-                Intent intent = new Intent(mApplication, ExceptionActivity.class);
-                intent.putExtra("message", stackTraceString);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                mApplication.startActivity(intent);
             }else {
                 //重新启动app
                 try {

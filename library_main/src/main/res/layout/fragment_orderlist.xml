@@ -2,13 +2,10 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:background="@drawable/shape_banner_8"
-        android:id="@+id/banner_image"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/order_list_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

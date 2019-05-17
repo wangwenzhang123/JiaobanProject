@@ -15,18 +15,11 @@
 
     </com.example.library_main.NoScrollViewPager>
     <RadioGroup
+        android:background="@color/FFFFFF"
         android:orientation="horizontal"
         android:id="@+id/main_rg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50">
-        <RadioButton
-
-            android:drawableTop="@drawable/selector_main_finance"
-            android:id="@+id/main_rb_finance"
-            style="@style/main_rg"
-            android:text="@string/finance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
         <RadioButton
 
             android:drawableTop="@drawable/selector_main_order"
@@ -35,6 +28,15 @@
             android:text="@string/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <RadioButton
+
+            android:drawableTop="@drawable/selector_main_finance"
+            android:id="@+id/main_rb_finance"
+            style="@style/main_rg"
+            android:text="@string/finance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <RadioButton
             android:drawableTop="@drawable/selector_main_home"
             android:checked="true"

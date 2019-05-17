@@ -1,4 +1,4 @@
-package com.wangshen.library_login.net.request.respose;
+package com.wangshen.library_login.net.respose;
 
 /**
  * @name JiaobanProject
