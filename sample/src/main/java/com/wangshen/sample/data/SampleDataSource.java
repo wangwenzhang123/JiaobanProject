@@ -1,11 +1,11 @@
-package com.wangshen.sample.data;
+package com.tongdada.sample.data;
 
 ;
 
-import com.wangshen.base.net.bean.BaseAppEntity;
-import com.wangshen.base.net.client.KRetrofitFactory;
-import com.wangshen.sample.SampleBean;
-import com.wangshen.sample.service.SampleApi;
+import com.tongdada.base.net.bean.BaseAppEntity;
+import com.tongdada.base.net.client.KRetrofitFactory;
+import com.tongdada.sample.SampleBean;
+import com.tongdada.sample.service.SampleApi;
 
 import java.util.HashMap;
 

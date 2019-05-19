@@ -3,20 +3,17 @@ package com.example.library_main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.library_commen.appkey.ArouterKey;
-import com.wangshen.base.dialog.base.BaseDialog;
-import com.wangshen.base.ui.mvp.base.ui.BaseActivity;
-import com.wangshen.library_main.finance.ui.FinanceFragment;
-import com.wangshen.library_main.home.ui.HomeFragment;
-import com.wangshen.library_main.order.ui.OrderFragment;
-import com.wangshen.library_main.statistics.ui.StatisticsFragment;
-import com.wangshen.library_main.user.ui.UserFragment;
+import com.tongdada.library_main.finance.ui.FinanceFragment;
+import com.tongdada.library_main.home.ui.HomeFragment;
+import com.tongdada.library_main.order.ui.OrderFragment;
+import com.tongdada.library_main.statistics.ui.StatisticsFragment;
+import com.tongdada.library_main.user.ui.UserFragment;
 
 import java.util.ArrayList;
 import java.util.List;

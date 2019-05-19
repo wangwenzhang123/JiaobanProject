@@ -1,14 +1,14 @@
-package com.wangshen.sample.presenter;
+package com.tongdada.sample.presenter;
 
-import com.wangshen.base.net.base.ExBaseObserver;
-import com.wangshen.base.net.bean.BaseAppEntity;
+import com.tongdada.base.net.base.ExBaseObserver;
+import com.tongdada.base.net.bean.BaseAppEntity;
 
-import com.wangshen.base.net.exception.KRetrofitException;
-import com.wangshen.base.ui.mvp.base.refresh.BaseRecyclerListPresenter;
+import com.tongdada.base.net.exception.KRetrofitException;
+import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerListPresenter;
 
-import com.wangshen.base.ui.mvp.base.refresh.RequestCallback;
-import com.wangshen.sample.SampleBean;
-import com.wangshen.sample.data.SampleDataSource;
+import com.tongdada.base.ui.mvp.base.refresh.RequestCallback;
+import com.tongdada.sample.SampleBean;
+import com.tongdada.sample.data.SampleDataSource;
 
 import io.reactivex.functions.Consumer;
 

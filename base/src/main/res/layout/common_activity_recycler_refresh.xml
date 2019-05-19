@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content" />
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-        <com.wangshen.base.view.empty.StateLayout
+        <com.tongdada.base.view.empty.StateLayout
             android:id="@+id/st_state_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -3,7 +3,12 @@
     package="com.example.library_main">
 
     <application>
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:launchMode="singleTask"
+            android:name=".MainActivity" />
+        <activity android:name="com.tongdada.library_main.home.ui.IssueOrderActivity"></activity>
+        <activity android:name="com.tongdada.library_main.home.ui.SearchCarActivity"></activity>
+        <activity android:name="com.tongdada.library_main.order.ui.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

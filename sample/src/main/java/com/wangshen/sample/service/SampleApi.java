@@ -1,9 +1,9 @@
-package com.wangshen.sample.service;
+package com.tongdada.sample.service;
 
 
 
-import com.wangshen.base.net.bean.BaseAppEntity;
-import com.wangshen.sample.SampleBean;
+import com.tongdada.base.net.bean.BaseAppEntity;
+import com.tongdada.sample.SampleBean;
 
 import java.util.Map;
 

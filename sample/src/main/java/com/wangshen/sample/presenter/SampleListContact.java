@@ -1,8 +1,8 @@
-package com.wangshen.sample.presenter;
+package com.tongdada.sample.presenter;
 
-import com.wangshen.base.ui.mvp.base.refresh.BaseRecyclerListContact;
-import com.wangshen.base.ui.mvp.base.view.BaseView;
-import com.wangshen.sample.SampleBean;
+import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerListContact;
+import com.tongdada.base.ui.mvp.base.view.BaseView;
+import com.tongdada.sample.SampleBean;
 
 /**
  * @name Base

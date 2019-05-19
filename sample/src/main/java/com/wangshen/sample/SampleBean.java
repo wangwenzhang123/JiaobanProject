@@ -1,4 +1,4 @@
-package com.wangshen.sample;
+package com.tongdada.sample;
 
 import java.util.List;
 

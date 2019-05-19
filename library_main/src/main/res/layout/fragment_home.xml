@@ -60,7 +60,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="@dimen/dp_33"
             android:layout_marginLeft="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@id/banner"
             android:layout_width="@dimen/dp_160"
             android:layout_height="@dimen/dp_56" />
         <TextView
@@ -74,7 +73,6 @@
             app:layout_constraintLeft_toRightOf="@id/home_order"
             android:layout_marginTop="@dimen/dp_33"
             android:layout_marginLeft="@dimen/dp_24"
-            app:layout_constraintTop_toBottomOf="@id/banner"
             android:layout_width="@dimen/dp_160"
             android:layout_height="@dimen/dp_56" />
         <View

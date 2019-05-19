@@ -1,4 +1,4 @@
-package com.wangshen.sample.ui;
+package com.tongdada.sample.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.wangshen.base.app.AppActivityKey;
-import com.wangshen.sample.R;
+import com.tongdada.base.app.AppActivityKey;
+import com.tongdada.sample.R;
 @Route( path = AppActivityKey.NATIVE)
 public class NavigationActivity extends AppCompatActivity {
 

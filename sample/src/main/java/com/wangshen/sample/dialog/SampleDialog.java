@@ -1,10 +1,10 @@
-package com.wangshen.sample.dialog;
+package com.tongdada.sample.dialog;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.wangshen.base.dialog.base.BaseDialog;
-import com.wangshen.sample.R;
+import com.tongdada.base.dialog.base.BaseDialog;
+import com.tongdada.sample.R;
 
 /**
  * @name Base

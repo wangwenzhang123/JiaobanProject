@@ -1,9 +1,9 @@
-package com.wangshen.sample;
+package com.tongdada.sample;
 
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.wangshen.base.ui.mvp.base.adapter.BaseAdapter;
+import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
 
 import java.util.List;
 

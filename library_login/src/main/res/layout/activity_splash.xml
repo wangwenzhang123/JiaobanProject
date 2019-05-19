@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wangshen.library_login.ui.SplashActivity">
+    tools:context="com.tongdada.library_login.ui.SplashActivity">
     <ImageView
         android:src="@mipmap/splash"
         android:layout_width="match_parent"

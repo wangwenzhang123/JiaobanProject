@@ -3,8 +3,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="orders_issued">订单发布</string>
-    <string name="orders_car">在运车辆</string>
-    <string name="now_order">当前订单</string>
+
 
 </resources>

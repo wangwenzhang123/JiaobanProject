@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.wangshen.library_login.ui.LoginActivity">
+    tools:context="com.tongdada.library_login.ui.LoginActivity">
     <ImageView
         android:scaleType="fitXY"
         android:src="@mipmap/login"
-        android:layout_marginTop="@dimen/dp_27"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_248"
         android:id="@+id/imageView" />
 
         <EditText
+            android:text="18960066006"
             android:layout_marginTop="@dimen/dp_20"
             android:inputType="numberDecimal"
             android:drawablePadding="@dimen/dp_17"
@@ -29,6 +29,7 @@
             android:id="@+id/rt_phone_login" />
 
         <EditText
+            android:text="888888"
             android:drawablePadding="@dimen/dp_17"
             android:paddingLeft="@dimen/dp_17"
             android:drawableLeft="@mipmap/login_password"

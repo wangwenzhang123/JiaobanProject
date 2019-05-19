@@ -1,6 +1,6 @@
-package com.wangshen.sample.presenter;
+package com.tongdada.sample.presenter;
 
-import com.wangshen.base.ui.mvp.base.refresh.BaseRecyclerRefreshContact;
+import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshContact;
 
 /**
  * @name Base
