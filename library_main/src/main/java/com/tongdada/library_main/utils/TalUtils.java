@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 
 public class TalUtils {
     public static void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
-        Class<?> tabLayout = tabs.getClass();
+       /* Class<?> tabLayout = tabs.getClass();
         Field tabStrip = null;
         try {
             tabStrip = tabLayout.getDeclaredField("mTabStrip");
@@ -41,6 +41,6 @@ public class TalUtils {
             params.rightMargin = right;
             child.setLayoutParams(params);
             child.invalidate();
-        }
+        }*/
     }
 }

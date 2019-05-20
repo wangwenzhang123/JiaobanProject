@@ -60,8 +60,10 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     @BindView(R2.id.home_order_rv)
     RecyclerView homeOrderRv;
     Unbinder unbinder;
+    @BindView(R2.id.home_car)
+    TextView homeCar;
     private OrderAdapter orderAdapter;
-    private List<OrderBean> orderBeanList=new ArrayList<>();
+    private List<OrderBean> orderBeanList = new ArrayList<>();
 
     @Override
     public HomePresenter getPresenter() {
@@ -81,7 +83,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     @Override
     public void initView() {
         homeOrderRv.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter=new OrderAdapter(R.layout.item_order,orderBeanList);
+        orderAdapter = new OrderAdapter(R.layout.item_order, orderBeanList);
         homeOrderRv.setAdapter(orderAdapter);
         presenter.shuffling();
     }
@@ -91,7 +93,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         orderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                routerIntent(ArouterKey.MAP_MAPORDERDETAILACTIVITY,null);
+                routerIntent(ArouterKey.MAP_MAPORDERDETAILACTIVITY, null);
             }
         });
     }
@@ -109,7 +111,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
-                ToastUtils.showToast(mContext,""+position);
+                ToastUtils.showToast(mContext, "" + position);
             }
         });
 
@@ -125,6 +127,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         });
 
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -136,6 +139,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         super.onResume();
         banner.start();//开始轮播
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
@@ -161,6 +165,11 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     @OnClick(R2.id.home_order)
     public void onHomeOrderClicked() {
         ARouter.getInstance().build(ArouterKey.MAIN_ISSUEORDERACTIVITY).navigation(mContext);
+    }
+
+    @OnClick(R2.id.home_car)
+    public void onViewClicked() {
+        ARouter.getInstance().build(ArouterKey.HOME_TRANSPORTCARACTIVITY).navigation(mContext);
     }
 
     public static class BannerViewHolder implements MZViewHolder<Integer> {

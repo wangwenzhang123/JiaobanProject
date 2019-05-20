@@ -513,6 +513,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_104" />
             <TextView
+                android:gravity="center"
                 android:textColor="@color/FFFFFF"
                 android:text="@string/release_order"
                 android:layout_marginBottom="@dimen/dp_20"

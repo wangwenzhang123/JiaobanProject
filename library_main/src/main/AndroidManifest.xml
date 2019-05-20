@@ -9,6 +9,10 @@
         <activity android:name="com.tongdada.library_main.home.ui.IssueOrderActivity"></activity>
         <activity android:name="com.tongdada.library_main.home.ui.SearchCarActivity"></activity>
         <activity android:name="com.tongdada.library_main.order.ui.OrderDetailActivity"></activity>
+        <activity android:name="com.tongdada.library_main.home.ui.TransportCarActivity"></activity>
+        <activity android:name="com.tongdada.library_main.user.ui.UserManagerActivity"></activity>
+        <activity android:name="com.tongdada.library_main.user.ui.ChangePasswordActivity"></activity>
+        <activity android:name="com.tongdada.library_main.user.ui.UserInfoActivity"></activity>
     </application>
 
 </manifest>

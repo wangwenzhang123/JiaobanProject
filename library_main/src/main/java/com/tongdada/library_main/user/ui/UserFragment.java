@@ -1,10 +1,24 @@
 package com.tongdada.library_main.user.ui;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.R;
+import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.user.presenter.UserContract;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @name JiaobanProject
@@ -14,6 +28,24 @@ import com.tongdada.library_main.user.presenter.UserContract;
  * @change
  */
 public class UserFragment extends BaseMvpFragment implements UserContract.View {
+    @BindView(R2.id.user_tv)
+    TextView userTv;
+    @BindView(R2.id.user_ll)
+    LinearLayout userLl;
+    @BindView(R2.id.user_info)
+    LinearLayout userInfo;
+    @BindView(R2.id.change_password)
+    LinearLayout changePassword;
+    @BindView(R2.id.user_manager)
+    LinearLayout userManager;
+    @BindView(R2.id.message_management)
+    LinearLayout messageManagement;
+    @BindView(R2.id.messege_m)
+    LinearLayout messegeM;
+    @BindView(R2.id.setting)
+    LinearLayout setting;
+    Unbinder unbinder;
+
     @Override
     public BasePresenter getPresenter() {
         return new BasePresenter();
@@ -41,6 +73,50 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @Override
     public void getData() {
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R2.id.user_info)
+    public void onUserInfoClicked() {
+        routerIntent(ArouterKey.USER_USERINFOACTIVITY,null);
+    }
+
+    @OnClick(R2.id.change_password)
+    public void onChangePasswordClicked() {
+        routerIntent(ArouterKey.USER_CHANGEPASSWORDACTIVITY,null);
+    }
+
+    @OnClick(R2.id.user_manager)
+    public void onUserManagerClicked() {
+        routerIntent(ArouterKey.USER_USERMANAGERACTIVITY,null);
+    }
+
+    @OnClick(R2.id.message_management)
+    public void onMessageManagementClicked() {
+
+    }
+
+    @OnClick(R2.id.messege_m)
+    public void onMessegeMClicked() {
+
+    }
+
+    @OnClick(R2.id.setting)
+    public void onSettingClicked() {
 
     }
 }

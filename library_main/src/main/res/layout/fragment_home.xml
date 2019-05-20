@@ -63,6 +63,7 @@
             android:layout_width="@dimen/dp_160"
             android:layout_height="@dimen/dp_56" />
         <TextView
+            android:id="@+id/home_car"
             android:paddingLeft="@dimen/dp_28"
             android:gravity="left|center"
             android:textColor="@color/_ffe06e38"

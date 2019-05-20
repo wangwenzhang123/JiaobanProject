@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import com.noober.background.BackgroundLibrary;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
  * @time 2018/10/31 10:23
  * @change
  */
-public abstract class BaseActivity extends Activity{
+public abstract class BaseActivity extends AppCompatActivity{
     protected BaseDialog dialog;
     protected Context mContext=this;
     protected String TGA=getClass().getSimpleName();
@@ -33,9 +34,9 @@ public abstract class BaseActivity extends Activity{
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        getData();
         initView();
         initLinsenterner();
+        getData();
     }
 
     public abstract int getView();

@@ -3,5 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/statistics_order"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_250">
 
+    </com.github.mikephil.charting.charts.LineChart>
 </android.support.constraint.ConstraintLayout>

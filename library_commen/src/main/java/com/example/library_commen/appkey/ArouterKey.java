@@ -14,4 +14,8 @@ public class ArouterKey {
     public static final String MAP_SELECTADRESSACTIVITY="/map/SelectAdressActivity";
     public static final String MAP_SEARCHADRESSACTIVITY="/map/SearchAdressActivity";
     public static final String MAP_MAPORDERDETAILACTIVITY="/map/MapOrderDetailActivity";
+    public static final String HOME_TRANSPORTCARACTIVITY="/home/TransportCarActivity";
+    public static final String USER_USERINFOACTIVITY="/user/UserInfoActivity";
+    public static final String USER_CHANGEPASSWORDACTIVITY="/user/ChangePasswordActivity";
+    public static final String USER_USERMANAGERACTIVITY="/user/UserManagerActivity";
 }

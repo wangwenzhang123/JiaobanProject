@@ -59,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/user_info"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
             android:orientation="horizontal"
@@ -93,6 +94,7 @@
 
         </View>
         <LinearLayout
+            android:id="@+id/change_password"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
             android:orientation="horizontal"
@@ -127,6 +129,7 @@
 
         </View>
         <LinearLayout
+            android:id="@+id/user_manager"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
             android:orientation="horizontal"
@@ -161,6 +164,7 @@
 
         </View>
         <LinearLayout
+            android:id="@+id/message_management"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
             android:orientation="horizontal"
@@ -195,6 +199,7 @@
 
         </View>
         <LinearLayout
+            android:id="@+id/messege_m"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
             android:orientation="horizontal"
@@ -229,6 +234,7 @@
 
         </View>
         <LinearLayout
+            android:id="@+id/setting"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
             android:orientation="horizontal"
