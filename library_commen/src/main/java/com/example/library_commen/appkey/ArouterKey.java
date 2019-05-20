@@ -18,4 +18,8 @@ public class ArouterKey {
     public static final String USER_USERINFOACTIVITY="/user/UserInfoActivity";
     public static final String USER_CHANGEPASSWORDACTIVITY="/user/ChangePasswordActivity";
     public static final String USER_USERMANAGERACTIVITY="/user/UserManagerActivity";
+    public static final String USER_SETTINGACTIVITY="/user/SettingActivity";
+    public static final String USER_MESSAGEACTIVITY="/user/MessageActivity";
+    public static final String USER_INFORMATIONACTIVITY="/user/InformationActivity";
+    public static final String HOME_INFORMMANAGEMENTACTIVITY="/home/InformManagementActivity";
 }

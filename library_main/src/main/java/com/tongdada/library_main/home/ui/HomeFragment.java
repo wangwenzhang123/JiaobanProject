@@ -160,6 +160,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R2.id.iv_home_message)
     public void onIvHomeMessageClicked() {
+        routerIntent(ArouterKey.HOME_INFORMMANAGEMENTACTIVITY,null);
     }
 
     @OnClick(R2.id.home_order)

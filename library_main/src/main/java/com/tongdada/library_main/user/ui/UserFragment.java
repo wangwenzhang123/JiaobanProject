@@ -107,16 +107,16 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.message_management)
     public void onMessageManagementClicked() {
-
+        routerIntent(ArouterKey.USER_MESSAGEACTIVITY,null);
     }
 
     @OnClick(R2.id.messege_m)
     public void onMessegeMClicked() {
-
+        routerIntent(ArouterKey.USER_INFORMATIONACTIVITY,null);
     }
 
     @OnClick(R2.id.setting)
     public void onSettingClicked() {
-
+        routerIntent(ArouterKey.USER_SETTINGACTIVITY,null);
     }
 }
