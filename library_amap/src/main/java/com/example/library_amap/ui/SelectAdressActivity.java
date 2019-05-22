@@ -33,8 +33,12 @@ import com.example.library_amap.R2;
 import com.example.library_amap.adapter.SelectMapAdapter;
 import com.example.library_amap.model.AdressBean;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventAdressBean;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +87,10 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
     public BaseDialog getDialog() {
         return null;
     }
-
+    int mapType;
     @Override
     public void initView() {
+        mapType=getIntent().getIntExtra(IntentKey.MAP_TYPE,0);
         adapter = new SelectMapAdapter(R.layout.itme_selectadress, new ArrayList<AdressBean>());
         selectRecycler.setLayoutManager(new LinearLayoutManager(this));
         selectRecycler.setAdapter(adapter);
@@ -105,17 +110,15 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                EventAdressBean eventAdressBean=new EventAdressBean();
                 List<AdressBean> adressBeans = adapter.getData();
                 AdressBean adressBean = adressBeans.get(position);
-                if (!adressBean.isSelect()) {
-                    for (int i = 0; i < adressBeans.size(); i++) {
-                        if (adressBeans.get(i).isSelect()) {
-                            adressBeans.get(i).setSelect(false);
-                        }
-                    }
-                    adressBean.setSelect(true);
-                }
-                adapter.notifyDataSetChanged();
+                eventAdressBean.setAdressName(adressBean.getPoiItem().getTitle());
+                eventAdressBean.setLatitude(adressBean.getPoiItem().getLatLonPoint().getLatitude());
+                eventAdressBean.setLongitude(adressBean.getPoiItem().getLatLonPoint().getLongitude());
+                eventAdressBean.setCode(mapType);
+                EventBus.getDefault().postSticky(eventAdressBean);
+                finish();
             }
         });
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
@@ -197,7 +200,6 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
             locationMarker = aMap.addMarker(new MarkerOptions().position(latLng)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker))
                     .anchor(0.5f, 0.5f));
-
             //首次定位,选择移动到地图中心点并修改级别到15级
             aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         } else {
@@ -218,9 +220,6 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
                         for (int i = 0; i < regeocodeResult.getRegeocodeAddress().getPois().size(); i++) {
                             PoiItem poiItem = regeocodeResult.getRegeocodeAddress().getPois().get(i);
                             AdressBean adressBean = new AdressBean();
-                            if (i == 0) {
-                                adressBean.setSelect(true);
-                            }
                             adressBean.setPoiItem(poiItem);
                             list.add(adressBean);
                             if (i == 2) {

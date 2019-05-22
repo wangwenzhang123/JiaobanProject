@@ -48,4 +48,5 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["Arouter-compiler"]
     api rootProject.ext.dependencies["autosize"]
     api rootProject.ext.dependencies["code"]
+    api rootProject.ext.dependencies["eventbus"]
 }

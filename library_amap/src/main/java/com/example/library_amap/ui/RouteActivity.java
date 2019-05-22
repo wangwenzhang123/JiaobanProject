@@ -1,51 +1,46 @@
 package com.example.library_amap.ui;
 
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.text.TextUtils;
-import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.PolylineOptions;
-
-
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
-import com.amap.api.services.route.DriveStep;
 import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkRouteResult;
-
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventAdressBean;
 import com.example.overlay.DrivingRouteOverlay;
-import com.example.overlay.MyDrivingRouteOverlay;
-
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @name JiaobanProject
@@ -55,7 +50,7 @@ import butterknife.ButterKnife;
  * @change
  */
 @Route(path = ArouterKey.MAP_ROUTEACTIVITY)
-public class RouteActivity extends BaseActivity implements LocationSource, AMap.OnMapTouchListener, RouteSearch.OnRouteSearchListener{
+public class RouteActivity extends BaseActivity implements LocationSource, AMap.OnMapTouchListener, RouteSearch.OnRouteSearchListener {
 
     @BindView(R2.id.route_map)
     MapView routeMap;
@@ -77,8 +72,38 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     View endView;
     @BindView(R2.id.issueorder_route_cl)
     ConstraintLayout issueorderRouteCl;
+    @BindView(R2.id.route_start)
+    TextView routeStart;
+    @BindView(R2.id.route_end)
+    TextView routeEnd;
+    @BindView(R2.id.plan_one_tv)
+    TextView planOneTv;
+    @BindView(R2.id.plan_one_distance)
+    TextView planOneDistance;
+    @BindView(R2.id.plan_one_time)
+    TextView planOneTime;
+    @BindView(R2.id.plan_one_ll)
+    LinearLayout planOneLl;
+    @BindView(R2.id.plan_two_tv)
+    TextView planTwoTv;
+    @BindView(R2.id.plan_two_distance)
+    TextView planTwoDistance;
+    @BindView(R2.id.plan_two_time)
+    TextView planTwoTime;
+    @BindView(R2.id.plan_two_ll)
+    LinearLayout planTwoLl;
+    @BindView(R2.id.plan_three_tv)
+    TextView planThreeTv;
+    @BindView(R2.id.plan_three_distance)
+    TextView planThreeDistance;
+    @BindView(R2.id.plan_three_time)
+    TextView planThreeTime;
+    @BindView(R2.id.plan_three_ll)
+    LinearLayout planThreeLl;
     private AMap aMap;
     private RouteSearch routeSearch;
+    private LatLonPoint start, end;
+
     @Override
     public int getView() {
         return R.layout.activity_route;
@@ -108,13 +133,29 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void eventAdress(EventAdressBean adressBean) {
+        if (adressBean.getCode() == 0) {
+            start = new LatLonPoint(adressBean.getLatitude(), adressBean.getLongitude());
+            routeStart.setText(adressBean.getAdressName());
+        } else {
+            end = new LatLonPoint(adressBean.getLatitude(), adressBean.getLongitude());
+            routeEnd.setText(adressBean.getAdressName());
+        }
+        queryRoute();
+    }
+
     @Override
     public void getData() {
-        LatLonPoint start=new LatLonPoint(32.001320127526995,118.84922390512145 );
-        LatLonPoint end=new LatLonPoint(32.09100385714674,118.79593780063867);
-        RouteSearch.FromAndTo fromAndTo=new RouteSearch.FromAndTo(start,end);
-        RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DRIVING_MULTI_STRATEGY_FASTEST_SHORTEST_AVOID_CONGESTION, null, null, "");
-        routeSearch.calculateDriveRouteAsyn(query);
+
+    }
+
+    public void queryRoute() {
+        if (start != null && end != null) {
+            RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(start, end);
+            RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DRIVING_MULTI_STRATEGY_FASTEST_SHORTEST_AVOID_CONGESTION, null, null, "");
+            routeSearch.calculateDriveRouteAsyn(query);
+        }
     }
 
     @Override
@@ -122,6 +163,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         routeMap.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
     }
 
@@ -135,6 +177,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     protected void onPause() {
         super.onPause();
         routeMap.onPause();
+
     }
 
 
@@ -142,6 +185,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     protected void onDestroy() {
         super.onDestroy();
         routeMap.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -163,42 +207,72 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
 
     }
-    private List<DrivePath> drivePaths=new ArrayList<>();
+
+    private List<DrivePath> drivePaths = new ArrayList<>();
     private DriveRouteResult driveRouteResult;
+
     @Override
     public void onDriveRouteSearched(DriveRouteResult driveRouteResult, int errorCode) {
         aMap.clear();// 清理地图上的所有覆盖物
         if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
-            if (driveRouteResult != null && driveRouteResult.getPaths() != null){
+            if (driveRouteResult != null && driveRouteResult.getPaths() != null) {
                 drivePaths.clear();
                 drivePaths.addAll(driveRouteResult.getPaths());
-                this.driveRouteResult=driveRouteResult;
+                this.driveRouteResult = driveRouteResult;
             }
+            index=0;
+            setTextColor();
             drawPath();
         }
     }
 
-    private void drawPath(){
+    private void drawPath() {
         aMap.clear();
         for (int i = 0; i < driveRouteResult.getPaths().size(); i++) {
-            DrivePath drivePath=driveRouteResult.getPaths().get(i);
+            if (i==index){
+                continue;
+            }
+            DrivePath drivePath = driveRouteResult.getPaths().get(i);
             DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
                     mContext, aMap, drivePath,
                     driveRouteResult.getStartPos(),
                     driveRouteResult.getTargetPos(), null);
             drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
             drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
-            if (i != index){
-                drivingRouteOverlay.setoneColor(Color.parseColor("#80CAB5"));
-            }else {
-                drivingRouteOverlay.setoneColor(Color.parseColor("#1CB954"));
-            }
+            drivingRouteOverlay.setoneColor(Color.parseColor("#80CAB5"));
             drivingRouteOverlay.removeFromMap();
             drivingRouteOverlay.addToMap();
             drivingRouteOverlay.zoomToSpan();
+            switch (i){
+                case 0:
+                    planOneDistance.setText(drivePath.getDistance()/1000+"KM");
+                    planOneTime.setText(drivePath.getDuration()/60+"分钟");
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+            }
         }
+        setRoute();
     }
-    int index=0;
+
+    int index = 0;
+    private void setRoute(){
+        DrivePath drivePath = driveRouteResult.getPaths().get(index);
+        DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                mContext, aMap, drivePath,
+                driveRouteResult.getStartPos(),
+                driveRouteResult.getTargetPos(), null);
+        drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+        drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+        drivingRouteOverlay.setoneColor(Color.parseColor("#1CB954"));
+        drivingRouteOverlay.removeFromMap();
+        drivingRouteOverlay.addToMap();
+        drivingRouteOverlay.zoomToSpan();
+    }
     @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
 
@@ -209,4 +283,72 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
 
     }
 
+    @OnClick(R2.id.route_start)
+    public void onRouteStartClicked() {
+        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 0).navigation(mContext);
+    }
+
+    @OnClick(R2.id.route_end)
+    public void onRouteEndClicked() {
+        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 1).navigation(mContext);
+    }
+
+    @OnClick(R2.id.plan_one_ll)
+    public void onPlanOneLlClicked() {
+        index=0;
+        selectRoute();
+    }
+
+    @OnClick(R2.id.plan_two_ll)
+    public void onPlanTwoLlClicked() {
+        index=1;
+        selectRoute();
+    }
+
+    @OnClick(R2.id.plan_three_ll)
+    public void onPlanThreeLlClicked() {
+        index=2;
+        selectRoute();
+    }
+    private void selectRoute(){
+        setTextColor();
+        drawPath();
+    }
+    private void setTextColor(){
+        switch (index){
+            case 0:
+                planOneDistance.setTextColor(getResources().getColor(R.color._E06E38));
+                planOneTime.setTextColor(getResources().getColor(R.color._E06E38));
+                planOneTv.setTextColor(getResources().getColor(R.color._E06E38));
+                planThreeDistance.setTextColor(getResources().getColor(R.color._999999));
+                planThreeTime.setTextColor(getResources().getColor(R.color._999999));
+                planTwoTime.setTextColor(getResources().getColor(R.color._999999));
+                planThreeTv.setTextColor(getResources().getColor(R.color._999999));
+                planTwoTv.setTextColor(getResources().getColor(R.color._999999));
+                planTwoDistance.setTextColor(getResources().getColor(R.color._999999));
+                break;
+            case 1:
+                planOneDistance.setTextColor(getResources().getColor(R.color._999999));
+                planOneTime.setTextColor(getResources().getColor(R.color._999999));
+                planOneTv.setTextColor(getResources().getColor(R.color._999999));
+                planThreeDistance.setTextColor(getResources().getColor(R.color._999999));
+                planThreeTime.setTextColor(getResources().getColor(R.color._999999));
+                planTwoTime.setTextColor(getResources().getColor(R.color._E06E38));
+                planThreeTv.setTextColor(getResources().getColor(R.color._999999));
+                planTwoTv.setTextColor(getResources().getColor(R.color._E06E38));
+                planTwoDistance.setTextColor(getResources().getColor(R.color._E06E38));
+                break;
+            case 2:
+                planOneDistance.setTextColor(getResources().getColor(R.color._999999));
+                planOneTime.setTextColor(getResources().getColor(R.color._999999));
+                planOneTv.setTextColor(getResources().getColor(R.color._999999));
+                planThreeDistance.setTextColor(getResources().getColor(R.color._E06E38));
+                planThreeTime.setTextColor(getResources().getColor(R.color._E06E38));
+                planTwoTime.setTextColor(getResources().getColor(R.color._999999));
+                planThreeTv.setTextColor(getResources().getColor(R.color._E06E38));
+                planTwoTv.setTextColor(getResources().getColor(R.color._999999));
+                planTwoDistance.setTextColor(getResources().getColor(R.color._999999));
+                break;
+        }
+    }
 }

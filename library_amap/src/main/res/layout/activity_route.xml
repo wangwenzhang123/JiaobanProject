@@ -39,6 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:textColor="@color/_333333"
+            android:id="@+id/route_start"
             android:hint="请选择出发地"
             android:gravity="right"
             app:layout_constraintRight_toLeftOf="@id/issue_go_start_iv"
@@ -88,6 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:textColor="@color/_333333"
+            android:id="@+id/route_end"
             android:hint="请选择目的地"
             android:gravity="right"
             app:layout_constraintRight_toLeftOf="@id/issue_go_end_iv"
@@ -119,17 +123,21 @@
 
     </android.support.constraint.ConstraintLayout>
     <LinearLayout
+        android:background="@color/FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_115">
         <LinearLayout
+            android:id="@+id/plan_one_ll"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_100">
             <TextView
+                android:textColor="@color/_999999"
+                android:id="@+id/plan_one_tv"
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_gravity="center"
@@ -137,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/plan_one_distance"
                 android:textColor="@color/_333333"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_gravity="center"
@@ -144,6 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/plan_one_time"
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_3"
                 android:layout_gravity="center"
@@ -159,19 +169,22 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/plan_two_ll"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_100">
             <TextView
+                android:id="@+id/plan_two_tv"
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_gravity="center"
-                android:text="方案一"
+                android:text="方案二"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/plan_two_distance"
                 android:textColor="@color/_333333"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_gravity="center"
@@ -179,6 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/plan_two_time"
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_3"
                 android:layout_gravity="center"
@@ -187,19 +201,22 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/plan_three_ll"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_100">
             <TextView
+                android:id="@+id/plan_three_tv"
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_gravity="center"
-                android:text="方案一"
+                android:text="方案三"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/plan_three_distance"
                 android:textColor="@color/_333333"
                 android:layout_marginTop="@dimen/dp_4"
                 android:layout_gravity="center"
@@ -207,6 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/plan_three_time"
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_3"
                 android:layout_gravity="center"

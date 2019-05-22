@@ -34,7 +34,7 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     compile 'com.amap.api:3dmap:latest.integration'
-
+    api rootProject.ext.dependencies["eventbus"]
 
     compile 'com.amap.api:search:latest.integration'
 
