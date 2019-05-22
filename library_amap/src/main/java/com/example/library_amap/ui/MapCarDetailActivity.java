@@ -1,10 +1,8 @@
 package com.example.library_amap.ui;
 
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -31,45 +29,20 @@ import butterknife.OnClick;
 /**
  * Created by wangshen on 2019/5/19.
  */
-@Route(path = ArouterKey.MAP_MAPORDERDETAILACTIVITY)
-public class MapOrderDetailActivity extends BaseActivity implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener {
+@Route(path = ArouterKey.MAP_MAPCARDETAILACTIVITY)
+public class MapCarDetailActivity extends BaseActivity implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener {
+
 
     @BindView(R2.id.search_et)
     TextView searchEt;
     @BindView(R2.id.order_detail_map)
     MapView orderDetailMap;
-    @BindView(R2.id.issueorder_start_iv)
-    ImageView issueorderStartIv;
-    @BindView(R2.id.issueorder_start_tv)
-    TextView issueorderStartTv;
-    @BindView(R2.id.issue_go_start_iv)
-    ImageView issueGoStartIv;
-    @BindView(R2.id.start_view)
-    View startView;
-    @BindView(R2.id.issueorder_end_iv)
-    ImageView issueorderEndIv;
-    @BindView(R2.id.issueorder_end_tv)
-    TextView issueorderEndTv;
-    @BindView(R2.id.issue_go_end_iv)
-    ImageView issueGoEndIv;
-    @BindView(R2.id.end_view)
-    View endView;
-    @BindView(R2.id.issueorder_issue_iv)
-    ImageView issueorderIssueIv;
-    @BindView(R2.id.issueorder_distance_tv)
-    TextView issueorderDistanceTv;
-    @BindView(R2.id.issue_go_distance_iv)
-    ImageView issueGoDistanceIv;
-    @BindView(R2.id.issueorder_route_cl)
-    ConstraintLayout issueorderRouteCl;
-    @BindView(R2.id.order_detail_tv)
-    TextView orderDetailTv;
     private AMap aMap;
     private Marker selectMarker;
 
     @Override
     public int getView() {
-        return R.layout.activity_map_orderdetail;
+        return R.layout.activity_map_cardetail;
     }
 
     @Override
@@ -88,7 +61,7 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
         aMap.setOnMapTouchListener(this);
         aMap.setInfoWindowAdapter(this);
         aMap.setOnInfoWindowClickListener(this);
-        PopwindowUtils.getIncetance().initOrderPop(mContext,new OrderBean());
+
     }
 
     @Override
@@ -197,8 +170,4 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
         PhoneCallUtils.call(marker.getSnippet(), mContext);
     }
 
-    @OnClick(R2.id.order_detail_tv)
-    public void onViewClicked() {
-        PopwindowUtils.getIncetance().showOrderPop(orderDetailTv);
-    }
 }

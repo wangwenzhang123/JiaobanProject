@@ -87,4 +87,14 @@
     <string name="message_management">消息管理</string>
     <string name="order_detail">订单详情</string>
     <string name="release_order">发布订单</string>
+    <string name="search">搜索</string>
+    <string name="cancel">取消</string>
+    <string name="license_plate_number">车牌号</string>
+    <string name="driver_name">司机</string>
+    <string name="order_totel">接单总量</string>
+    <string name="belongs_to">所属</string>
+    <string name="current_load">当前装载</string>
+    <string name="unit_price">单价</string>
+    <string name="loading_evidence">装货完成凭据</string>
+    <string name="unloading_evidence">卸货完成凭据</string>
 </resources>

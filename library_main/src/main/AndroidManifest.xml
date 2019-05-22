@@ -23,6 +23,15 @@
         <activity android:name="com.tongdada.library_main.home.ui.InformManagementActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.finance.ui.FinaceOrderActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.order.ui.SearchOrderActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.web.WebAcitivity">
+
+        </activity>
     </application>
 
 </manifest>

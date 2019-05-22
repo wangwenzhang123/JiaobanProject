@@ -209,6 +209,7 @@
 
             </android.support.constraint.ConstraintLayout>
             <TextView
+                android:id="@+id/order_detail_tv"
                 android:layout_marginTop="@dimen/dp_6"
                 android:background="@color/FFFFFF"
                 android:gravity="center|left"
@@ -217,11 +218,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_33" />
         </LinearLayout>
-        <FrameLayout
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
     </FrameLayout>
 </LinearLayout>

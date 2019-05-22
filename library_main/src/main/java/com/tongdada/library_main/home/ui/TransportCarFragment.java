@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -57,7 +59,12 @@ public class TransportCarFragment extends BaseMvpFragment<TransportCarPresenter>
 
     @Override
     public void initLinsenterner() {
-
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                routerIntent(ArouterKey.MAP_MAPCARDETAILACTIVITY,null);
+            }
+        });
     }
 
     @Override

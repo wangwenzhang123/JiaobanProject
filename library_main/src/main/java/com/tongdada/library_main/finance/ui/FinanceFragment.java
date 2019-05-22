@@ -76,10 +76,9 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
 
     @Override
     public void initView() {
-        list.add("进行中");
-        list.add("已完成");
         list.add("未核算");
         list.add("已核算");
+        pager.setOffscreenPageLimit(2);
     }
 
     @Override
@@ -98,10 +97,8 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
-                fragments.add(new OrderListFragment());
-                fragments.add(new OrderListFragment());
-                fragments.add(new OrderListFragment());
-                fragments.add(new OrderListFragment());
+                fragments.add(new FinanceOrderFragment());
+                fragments.add(new FinanceCompleteFragment());
                 e.onNext(fragments);
             }
         }).subscribeOn(Schedulers.io())

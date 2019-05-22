@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
@@ -35,8 +36,11 @@ public class UserManagerActivity extends BaseMvpActivity<BasePresenter> {
     ImageView registerBack;
     @BindView(R2.id.user_manager_recycle)
     RecyclerView userManagerRecycle;
-    private List<UserManagerBean> userManagerBeanList=new ArrayList<>();
+    @BindView(R2.id.add_user_tv)
+    TextView addUserTv;
+    private List<UserManagerBean> userManagerBeanList = new ArrayList<>();
     private UserManagerAdapter adapter;
+
     @Override
     public int getView() {
         return R.layout.activity_usermanager;
@@ -50,7 +54,7 @@ public class UserManagerActivity extends BaseMvpActivity<BasePresenter> {
     @Override
     public void initView() {
         userManagerRecycle.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new UserManagerAdapter(R.layout.item_usermanager,userManagerBeanList);
+        adapter = new UserManagerAdapter(R.layout.item_usermanager, userManagerBeanList);
         userManagerRecycle.setAdapter(adapter);
     }
 
@@ -82,5 +86,10 @@ public class UserManagerActivity extends BaseMvpActivity<BasePresenter> {
 
     @OnClick(R2.id.register_back)
     public void onViewClicked() {
+    }
+
+    @OnClick(R2.id.add_user_tv)
+    public void onAddViewClicked() {
+        routerIntent(ArouterKey.USER_ADDUSERACTIVITY,null);
     }
 }

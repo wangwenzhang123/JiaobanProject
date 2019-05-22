@@ -14,7 +14,7 @@ import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
 import com.tongdada.library_main.order.presenter.OrderListContract;
 import com.tongdada.library_main.order.presenter.OrderListPresenter;
-import com.tongdada.library_main.order.respose.OrderBean;
+import com.example.library_commen.model.OrderBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +67,7 @@ public class OrderListFragment extends BaseMvpFragment<OrderListPresenter> imple
 
     @Override
     public void getData() {
+        orderBeanList.clear();
         orderBeanList.add(new OrderBean());
         orderBeanList.add(new OrderBean());
         orderBeanList.add(new OrderBean());

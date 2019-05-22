@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.MyViewPagerAdapter;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -163,6 +164,7 @@ public class OrderFragment extends BaseMvpFragment implements OrderContract.View
 
     @OnClick(R2.id.iv_order_search)
     public void onViewClicked() {
+        routerIntent(ArouterKey.ORDER_SEARCHORDERACTIVITY,null);
     }
 
 }

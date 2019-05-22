@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.tongdada.library_main.order.respose.OrderBean;
+import com.example.library_commen.model.OrderBean;
 
 import java.util.List;
 

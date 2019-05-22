@@ -22,7 +22,7 @@ import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.home.presenter.HomeContract;
 import com.tongdada.library_main.home.presenter.HomePresenter;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
-import com.tongdada.library_main.order.respose.OrderBean;
+import com.example.library_commen.model.OrderBean;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;

@@ -1,7 +1,7 @@
 package com.tongdada.library_main.order.presenter;
 
 import com.tongdada.base.ui.mvp.base.view.BaseView;
-import com.tongdada.library_main.order.respose.OrderBean;
+import com.example.library_commen.model.OrderBean;
 
 import java.util.List;
 

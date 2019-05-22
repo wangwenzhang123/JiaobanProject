@@ -56,6 +56,12 @@ public abstract class BaseFragment extends Fragment{
         getData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     public abstract int getViewId();
     public abstract BaseDialog getDialog();
     public abstract void initView();
