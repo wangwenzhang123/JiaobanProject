@@ -90,6 +90,8 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     TextView tvNote;
     @BindView(R2.id.et_note)
     EditText etNote;
+    @BindView(R2.id.select_route)
+    TextView selectRoute;
 
     @Override
     public int getView() {
@@ -128,9 +130,15 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         ButterKnife.bind(this);
     }
 
+
     @OnClick(R2.id.issueorder_start_tv)
-    public void onViewClicked() {
+    public void onIssueorderStartTvClicked() {
         ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).navigation(mContext);
     }
 
+    @OnClick(R2.id.select_route)
+    public void onSelectRouteClicked() {
+        ARouter.getInstance().build(ArouterKey.MAP_ROUTEACTIVITY).navigation(mContext);
+
+    }
 }

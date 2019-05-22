@@ -22,4 +22,5 @@ public class ArouterKey {
     public static final String USER_MESSAGEACTIVITY="/user/MessageActivity";
     public static final String USER_INFORMATIONACTIVITY="/user/InformationActivity";
     public static final String HOME_INFORMMANAGEMENTACTIVITY="/home/InformManagementActivity";
+    public static final String MAP_ROUTEACTIVITY="/map/RouteActivity";
 }

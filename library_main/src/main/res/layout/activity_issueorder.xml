@@ -181,6 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/select_route"
                     android:hint="请选择路线"
                     android:gravity="right"
                     app:layout_constraintRight_toLeftOf="@id/issue_go_distance_iv"

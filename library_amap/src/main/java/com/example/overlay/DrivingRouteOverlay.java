@@ -174,11 +174,14 @@ public class DrivingRouteOverlay extends RouteOverlay{
         colorList.add(getDriveColor());
         mPolylineOptionscolor.colorValues(colorList);
     }
-    
+    public void setoneColor(int color){
+        this.oncolor=color;
+    }
+    private int oncolor;
     private int getcolor(String status) {
 
     	if (status.equals("畅通")) {
-    		return Color.GREEN;
+    		return oncolor;
 		} else if (status.equals("缓行")) {
 			 return Color.YELLOW;
 		} else if (status.equals("拥堵")) {
