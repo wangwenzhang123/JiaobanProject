@@ -1,6 +1,9 @@
 package com.tongdada.library_main.home.presenter;
 
 import com.tongdada.base.ui.mvp.base.view.BaseView;
+import com.tongdada.library_main.home.respose.BannerBean;
+
+import java.util.List;
 
 /**
  * @name JiaobanProject
@@ -11,7 +14,7 @@ import com.tongdada.base.ui.mvp.base.view.BaseView;
  */
 public class HomeContract {
     public interface View extends BaseView {
-
+        void setBannerData(List<BannerBean.RowsBean> bannerData);
     }
     public interface Presenter{
         void shuffling();

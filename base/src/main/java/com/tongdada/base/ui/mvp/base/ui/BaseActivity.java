@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.noober.background.BackgroundLibrary;
+import com.tongdada.base.dialog.LoadingDialog;
 import com.tongdada.base.dialog.base.BaseDialog;
 
 import butterknife.ButterKnife;
@@ -28,7 +29,11 @@ public abstract class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(getView());
         ButterKnife.bind(this);
-        dialog=getDialog();
+        if (getDialog() == null){
+            dialog=new LoadingDialog(this);
+        }else {
+            dialog=getDialog();
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@ ext {
             "eventbus"                      : "org.greenrobot:eventbus:3.0.0",
             //图片库
             "universal-image-loader"        : "com.nostra13.universalimageloader:universal-image-loader:1.9.5",
-            "glide"                         : "com.github.bumptech.glide:glide:3.8.0",
+            "glide"                         : "com.github.bumptech.glide:glide:3.7.0",
             "PhotoView"                     : "com.github.chrisbanes:PhotoView:2.0.0",
             //json解析
             "fastjson"                      : "com.alibaba:fastjson:1.2.33",

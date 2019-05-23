@@ -50,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/user_ico"
             android:padding="@dimen/dp_5"
             android:src="@mipmap/user_sample"
             android:layout_marginLeft="@dimen/dp_8"
@@ -75,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/user_name"
             android:layout_marginRight="@dimen/dp_13"
             android:gravity="right"
             android:background="@null"
@@ -102,6 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/user_phone"
             android:layout_marginRight="@dimen/dp_13"
             android:gravity="right"
             android:background="@null"
@@ -119,6 +122,7 @@
 
     </View>
     <LinearLayout
+        android:visibility="gone"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44">
@@ -129,6 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/user_age"
             android:layout_marginRight="@dimen/dp_13"
             android:gravity="right"
             android:background="@null"
@@ -144,6 +149,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <View
+        android:visibility="gone"
         android:layout_marginTop="@dimen/dp_4"
         android:layout_marginLeft="@dimen/dp_13"
         android:background="@color/_E0E0E0"
@@ -162,6 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/user_address"
             android:layout_marginRight="@dimen/dp_13"
             android:gravity="right"
             android:background="@null"
@@ -185,7 +192,7 @@
         android:layout_marginBottom="@dimen/dp_20"
        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_200"
-
+        android:id="@+id/sure_change"
         android:background="@drawable/shape_login"
         android:layout_width="@dimen/dp_302"
         android:layout_height="@dimen/dp_42" />

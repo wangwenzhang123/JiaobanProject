@@ -40,8 +40,13 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
     }
 
     @Override
-    public void showToast(String ms) {
-        ToastUtils.showToast(mContext,ms);
+    public void showToast(final String ms) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtils.showToast(mContext,ms);
+            }
+        });
     }
 
     @Override
@@ -59,8 +64,14 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
     public abstract P getPresenter();
 
     @Override
-    public void showMessage(String msg) {
-        ToastUtils.showToast(this,msg);
+    public void showMessage(final String msg) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtils.showToast(mContext,msg);
+            }
+        });
+
     }
     @Override
     protected void onDestroy() {

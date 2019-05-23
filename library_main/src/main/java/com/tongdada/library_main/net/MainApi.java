@@ -1,6 +1,10 @@
 package com.tongdada.library_main.net;
 
+import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
+import com.tongdada.library_main.home.respose.BannerBean;
+
+import org.json.JSONObject;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -19,7 +23,7 @@ public interface MainApi {
      * @return
      */
     @POST("/interface/newsList.action")
-    Observable<BaseAppEntity<Object>> shuffling();
+    Observable<BannerBean> shuffling();
     /**
      * 发布订单
      */
@@ -50,16 +54,68 @@ public interface MainApi {
                                              @Field("pagination.pageNumber") String pageNumber,
                                              @Field("psTotalOrders.orderName") String orderName,
                                              @Field("psTotalOrders.orderStatus") String orderStatus);
-
+    /**
+     * 修改订单
+     * @param
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/editOrder.action")
+    Observable<BaseAppEntity<Object>> editOrder(@Field("orderId") String stationId);
+    /**
+     * 取消订单
+     * @param
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/cancelOrder.action")
+    Observable<BaseAppEntity<Object>> cancelOrder(@Field("orderId") String stationId);
     /**
      * 修改密码
      * @return
      */
     @FormUrlEncoded
-    @POST("/interface/orderList.actio")
+    @POST("/interface/editPassword.actionn")
     Observable<BaseAppEntity<Object>> editPassword(@Field("psAppUsers.id") String id,
                                                 @Field("oldPassword") String oldPassword,
                                                 @Field("newPassword") String newPassword);
+    /**
+     * 人员列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/userList.action")
+    Observable<BaseAppEntity<Object>> userList(@Field("psAppUsers.stationId") String id);
 
+    /**
+     * 修改人员信息
+     * @return
+     */
 
+    @POST("/interface/editUser.action")
+    Observable<BaseAppEntity<UserBean>> editUser(@Body JSONObject requestBody/*@Field("psAppUsers.stationId") String id,@Field("psAppUsers.userName") String userName
+            ,@Field("psAppUsers.userAddress") String userAddress
+            ,@Field("psAppUsers.userContacts") String userContacts
+            ,@Field("psAppUsers.iconPic") String iconPic*/);
+    /**
+     * 获取消息列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/messageList.action")
+    Observable<BaseAppEntity<Object>> messageList(@Field("psMessages.appUserId") String id,@Field("psMessages.messageContent") String messageContent);
+    /**
+     * 阅读消息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/readMessage.action")
+    Observable<BaseAppEntity<Object>> readMessage(@Field("psMessages.id") String id);
+    /**
+     * 阅读消息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/deleteMessage.action")
+    Observable<BaseAppEntity<Object>> deleteMessage(@Field("psMessages.id") String id);
 }

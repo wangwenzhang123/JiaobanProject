@@ -11,6 +11,6 @@ import com.tongdada.base.ui.mvp.base.view.BaseView;
  */
 public class UserContract {
     public interface View extends BaseView{
-
+        void updateUi();
     }
 }

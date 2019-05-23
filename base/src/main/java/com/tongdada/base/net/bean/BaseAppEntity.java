@@ -23,7 +23,7 @@ public class BaseAppEntity<T> implements ExBaseEntity {
 
     private boolean success;
     private String code;
-    private String msg;
+    private String message;
     private T model;
 
     @Override
@@ -33,7 +33,7 @@ public class BaseAppEntity<T> implements ExBaseEntity {
 
     @Override
     public String getMessage() {
-        return msg;
+        return message;
     }
 
     @Override
@@ -59,11 +59,11 @@ public class BaseAppEntity<T> implements ExBaseEntity {
     }
 
     public String getMsg() {
-        return msg;
+        return message;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.message = msg;
     }
 
     public T getContent() {

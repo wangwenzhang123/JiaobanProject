@@ -12,15 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.R;
 import com.example.library_main.R2;
+import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.home.presenter.HomeContract;
 import com.tongdada.library_main.home.presenter.HomePresenter;
+import com.tongdada.library_main.home.respose.BannerBean;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
 import com.example.library_commen.model.OrderBean;
 import com.zhouwei.mzbanner.MZBannerView;
@@ -115,16 +120,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
             }
         });
 
-        List<Integer> list = new ArrayList<>();
-        list.add(R.mipmap.a);
-        list.add(R.mipmap.b);
-        list.add(R.mipmap.c);
-        banner.setPages(list, new MZHolderCreator<BannerViewHolder>() {
-            @Override
-            public BannerViewHolder createViewHolder() {
-                return new BannerViewHolder();
-            }
-        });
+
 
     }
 
@@ -173,7 +169,21 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         ARouter.getInstance().build(ArouterKey.HOME_TRANSPORTCARACTIVITY).navigation(mContext);
     }
 
-    public static class BannerViewHolder implements MZViewHolder<Integer> {
+    @Override
+    public void setBannerData(List<BannerBean.RowsBean> bannerData) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < bannerData.size() ; i++) {
+            list.add(bannerData.get(i).getPriviewPic());
+        }
+        banner.setPages(list, new MZHolderCreator<BannerViewHolder>() {
+            @Override
+            public BannerViewHolder createViewHolder() {
+                return new BannerViewHolder();
+            }
+        });
+    }
+
+    public static class BannerViewHolder implements MZViewHolder<String> {
         private ImageView mImageView;
 
         @Override
@@ -185,9 +195,14 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         }
 
         @Override
-        public void onBind(Context context, int position, Integer data) {
-
-            mImageView.setImageResource(data);
+        public void onBind(Context context, int position, String data) {
+            RequestOptions requestOptions=new RequestOptions()
+                    .error(R.mipmap.banner_place)
+                    .placeholder(R.mipmap.banner_place)
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    ;
+            Glide.with(context).load(BaseUrl.BASEURL+"/"+data)
+                   .apply(requestOptions).into(mImageView);
         }
     }
 }

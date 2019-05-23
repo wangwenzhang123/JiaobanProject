@@ -39,7 +39,6 @@ dependencies {
     api rootProject.ext.dependencies["rxlifecycle"]
     api rootProject.ext.dependencies["rxlifecycle-android"]
     api rootProject.ext.dependencies["baseadapter"]
-    api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["universal-image-loader"]
     api rootProject.ext.dependencies["SmartRefreshLayout"]
     api rootProject.ext.dependencies["butterknife"]
@@ -49,4 +48,5 @@ dependencies {
     api rootProject.ext.dependencies["autosize"]
     api rootProject.ext.dependencies["code"]
     api rootProject.ext.dependencies["eventbus"]
+
 }

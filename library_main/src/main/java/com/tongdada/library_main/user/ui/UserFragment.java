@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.CommenUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
+import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
@@ -47,6 +53,12 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     Unbinder unbinder;
     @BindView(R2.id.plant_maintenace)
     LinearLayout plantMaintenace;
+    @BindView(R2.id.user_ico)
+    ImageView userIco;
+    @BindView(R2.id.user_name)
+    TextView userName;
+    @BindView(R2.id.user_phone)
+    TextView userPhone;
 
     @Override
     public BasePresenter getPresenter() {
@@ -65,7 +77,7 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @Override
     public void initView() {
-
+       updateUi();
     }
 
     @Override
@@ -124,6 +136,18 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.plant_maintenace)
     public void onViewClicked() {
-        routerIntent(ArouterKey.USER_MAINTENANCEPLANTACTIVITY,null);
+        routerIntent(ArouterKey.USER_MAINTENANCEPLANTACTIVITY, null);
+    }
+
+    @Override
+    public void updateUi() {
+        RequestOptions requestOptions = new RequestOptions()
+                .error(R.mipmap.user_hpyfy)
+                .placeholder(R.mipmap.user_hpyfy)
+                .diskCacheStrategy(DiskCacheStrategy.DATA);
+        Glide.with(this).load(BaseUrl.BASEURL + "/" + CommenUtils.getIncetance().getUserBean().getIconPic())
+                .apply(requestOptions).into(userIco);
+        userName.setText(CommenUtils.getIncetance().getUserBean().getUserName());
+        userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
     }
 }
