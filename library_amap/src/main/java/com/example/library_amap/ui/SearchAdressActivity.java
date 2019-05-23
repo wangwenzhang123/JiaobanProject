@@ -25,9 +25,13 @@ import com.example.library_amap.adapter.SearchMapAdapter;
 import com.example.library_amap.adapter.SelectMapAdapter;
 import com.example.library_amap.model.AdressBean;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventAdressBean;
 import com.example.util.ToastUtil;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +53,7 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
     @BindView(R2.id.search_recycler)
     RecyclerView searchRecycler;
     private SelectMapAdapter adapter;
-
+    private int mapType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,7 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
 
     @Override
     public void initView() {
+        mapType=getIntent().getIntExtra(IntentKey.MAP_TYPE,0);
         searchRecycler.setLayoutManager(new LinearLayoutManager(this));
         adapter=new SelectMapAdapter(R.layout.itme_selectadress,new ArrayList<AdressBean>());
         searchRecycler.setAdapter(adapter);
@@ -95,15 +100,13 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<AdressBean> adressBeans = adapter.getData();
                 AdressBean adressBean = adressBeans.get(position);
-                if (!adressBean.isSelect()) {
-                    for (int i = 0; i < adressBeans.size(); i++) {
-                        if (adressBeans.get(i).isSelect()) {
-                            adressBeans.get(i).setSelect(false);
-                        }
-                    }
-                    adressBean.setSelect(true);
-                }
-                adapter.notifyDataSetChanged();
+                EventAdressBean eventAdressBean=new EventAdressBean();
+                eventAdressBean.setAdressName(adressBean.getPoiItem().getTitle());
+                eventAdressBean.setLatitude(adressBean.getPoiItem().getLatLonPoint().getLatitude());
+                eventAdressBean.setLongitude(adressBean.getPoiItem().getLatLonPoint().getLongitude());
+                eventAdressBean.setCode(mapType);
+                EventBus.getDefault().post(eventAdressBean);
+                finish();
             }
         });
     }
@@ -133,9 +136,6 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
                     for (int i =0;i< poiResult.getPois().size();i++){
                         PoiItem poiItem=poiResult.getPois().get(i);
                         AdressBean adressBean=new AdressBean();
-                        if (i==0){
-                            adressBean.setSelect(true);
-                        }
                         adressBean.setPoiItem(poiItem);
                         list.add(adressBean);
                     }

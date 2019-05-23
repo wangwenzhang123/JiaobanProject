@@ -39,6 +39,8 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +77,7 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         selectMapview.onCreate(savedInstanceState);
     }
 
@@ -117,7 +120,7 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
                 eventAdressBean.setLatitude(adressBean.getPoiItem().getLatLonPoint().getLatitude());
                 eventAdressBean.setLongitude(adressBean.getPoiItem().getLatLonPoint().getLongitude());
                 eventAdressBean.setCode(mapType);
-                EventBus.getDefault().postSticky(eventAdressBean);
+                EventBus.getDefault().post(eventAdressBean);
                 finish();
             }
         });
@@ -137,7 +140,10 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
             }
         });
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventAdress(EventAdressBean eventAdressBean){
+        finish();
+    }
     @Override
     public void getData() {
 
@@ -190,6 +196,7 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
     protected void onDestroy() {
         super.onDestroy();
         selectMapview.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -252,6 +259,6 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
 
     @OnClick(R2.id.select_search_tv)
     public void onViewClicked() {
-        ARouter.getInstance().build(ArouterKey.MAP_SEARCHADRESSACTIVITY).navigation(mContext);
+        ARouter.getInstance().build(ArouterKey.MAP_SEARCHADRESSACTIVITY).withInt(IntentKey.MAP_TYPE,mapType).navigation(mContext);
     }
 }

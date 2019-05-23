@@ -45,6 +45,8 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     @BindView(R2.id.setting)
     LinearLayout setting;
     Unbinder unbinder;
+    @BindView(R2.id.plant_maintenace)
+    LinearLayout plantMaintenace;
 
     @Override
     public BasePresenter getPresenter() {
@@ -92,31 +94,36 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.user_info)
     public void onUserInfoClicked() {
-        routerIntent(ArouterKey.USER_USERINFOACTIVITY,null);
+        routerIntent(ArouterKey.USER_USERINFOACTIVITY, null);
     }
 
     @OnClick(R2.id.change_password)
     public void onChangePasswordClicked() {
-        routerIntent(ArouterKey.USER_CHANGEPASSWORDACTIVITY,null);
+        routerIntent(ArouterKey.USER_CHANGEPASSWORDACTIVITY, null);
     }
 
     @OnClick(R2.id.user_manager)
     public void onUserManagerClicked() {
-        routerIntent(ArouterKey.USER_USERMANAGERACTIVITY,null);
+        routerIntent(ArouterKey.USER_USERMANAGERACTIVITY, null);
     }
 
     @OnClick(R2.id.message_management)
     public void onMessageManagementClicked() {
-        routerIntent(ArouterKey.USER_MESSAGEACTIVITY,null);
+        routerIntent(ArouterKey.USER_MESSAGEACTIVITY, null);
     }
 
     @OnClick(R2.id.messege_m)
     public void onMessegeMClicked() {
-        routerIntent(ArouterKey.USER_INFORMATIONACTIVITY,null);
+        routerIntent(ArouterKey.USER_INFORMATIONACTIVITY, null);
     }
 
     @OnClick(R2.id.setting)
     public void onSettingClicked() {
-        routerIntent(ArouterKey.USER_SETTINGACTIVITY,null);
+        routerIntent(ArouterKey.USER_SETTINGACTIVITY, null);
+    }
+
+    @OnClick(R2.id.plant_maintenace)
+    public void onViewClicked() {
+        routerIntent(ArouterKey.USER_MAINTENANCEPLANTACTIVITY,null);
     }
 }

@@ -3,11 +3,12 @@ package com.tongdada.library_login.presenter;
 import android.text.TextUtils;
 
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.CommenUtils;
+import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.net.client.KRetrofitFactory;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.library_login.net.LoginApi;
-import com.tongdada.library_login.net.respose.LoginBean;
 
 import io.reactivex.functions.Consumer;
 
@@ -36,10 +37,11 @@ public class LoginPresenter extends BasePresenter<LoginContact.View> implements 
             return;
         }
         loginApi.login(phone,password)
-                .compose(this.<BaseAppEntity<LoginBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<LoginBean>>() {
+                .compose(this.<BaseAppEntity<UserBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<LoginBean> objectBaseAppEntity) throws Exception {
+                    public void accept(BaseAppEntity<UserBean> objectBaseAppEntity) throws Exception {
+                        CommenUtils.getIncetance().setUserBean(objectBaseAppEntity.getContent());
                         getView().routerIntent(ArouterKey.MAIN_MAINACTIVITY,null);
                     }
                 }, new Consumer<Throwable>() {

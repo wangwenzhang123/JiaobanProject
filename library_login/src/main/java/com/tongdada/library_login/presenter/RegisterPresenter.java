@@ -1,12 +1,12 @@
 package com.tongdada.library_login.presenter;
 
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.net.client.KRetrofitFactory;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.library_login.net.LoginApi;
 import com.tongdada.library_login.net.request.RequestRegisterBean;
-import com.tongdada.library_login.net.respose.LoginBean;
 import com.tongdada.library_login.net.respose.UploadBean;
 
 import java.io.File;
@@ -38,10 +38,10 @@ public class RegisterPresenter extends BasePresenter<RegisterContact.View> imple
     @Override
     public void register(RequestRegisterBean requestRegisterBean) {
         loginApi.regist(requestRegisterBean)
-                .compose(RegisterPresenter.this.<BaseAppEntity<LoginBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<LoginBean>>() {
+                .compose(RegisterPresenter.this.<BaseAppEntity<UserBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<LoginBean> requestRegisterBean) throws Exception {
+                    public void accept(BaseAppEntity<UserBean> requestRegisterBean) throws Exception {
                         getView().routerIntent(ArouterKey.LOGIN_SUBMITAUDITACTIVITY,null);
                     }
                 }, new Consumer<Throwable>() {

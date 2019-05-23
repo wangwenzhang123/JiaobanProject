@@ -133,7 +133,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventAdress(EventAdressBean adressBean) {
         if (adressBean.getCode() == 0) {
             start = new LatLonPoint(adressBean.getLatitude(), adressBean.getLongitude());

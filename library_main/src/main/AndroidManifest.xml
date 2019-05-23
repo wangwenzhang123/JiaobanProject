@@ -32,6 +32,12 @@
         <activity android:name="com.tongdada.library_main.web.WebAcitivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.user.ui.OrderSettingActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.user.ui.MaintenancePlantActivity">
+
+        </activity>
     </application>
 
 </manifest>

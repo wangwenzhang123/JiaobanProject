@@ -18,6 +18,7 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.home.presenter.IssueOrderContract;
 import com.tongdada.library_main.home.presenter.IssueOrderPresenter;
+import com.tongdada.library_main.home.request.IssueOrderBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +93,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     EditText etNote;
     @BindView(R2.id.select_route)
     TextView selectRoute;
-
+    private IssueOrderBean issueOrderBean=new IssueOrderBean();
     @Override
     public int getView() {
         return R.layout.activity_issueorder;
