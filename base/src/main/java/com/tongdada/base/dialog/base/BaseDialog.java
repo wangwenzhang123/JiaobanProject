@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 
+import com.tongdada.base.R;
+
 /**
  * @name ProjectBase
  * @class describe
@@ -14,7 +16,7 @@ import android.view.Gravity;
  */
 public abstract class BaseDialog extends Dialog {
     public BaseDialog(@NonNull Context context) {
-        super(context);
+        super(context,R.style.LoadingDialog);
         setContentView(getView());
         setCanceledOnTouchOutside(false);
         setCancelable(false);

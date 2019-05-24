@@ -193,6 +193,30 @@ public class UserBean {
         this.userStatus = userStatus;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "psAppUsers.companyId='" + companyId + '\'' +
+                ", psAppUsers.createTime=" + createTime +
+                ", psAppUsers.createUserID='" + createUserID + '\'' +
+                ", psAppUsers.delFlag=" + delFlag +
+                ", psAppUsers.deptId='" + deptId + '\'' +
+                ", psAppUsers.driverId='" + driverId + '\'' +
+                ", psAppUsers.iconPic='" + iconPic + '\'' +
+                ", psAppUsers.id='" + id + '\'' +
+                ", psAppUsers.regTime='" + regTime + '\'' +
+                ", psAppUsers.stationId='" + stationId + '\'' +
+                ", psAppUsers.stationRemarks='" + stationRemarks + '\'' +
+                ", psAppUsers.updateTime=" + updateTime +
+                ", psAppUsers.updateUserID='" + updateUserID + '\'' +
+                ", psAppUsers.userAddress='" + userAddress + '\'' +
+                ", psAppUsers.userContacts='" + userContacts + '\'' +
+                ", psAppUsers.userName='" + userName + '\'' +
+                ", psAppUsers.userPassword='" + userPassword + '\'' +
+                ", psAppUsers.userStatus='" + userStatus + '\'' +
+                '}';
+    }
+
     public static class CreateTimeBean {
         /**
          * date : 16

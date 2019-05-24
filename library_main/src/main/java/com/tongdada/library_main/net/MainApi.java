@@ -3,6 +3,7 @@ package com.tongdada.library_main.net;
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.library_main.home.respose.BannerBean;
+import com.tongdada.library_main.user.respose.MessageBean;
 
 import org.json.JSONObject;
 
@@ -75,8 +76,8 @@ public interface MainApi {
      * @return
      */
     @FormUrlEncoded
-    @POST("/interface/editPassword.actionn")
-    Observable<BaseAppEntity<Object>> editPassword(@Field("psAppUsers.id") String id,
+    @POST("/interface/editPassword.action")
+    Observable<BaseAppEntity<UserBean>> editPassword(@Field("psAppUsers.id") String id,
                                                 @Field("oldPassword") String oldPassword,
                                                 @Field("newPassword") String newPassword);
     /**
@@ -93,7 +94,7 @@ public interface MainApi {
      */
 
     @POST("/interface/editUser.action")
-    Observable<BaseAppEntity<UserBean>> editUser(@Body JSONObject requestBody/*@Field("psAppUsers.stationId") String id,@Field("psAppUsers.userName") String userName
+    Observable<BaseAppEntity<UserBean>> editUser(@Body UserBean requestBody/*@Field("psAppUsers.stationId") String id,@Field("psAppUsers.userName") String userName
             ,@Field("psAppUsers.userAddress") String userAddress
             ,@Field("psAppUsers.userContacts") String userContacts
             ,@Field("psAppUsers.iconPic") String iconPic*/);
@@ -103,7 +104,7 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/interface/messageList.action")
-    Observable<BaseAppEntity<Object>> messageList(@Field("psMessages.appUserId") String id,@Field("psMessages.messageContent") String messageContent);
+    Observable<MessageBean> messageList(@Field("psMessages.appUserId") String id, @Field("psMessages.messageContent") String messageContent);
     /**
      * 阅读消息
      * @return

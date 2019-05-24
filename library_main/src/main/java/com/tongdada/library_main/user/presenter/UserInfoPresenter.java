@@ -31,9 +31,7 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View>imple
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        RequestBody requestBody=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),jsonObject.toString());
-
-        MainApiUtils.getMainApi().editUser(jsonObject)
+        MainApiUtils.getMainApi().editUser(userBean )
                 .compose(this.<BaseAppEntity<UserBean>>handleEverythingResult())
                 .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
                     @Override

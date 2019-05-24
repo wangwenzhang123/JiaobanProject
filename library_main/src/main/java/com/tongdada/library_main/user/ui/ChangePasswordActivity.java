@@ -1,12 +1,14 @@
 package com.tongdada.library_main.user.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.CommenUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -53,7 +55,8 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
 
     @Override
     public void initView() {
-
+        userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
+        userOldpassword.setText(CommenUtils.getIncetance().getUserBean().getUserPassword());
     }
 
     @Override
@@ -80,10 +83,21 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
 
     @OnClick(R2.id.register_back)
     public void onRegisterBackClicked() {
+
     }
 
     @OnClick(R2.id.sure_tv)
     public void onSureTvClicked() {
+        if (userNewpassword.getText().toString().trim().equals(userSureNewpassword.getText().toString().trim()) && !TextUtils.isEmpty(userNewpassword.getText().toString().trim())){
+            presenter.editPassword(userNewpassword.getText().toString().trim());
+        }else {
+            showToast("两次输入的新密码不一致");
+        }
 
+    }
+
+    @Override
+    public void editPasswordSueecss() {
+        finish();
     }
 }

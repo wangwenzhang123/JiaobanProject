@@ -20,7 +20,7 @@ import retrofit2.http.POST;
 public interface LoginApi {
     @FormUrlEncoded
     @POST("/interface/userLogin.action")
-    Observable<BaseAppEntity<UserBean>> login(@Field("phone") String phone, @Field("password") String password);
+    Observable<BaseAppEntity<UserBean>> login(@Field("phoneNo") String phone, @Field("password") String password);
 
     @POST("/interface/uploadAttach.action")
     Observable<BaseAppEntity<UploadBean>> upload(@Body RequestBody requestBody);

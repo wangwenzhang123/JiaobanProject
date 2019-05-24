@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -14,6 +15,8 @@ import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
 import com.tongdada.library_main.user.adapter.MessageAdapter;
+import com.tongdada.library_main.user.presenter.MessageContract;
+import com.tongdada.library_main.user.presenter.MessagePresenter;
 import com.tongdada.library_main.user.respose.MessageBean;
 
 import java.util.ArrayList;
@@ -27,11 +30,11 @@ import butterknife.Unbinder;
  * Created by wangshen on 2019/5/20.
  */
 
-public class MessageFragment extends BaseMvpFragment<BasePresenter> implements BaseView {
+public class MessageFragment extends BaseMvpFragment<MessagePresenter> implements MessageContract.View {
     @BindView(R2.id.message_recycle)
     RecyclerView messageRecycle;
     Unbinder unbinder;
-    private List<MessageBean> messageBeans=new ArrayList<>();
+    private List<MessageBean.PagenationBean.ListBean> messageBeans=new ArrayList<>();
     private MessageAdapter adapter;
     @Override
     public int getViewId() {
@@ -52,22 +55,22 @@ public class MessageFragment extends BaseMvpFragment<BasePresenter> implements B
 
     @Override
     public void initLinsenterner() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+            }
+        });
     }
 
     @Override
     public void getData() {
-        messageBeans.add(new MessageBean());
-        messageBeans.add(new MessageBean());
-        messageBeans.add(new MessageBean());
-        messageBeans.add(new MessageBean());
-        adapter.notifyDataSetChanged();
-
+        presenter.getMessageList();
     }
 
     @Override
-    public BasePresenter getPresenter() {
-        return new BasePresenter();
+    public MessagePresenter getPresenter() {
+        return new MessagePresenter();
     }
 
     @Override
@@ -82,5 +85,10 @@ public class MessageFragment extends BaseMvpFragment<BasePresenter> implements B
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void setMessgeList(List<MessageBean.PagenationBean.ListBean> list) {
+        adapter.setNewData(list);
     }
 }
