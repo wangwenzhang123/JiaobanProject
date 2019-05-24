@@ -43,6 +43,6 @@ public class MaintenancePlantActivity extends BaseMvpActivity<BasePresenter> {
 
     @Override
     public BasePresenter getPresenter() {
-        return null;
+        return new BasePresenter();
     }
 }
