@@ -30,24 +30,24 @@ public class UserBean {
      * userStatus : U
      */
 
-    private String companyId;
-    private CreateTimeBean createTime;
-    private String createUserID;
-    private int delFlag;
-    private String deptId;
-    private String driverId;
-    private String iconPic;
-    private String id;
-    private String regTime;
-    private String stationId;
-    private String stationRemarks;
-    private Object updateTime;
-    private String updateUserID;
-    private String userAddress;
-    private String userContacts;
-    private String userName;
-    private String userPassword;
-    private String userStatus;
+    private String companyId="";
+    private CreateTimeBean createTime=new CreateTimeBean();
+    private String createUserID="";
+    private int delFlag=0;
+    private String deptId="";
+    private String driverId="";
+    private String iconPic="";
+    private String id="";
+    private String regTime="";
+    private String stationId="";
+    private String stationRemarks="";
+    private Object updateTime="";
+    private String updateUserID="";
+    private String userAddress="";
+    private String userContacts="";
+    private String userName="";
+    private String userPassword="";
+    private String userStatus="";
 
     public String getCompanyId() {
         return companyId;

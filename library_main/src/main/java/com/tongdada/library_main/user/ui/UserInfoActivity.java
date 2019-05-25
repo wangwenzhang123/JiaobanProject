@@ -71,7 +71,6 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
         userAge.setText("28");
         userAddress.setText(CommenUtils.getIncetance().getUserBean().getUserAddress());
-
     }
 
     @Override
@@ -112,5 +111,10 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         userBean.setUserName(userName.getText().toString());
         userBean.setUserAddress(userAddress.getText().toString());
         presenter.editUser(userBean);
+    }
+
+    @Override
+    public void editUserSuccess() {
+        finish();
     }
 }

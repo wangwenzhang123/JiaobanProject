@@ -1,8 +1,10 @@
 package com.tongdada.library_main.order.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,16 +32,17 @@ import butterknife.Unbinder;
  * @time 2019/5/17 16:57
  * @change
  */
+@SuppressLint("ValidFragment")
 public class OrderListFragment extends BaseMvpFragment<OrderListPresenter> implements OrderListContract.View {
     @BindView(R2.id.order_list_rv)
     RecyclerView orderListRv;
     Unbinder unbinder;
     private OrderAdapter orderAdapter;
     private List<OrderBean> orderBeanList = new ArrayList<>();
-
-    @Override
-    public void setData(List<OrderBean> list) {
-        orderAdapter.setNewData(list);
+    private String type;
+    @SuppressLint("ValidFragment")
+    public OrderListFragment(String type) {
+        this.type=type;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class OrderListFragment extends BaseMvpFragment<OrderListPresenter> imple
         orderListRv.setLayoutManager(new LinearLayoutManager(mContext));
         orderAdapter=new OrderAdapter(R.layout.item_order,orderBeanList);
         orderListRv.setAdapter(orderAdapter);
-
+        presenter.getOrderList(type);
     }
 
     @Override
@@ -95,5 +98,12 @@ public class OrderListFragment extends BaseMvpFragment<OrderListPresenter> imple
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void setData(List<OrderBean> list, String type) {
+        if (TextUtils.equals(type,this.type)){
+            orderAdapter.setNewData(list);
+        }
     }
 }

@@ -2,11 +2,10 @@ package com.tongdada.library_main.home.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,8 +14,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.config.BaseUrl;
@@ -27,7 +26,7 @@ import com.tongdada.library_main.home.presenter.HomeContract;
 import com.tongdada.library_main.home.presenter.HomePresenter;
 import com.tongdada.library_main.home.respose.BannerBean;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
-import com.example.library_commen.model.OrderBean;
+import com.tongdada.library_main.order.ui.OrderListFragment;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -62,11 +61,11 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     TextView homeOrder;
     @BindView(R2.id.home_view)
     View homeView;
-    @BindView(R2.id.home_order_rv)
-    RecyclerView homeOrderRv;
     Unbinder unbinder;
     @BindView(R2.id.home_car)
     TextView homeCar;
+    @BindView(R2.id.home_order_rv)
+    FrameLayout homeOrderRv;
     private OrderAdapter orderAdapter;
     private List<OrderBean> orderBeanList = new ArrayList<>();
 
@@ -87,39 +86,26 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @Override
     public void initView() {
-        homeOrderRv.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter = new OrderAdapter(R.layout.item_order, orderBeanList);
-        homeOrderRv.setAdapter(orderAdapter);
         presenter.shuffling();
     }
 
     @Override
     public void initLinsenterner() {
-        orderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                routerIntent(ArouterKey.MAP_MAPORDERDETAILACTIVITY, null);
-            }
-        });
+        getChildFragmentManager()    //
+                .beginTransaction()
+                .add(R.id.home_order_rv, new OrderListFragment("F"))
+                .commit();
     }
 
     @Override
     public void getData() {
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderAdapter.setNewData(orderBeanList);
+
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
                 ToastUtils.showToast(mContext, "" + position);
             }
         });
-
 
 
     }
@@ -156,7 +142,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R2.id.iv_home_message)
     public void onIvHomeMessageClicked() {
-        routerIntent(ArouterKey.HOME_INFORMMANAGEMENTACTIVITY,null);
+        routerIntent(ArouterKey.HOME_INFORMMANAGEMENTACTIVITY, null);
     }
 
     @OnClick(R2.id.home_order)
@@ -172,7 +158,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     @Override
     public void setBannerData(List<BannerBean.RowsBean> bannerData) {
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < bannerData.size() ; i++) {
+        for (int i = 0; i < bannerData.size(); i++) {
             list.add(bannerData.get(i).getPriviewPic());
         }
         banner.setPages(list, new MZHolderCreator<BannerViewHolder>() {
@@ -196,13 +182,12 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
         @Override
         public void onBind(Context context, int position, String data) {
-            RequestOptions requestOptions=new RequestOptions()
+            RequestOptions requestOptions = new RequestOptions()
                     .error(R.mipmap.banner_place)
                     .placeholder(R.mipmap.banner_place)
-                    .diskCacheStrategy(DiskCacheStrategy.DATA)
-                    ;
-            Glide.with(context).load(BaseUrl.BASEURL+"/"+data)
-                   .apply(requestOptions).into(mImageView);
+                    .diskCacheStrategy(DiskCacheStrategy.DATA);
+            Glide.with(context).load(BaseUrl.BASEURL + "/" + data)
+                    .apply(requestOptions).into(mImageView);
         }
     }
 }

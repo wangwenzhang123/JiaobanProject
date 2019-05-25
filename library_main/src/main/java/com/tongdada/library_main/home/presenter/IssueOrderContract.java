@@ -1,7 +1,7 @@
 package com.tongdada.library_main.home.presenter;
 
 import com.tongdada.base.ui.mvp.base.view.BaseView;
-import com.tongdada.library_main.home.request.IssueOrderBean;
+import com.example.library_commen.model.IssueOrderBean;
 
 /**
  * Created by wangshen on 2019/5/18.
@@ -9,7 +9,7 @@ import com.tongdada.library_main.home.request.IssueOrderBean;
 
 public class IssueOrderContract {
     public interface View extends BaseView{
-
+        void publishSuccess();
     }
     public interface Presenter{
         void publishOrder(IssueOrderBean issueOrderBean);

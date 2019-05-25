@@ -2,7 +2,7 @@ package com.tongdada.library_main.home.presenter;
 
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
-import com.tongdada.library_main.home.request.IssueOrderBean;
+import com.example.library_commen.model.IssueOrderBean;
 import com.tongdada.library_main.net.MainApiUtils;
 
 import io.reactivex.functions.Consumer;
@@ -22,7 +22,8 @@ public class IssueOrderPresenter extends BasePresenter<IssueOrderContract.View> 
                 .subscribe(new Consumer<BaseAppEntity<Object>>() {
                     @Override
                     public void accept(BaseAppEntity<Object> objectBaseAppEntity) throws Exception {
-
+                        getView().showToast("发布成功！");
+                        getView().publishSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

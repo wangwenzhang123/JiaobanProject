@@ -40,6 +40,21 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
     }
 
     @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void getData() {
+
+    }
+
+    @Override
+    public void initLinsenterner() {
+
+    }
+
+    @Override
     public void showToast(final String ms) {
         this.runOnUiThread(new Runnable() {
             @Override
@@ -84,6 +99,7 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
     @Override
     public void routerIntent(String path, Bundle bundle) {
         ARouter.getInstance().build(path).with(bundle).navigation(mContext);
+
     }
 
     @Override

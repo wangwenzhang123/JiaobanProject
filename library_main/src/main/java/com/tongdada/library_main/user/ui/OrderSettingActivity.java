@@ -1,6 +1,7 @@
 package com.tongdada.library_main.user.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
+import com.tongdada.library_main.user.presenter.OrderSetContract;
+import com.tongdada.library_main.user.presenter.OrderSetPrensenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +28,7 @@ import butterknife.OnClick;
  * @change
  */
 @Route(path = ArouterKey.USER_SETORDER)
-public class OrderSettingActivity extends BaseMvpActivity<BasePresenter> {
+public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> implements OrderSetContract.View {
     @BindView(R2.id.register_back)
     ImageView registerBack;
     @BindView(R2.id.tongche_et)
@@ -61,8 +64,8 @@ public class OrderSettingActivity extends BaseMvpActivity<BasePresenter> {
     }
 
     @Override
-    public BasePresenter getPresenter() {
-        return null;
+    public OrderSetPrensenter getPresenter() {
+        return new OrderSetPrensenter();
     }
 
     @Override
@@ -79,5 +82,16 @@ public class OrderSettingActivity extends BaseMvpActivity<BasePresenter> {
 
     @OnClick(R2.id.sure_change)
     public void onSureChangeClicked() {
+        if (!TextUtils.isEmpty(tongcheEt.getText().toString().trim()) && !TextUtils.isEmpty(tongcheEt.getText().toString().trim())){
+            presenter.sysSet(tongcheEt.getText().toString().trim(),bengcheEt.getText().toString().trim());
+        }else {
+            showToast("输入不能为空");
+        }
+
+    }
+
+    @Override
+    public void sysSetSuccess() {
+        finish();
     }
 }

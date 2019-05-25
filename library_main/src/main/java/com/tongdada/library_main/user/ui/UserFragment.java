@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.event.EventUpdateUser;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -20,6 +21,10 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.user.presenter.UserContract;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,14 +99,19 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(EventUpdateUser eventUpdateUser){
+            updateUi();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R2.id.user_info)

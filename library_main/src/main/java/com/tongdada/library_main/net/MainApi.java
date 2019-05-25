@@ -1,16 +1,25 @@
 package com.tongdada.library_main.net;
 
+import com.example.library_commen.model.MixStationBean;
+import com.example.library_commen.model.RequestRegisterBean;
+import com.example.library_commen.model.UploadBean;
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.library_main.home.respose.BannerBean;
+import com.tongdada.library_main.order.respose.OrderListBean;
 import com.tongdada.library_main.user.respose.MessageBean;
+import com.tongdada.library_main.user.respose.RequestBean;
+import com.tongdada.library_main.user.respose.UserListBean;
 
 import org.json.JSONObject;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
@@ -50,11 +59,11 @@ public interface MainApi {
      * @return
      */
     @FormUrlEncoded
-    @POST("/interface/orderList.actio")
-    Observable<BaseAppEntity<Object>> orderList(@Field("psTotalOrders.stationId") String stationId,
-                                             @Field("pagination.pageNumber") String pageNumber,
-                                             @Field("psTotalOrders.orderName") String orderName,
-                                             @Field("psTotalOrders.orderStatus") String orderStatus);
+    @POST("/interface/orderList.action")
+    Observable<PagenationBase<OrderListBean>> orderList(@Field("psTotalOrders.stationId") String stationId,
+                                                        @Field("pagination.pageNumber") String pageNumber,
+                                                        @Field("psTotalOrders.orderName") String orderName,
+                                                        @Field("psTotalOrders.orderStatus") String orderStatus);
     /**
      * 修改订单
      * @param
@@ -86,18 +95,25 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/interface/userList.action")
-    Observable<BaseAppEntity<Object>> userList(@Field("psAppUsers.stationId") String id);
+    Observable<UserListBean> userList(@Field("psAppUsers.stationId") String id);
 
     /**
      * 修改人员信息
      * @return
      */
-
+    @FormUrlEncoded
     @POST("/interface/editUser.action")
-    Observable<BaseAppEntity<UserBean>> editUser(@Body UserBean requestBody/*@Field("psAppUsers.stationId") String id,@Field("psAppUsers.userName") String userName
+    Observable<BaseAppEntity<UserBean>> editUser(@FieldMap Map<String,Object> requestBody/*@Field("psAppUsers.stationId") String id,@Field("psAppUsers.userName") String userName
             ,@Field("psAppUsers.userAddress") String userAddress
             ,@Field("psAppUsers.userContacts") String userContacts
             ,@Field("psAppUsers.iconPic") String iconPic*/);
+    /**
+     * 添加人员
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/addStationUser.action")
+    Observable<BaseAppEntity<UserBean>> addStationUser(@FieldMap Map<String,Object> requestBody);
     /**
      * 获取消息列表
      * @return
@@ -113,10 +129,38 @@ public interface MainApi {
     @POST("/interface/readMessage.action")
     Observable<BaseAppEntity<Object>> readMessage(@Field("psMessages.id") String id);
     /**
-     * 阅读消息
+     * 删除消息
      * @return
      */
     @FormUrlEncoded
     @POST("/interface/deleteMessage.action")
     Observable<BaseAppEntity<Object>> deleteMessage(@Field("psMessages.id") String id);
+    /**
+     * 系统设置
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/sysSet.action")
+    Observable<BaseAppEntity<Object>> sysSet(@Field("psMixingStations.id") String id,@Field("psMixingStations.tongPrice") String tongPrice,@Field("psMixingStations.bengPrice") String bengPrice);
+    /**
+     * 获取搅拌站信息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/getMixStationById.action")
+    Observable<BaseAppEntity<RequestRegisterBean>> getMixStationById(@Field("psMixingStations.id") String id);
+    /**
+     * 更新搅拌站信息
+     * @return
+     */
+    @POST("/interface/updateMixStation.action")
+    Observable<BaseAppEntity<UserBean>> updateMixStation(@Body RequestRegisterBean params);
+
+    /**
+     * 上传图片
+     * @param requestBody
+     * @return
+     */
+    @POST("/interface/uploadAttach.action")
+    Observable<BaseAppEntity<UploadBean>> upload(@Body RequestBody requestBody);
 }

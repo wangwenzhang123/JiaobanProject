@@ -67,7 +67,7 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R2.id.order_setting)
     public void onOrderSettingClicked() {
-
+        ARouter.getInstance().build(ArouterKey.USER_SETORDER).navigation(mContext);
     }
 
     @OnClick(R2.id.out_login)

@@ -295,6 +295,7 @@
                         android:layout_width="@dimen/dp_26"
                         android:layout_height="@dimen/dp_26" />
                     <TextView
+                        android:scaleType="fitXY"
                         android:textSize="@dimen/sp_12"
                         android:text="法人身份证正面上传"
                         android:layout_marginTop="@dimen/dp_8"
@@ -302,13 +303,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-                <ImageView
-                    android:id="@+id/iv_legal_positive"
-                    android:layout_gravity="center"
-                    android:layout_width="@dimen/dp_118"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_dotted_line"
-                    />
             </FrameLayout>
             <FrameLayout
                 android:layout_marginLeft="@dimen/dp_16"
@@ -344,6 +338,14 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_dotted_line"
                     />
+
+                <ImageView
+                    android:id="@+id/iv_legal_positive"
+                    android:layout_width="@dimen/dp_118"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_dotted_line"
+                    android:scaleType="fitXY" />
             </FrameLayout>
         </LinearLayout>
         <FrameLayout
@@ -374,6 +376,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/iv_business_license"
                 android:layout_gravity="center"
                 android:layout_width="@dimen/dp_118"

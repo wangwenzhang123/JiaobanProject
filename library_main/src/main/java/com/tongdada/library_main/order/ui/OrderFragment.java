@@ -85,27 +85,13 @@ public class OrderFragment extends BaseMvpFragment implements OrderContract.View
         list.add("进行中");
         list.add("已完成");
         list.add("已卸货");
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        pager.setOffscreenPageLimit(3);
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
-                fragments.add(new OrderListFragment());
-                fragments.add(new OrderListFragment());
-                fragments.add(new OrderListFragment());
+                fragments.add(new OrderListFragment("F"));
+                fragments.add(new OrderListFragment("E"));
+                fragments.add(new OrderListFragment("Z"));
                 e.onNext(fragments);
             }
         }).subscribeOn(Schedulers.io())
@@ -145,6 +131,22 @@ public class OrderFragment extends BaseMvpFragment implements OrderContract.View
                         ToastUtils.showToast(mContext,throwable.getMessage());
                     }
                 });
+
+    }
+
+    @Override
+    public void initLinsenterner() {
+
+    }
+
+    @Override
+    public void getData() {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 

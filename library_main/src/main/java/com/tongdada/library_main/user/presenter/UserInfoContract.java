@@ -8,7 +8,9 @@ import com.tongdada.base.ui.mvp.base.view.BaseView;
  */
 
 public class UserInfoContract {
-    public interface View extends BaseView{}
+    public interface View extends BaseView{
+        void editUserSuccess();
+    }
     public interface Presenter{
         void editUser(UserBean userBean);
     }

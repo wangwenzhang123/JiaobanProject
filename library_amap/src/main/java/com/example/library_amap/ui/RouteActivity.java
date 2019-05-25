@@ -27,6 +27,7 @@ import com.example.library_amap.R2;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventAdressBean;
+import com.example.library_commen.model.IssueOrderBean;
 import com.example.overlay.DrivingRouteOverlay;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
@@ -100,10 +101,12 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     TextView planThreeTime;
     @BindView(R2.id.plan_three_ll)
     LinearLayout planThreeLl;
+    @BindView(R2.id.sure_tv)
+    TextView sureTv;
     private AMap aMap;
     private RouteSearch routeSearch;
     private LatLonPoint start, end;
-
+    private IssueOrderBean issueOrderBean;
     @Override
     public int getView() {
         return R.layout.activity_route;
@@ -125,6 +128,14 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         aMap.setOnMapTouchListener(this);
         routeSearch = new RouteSearch(this);
         routeSearch.setRouteSearchListener(this);
+        issueOrderBean = (IssueOrderBean) getIntent().getSerializableExtra(IntentKey.MAP_ADDRESS);
+        if (issueOrderBean != null) {
+            routeStart.setText(issueOrderBean.getStartPlace());
+            routeEnd.setText(issueOrderBean.getDestinationPlace());
+            start = new LatLonPoint(Double.valueOf(issueOrderBean.getStartLatitude()), Double.valueOf(issueOrderBean.getStartLongitude()));
+            end = new LatLonPoint(Double.valueOf(issueOrderBean.getDstLatitude()), Double.valueOf(issueOrderBean.getDstLongitude()));
+            queryRoute();
+        }
     }
 
     @Override
@@ -220,7 +231,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
                 drivePaths.addAll(driveRouteResult.getPaths());
                 this.driveRouteResult = driveRouteResult;
             }
-            index=0;
+            index = 0;
             setTextColor();
             drawPath();
         }
@@ -229,7 +240,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     private void drawPath() {
         aMap.clear();
         for (int i = 0; i < driveRouteResult.getPaths().size(); i++) {
-            if (i==index){
+            if (i == index) {
                 continue;
             }
             DrivePath drivePath = driveRouteResult.getPaths().get(i);
@@ -243,16 +254,18 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
             drivingRouteOverlay.removeFromMap();
             drivingRouteOverlay.addToMap();
             drivingRouteOverlay.zoomToSpan();
-            switch (i){
+            switch (i) {
                 case 0:
-                    planOneDistance.setText(drivePath.getDistance()/1000+"KM");
-                    planOneTime.setText(drivePath.getDuration()/60+"分钟");
+                    planOneDistance.setText(drivePath.getDistance() / 1000 + "KM");
+                    planOneTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
                 case 1:
-
+                    planTwoDistance.setText(drivePath.getDistance() / 1000 + "KM");
+                    planTwoTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
                 case 2:
-
+                    planThreeDistance.setText(drivePath.getDistance() / 1000 + "KM");
+                    planThreeTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
             }
         }
@@ -260,7 +273,8 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     }
 
     int index = 0;
-    private void setRoute(){
+
+    private void setRoute() {
         DrivePath drivePath = driveRouteResult.getPaths().get(index);
         DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
                 mContext, aMap, drivePath,
@@ -273,6 +287,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         drivingRouteOverlay.addToMap();
         drivingRouteOverlay.zoomToSpan();
     }
+
     @Override
     public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
 
@@ -295,27 +310,29 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
 
     @OnClick(R2.id.plan_one_ll)
     public void onPlanOneLlClicked() {
-        index=0;
+        index = 0;
         selectRoute();
     }
 
     @OnClick(R2.id.plan_two_ll)
     public void onPlanTwoLlClicked() {
-        index=1;
+        index = 1;
         selectRoute();
     }
 
     @OnClick(R2.id.plan_three_ll)
     public void onPlanThreeLlClicked() {
-        index=2;
+        index = 2;
         selectRoute();
     }
-    private void selectRoute(){
+
+    private void selectRoute() {
         setTextColor();
         drawPath();
     }
-    private void setTextColor(){
-        switch (index){
+
+    private void setTextColor() {
+        switch (index) {
             case 0:
                 planOneDistance.setTextColor(getResources().getColor(R.color._E06E38));
                 planOneTime.setTextColor(getResources().getColor(R.color._E06E38));
@@ -350,5 +367,30 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
                 planTwoDistance.setTextColor(getResources().getColor(R.color._999999));
                 break;
         }
+    }
+
+    @OnClick(R2.id.sure_tv)
+    public void onViewClicked() {
+        issueOrderBean.setDestinationPlace(routeEnd.getText().toString());
+        issueOrderBean.setStartPlace(routeStart.getText().toString());
+        issueOrderBean.setStartLatitude(String.valueOf(start.getLatitude()));
+        issueOrderBean.setStartLongitude(String.valueOf(start.getLongitude()));
+        issueOrderBean.setDstLatitude(String.valueOf(end.getLatitude()));
+        issueOrderBean.setDstLongitude(String.valueOf(end.getLongitude()));
+        String total="0.0KM";
+        switch (index){
+            case 0:
+                total=planOneDistance.getText().toString();
+                break;
+            case 1:
+                total=planTwoDistance.getText().toString();
+                break;
+            case 2:
+                total=planThreeDistance.getText().toString();
+                break;
+        }
+        issueOrderBean.setTotalDistance(total);
+        EventBus.getDefault().post(issueOrderBean);
+        finish();
     }
 }

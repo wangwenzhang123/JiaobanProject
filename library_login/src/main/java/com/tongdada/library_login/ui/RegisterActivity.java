@@ -17,7 +17,7 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_login.R;
 import com.tongdada.library_login.R2;
-import com.tongdada.library_login.net.request.RequestRegisterBean;
+import com.example.library_commen.model.RequestRegisterBean;
 import com.tongdada.library_login.presenter.RegisterContact;
 import com.tongdada.library_login.presenter.RegisterPresenter;
 import com.winfo.photoselector.PhotoSelector;
@@ -164,6 +164,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
 
     @OnClick(R2.id.register_back)
     public void onRegisterBackClicked() {
+        finish();
     }
 
     @OnClick(R2.id.ll_legal_positive)

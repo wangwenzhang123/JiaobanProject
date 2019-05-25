@@ -72,7 +72,7 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20" />
                 <TextView
-                    android:id="@+id/issueorder_start_tv"
+
                     android:textSize="@dimen/sp_14"
                     android:textColor="@color/_333333"
                     android:layout_marginLeft="@dimen/dp_12"
@@ -83,6 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textColor="@color/_333333"
+                    android:id="@+id/issueorder_start_tv"
                     android:hint="请选择出发地"
                     android:gravity="right"
                     app:layout_constraintRight_toLeftOf="@id/issue_go_start_iv"
@@ -122,7 +124,6 @@
                     android:layout_height="@dimen/dp_20" />
                 <TextView
                     android:layout_marginTop="@dimen/dp_13"
-                    android:id="@+id/issueorder_end_tv"
                     android:textSize="@dimen/sp_14"
                     android:textColor="@color/_333333"
                     android:layout_marginLeft="@dimen/dp_12"
@@ -132,6 +133,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textColor="@color/_333333"
+                    android:id="@+id/issueorder_end_tv"
                     android:hint="请选择目的地"
                     android:gravity="right"
                     app:layout_constraintRight_toLeftOf="@id/issue_go_end_iv"
@@ -181,6 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textColor="@color/_333333"
                     android:id="@+id/select_route"
                     android:hint="请选择路线"
                     android:gravity="right"
@@ -220,11 +224,13 @@
                 app:layout_constraintTop_toBottomOf="@id/issueorder_route_cl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <EditText
+            <TextView
+                android:gravity="right"
+                android:textColor="@color/_333333"
                 android:id="@+id/issue_ordernumber_et"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginRight="@dimen/dp_22"
-                android:hint="的手机卡的凯撒"
+                android:text="12345952"
                 android:background="@null"
                 android:layout_marginTop="@dimen/dp_34"
                 app:layout_constraintTop_toBottomOf="@id/issueorder_route_cl"
@@ -250,6 +256,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:gravity="right"
+                android:textColor="@color/_333333"
                 android:id="@+id/issue_ordername_et"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginRight="@dimen/dp_22"
@@ -278,8 +286,8 @@
                 app:layout_constraintTop_toBottomOf="@id/order_number_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <EditText
-
+            <TextView
+                android:textColor="@color/_333333"
                 android:id="@+id/issue_ordertime_et"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginRight="@dimen/dp_11"
@@ -327,7 +335,7 @@
                 android:layout_marginTop="@dimen/dp_12"
                 android:background="@null"
                 app:layout_constraintTop_toBottomOf="@id/order_time_view"
-
+                android:id="@+id/order_amount"
                 android:layout_width="@dimen/dp_200"
                 android:layout_height="wrap_content" />
             <TextView
@@ -367,16 +375,20 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_44">
+
                 <RadioButton
-                    android:layout_marginRight="@dimen/dp_24"
-                    android:layout_gravity="center"
-                    android:text="@string/concrete_car"
-                    android:button="@null"
-                    android:drawablePadding="@dimen/dp_8"
-                    android:drawableLeft="@drawable/selector_order_home"
+                    android:id="@+id/rb_tong"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/dp_24"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/selector_order_home"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:text="@string/concrete_car" />
                 <RadioButton
+                    android:id="@+id/rb_beng"
                     android:layout_marginRight="@dimen/dp_22"
                     android:layout_gravity="center"
                     android:text="@string/pump_truck"
@@ -411,7 +423,10 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <EditText
+                <TextView
+                    android:textColor="@color/_333333"
+                    android:text="485"
+                    android:id="@+id/order_price"
                     android:textSize="@dimen/sp_14"
                     android:hint="请输入单价"
                     android:gravity="right"
@@ -435,6 +450,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <TextView
+                android:textColor="@color/_333333"
                 android:id="@+id/order_type_tv1"
                 android:text="车辆型号"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -444,13 +460,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioGroup
-
+                android:id="@+id/rg_type"
                 app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
                 app:layout_constraintRight_toRightOf="parent"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_44">
                 <RadioButton
+                    android:id="@+id/rg_16"
+                    android:checked="true"
                     android:layout_marginRight="@dimen/dp_24"
                     android:layout_gravity="center"
                     android:text="@string/fang_16"
@@ -460,6 +478,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RadioButton
+                    android:id="@+id/rg_18"
                     android:layout_marginRight="@dimen/dp_22"
                     android:layout_gravity="center"
                     android:text="@string/fang_18"
@@ -469,6 +488,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RadioButton
+                    android:id="@+id/rg_20"
                     android:layout_marginRight="@dimen/dp_22"
                     android:layout_gravity="center"
                     android:text="@string/fang_20"
@@ -499,6 +519,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:textColor="@color/_333333"
                 android:paddingTop="@dimen/dp_10"
                 android:paddingLeft="@dimen/dp_10"
                 android:gravity="start"
@@ -514,6 +535,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_104" />
             <TextView
+                android:id="@+id/release_order"
                 android:gravity="center"
                 android:textColor="@color/FFFFFF"
                 android:text="@string/release_order"

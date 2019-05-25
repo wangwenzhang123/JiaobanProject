@@ -1,7 +1,7 @@
 package com.tongdada.library_login.presenter;
 
 import com.tongdada.base.ui.mvp.base.view.BaseView;
-import com.tongdada.library_login.net.request.RequestRegisterBean;
+import com.example.library_commen.model.RequestRegisterBean;
 
 /**
  * @name Base

@@ -2,23 +2,36 @@ package com.tongdada.library_main.home.ui;
 
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventAdressBean;
+import com.example.library_commen.model.CommenUtils;
+import com.example.library_commen.model.IssueOrderBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
+import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.home.presenter.IssueOrderContract;
 import com.tongdada.library_main.home.presenter.IssueOrderPresenter;
-import com.tongdada.library_main.home.request.IssueOrderBean;
+import com.tongdada.library_main.widget.datepicker.CustomDatePicker;
+import com.tongdada.library_main.widget.datepicker.DateFormatUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +71,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @BindView(R2.id.issueorder_route_cl)
     ConstraintLayout issueorderRouteCl;
     @BindView(R2.id.issue_ordernumber_et)
-    EditText issueOrdernumberEt;
+    TextView issueOrdernumberEt;
     @BindView(R2.id.number_view)
     View numberView;
     @BindView(R2.id.issue_ordername_et)
@@ -66,7 +79,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @BindView(R2.id.order_number_view)
     View orderNumberView;
     @BindView(R2.id.issue_ordertime_et)
-    EditText issueOrdertimeEt;
+    TextView issueOrdertimeEt;
     @BindView(R2.id.start_order_time_iv)
     ImageView startOrderTimeIv;
     @BindView(R2.id.order_time_view)
@@ -93,7 +106,26 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     EditText etNote;
     @BindView(R2.id.select_route)
     TextView selectRoute;
-    private IssueOrderBean issueOrderBean=new IssueOrderBean();
+    @BindView(R2.id.rb_tong)
+    RadioButton rbTong;
+    @BindView(R2.id.rb_beng)
+    RadioButton rbBeng;
+    @BindView(R2.id.rg_16)
+    RadioButton rg16;
+    @BindView(R2.id.rg_18)
+    RadioButton rg18;
+    @BindView(R2.id.rg_20)
+    RadioButton rg20;
+    @BindView(R2.id.rg_type)
+    RadioGroup rgType;
+    @BindView(R2.id.release_order)
+    TextView releaseOrder;
+    @BindView(R2.id.order_amount)
+    EditText orderAmount;
+    @BindView(R2.id.order_price)
+    TextView orderPrice;
+    private IssueOrderBean issueOrderBean = new IssueOrderBean();
+
     @Override
     public int getView() {
         return R.layout.activity_issueorder;
@@ -129,17 +161,165 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
+        issueOrderBean.setCarType("T16");
+        initTimerPicker();
     }
 
 
     @OnClick(R2.id.issueorder_start_tv)
     public void onIssueorderStartTvClicked() {
-        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).navigation(mContext);
+        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 0).navigation(mContext);
     }
 
     @OnClick(R2.id.select_route)
     public void onSelectRouteClicked() {
-        ARouter.getInstance().build(ArouterKey.MAP_ROUTEACTIVITY).navigation(mContext);
+        if (TextUtils.isEmpty(issueOrderBean.getStartLatitude())) {
+            ToastUtils.showToast(mContext, "请先选择出发地！");
+            return;
+        }
+        if (TextUtils.isEmpty(issueOrderBean.getDstLatitude())) {
+            ToastUtils.showToast(mContext, "请先选择目的地！");
+            return;
+        }
+        ARouter.getInstance().build(ArouterKey.MAP_ROUTEACTIVITY).withSerializable(IntentKey.MAP_ADDRESS, issueOrderBean).navigation(mContext);
+    }
 
+    @OnClick(R2.id.register_back)
+    public void onRegisterBackClicked() {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventAdress(EventAdressBean adressBean) {
+        if (adressBean.getCode() == 0) {
+            issueOrderBean.setStartLatitude(String.valueOf(adressBean.getLatitude()));
+            issueOrderBean.setStartLongitude(String.valueOf(adressBean.getLongitude()));
+            issueOrderBean.setStartPlace(adressBean.getAdressName());
+            issueorderStartTv.setText(adressBean.getAdressName());
+        } else {
+            issueOrderBean.setDestinationPlace(adressBean.getAdressName());
+            issueOrderBean.setDstLatitude(String.valueOf(adressBean.getLatitude()));
+            issueOrderBean.setDstLongitude(String.valueOf(adressBean.getLongitude()));
+            issueorderEndTv.setText(adressBean.getAdressName());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventRoute(IssueOrderBean adressBean) {
+        issueOrderBean.setStartLatitude(String.valueOf(adressBean.getStartLatitude()));
+        issueOrderBean.setStartLongitude(String.valueOf(adressBean.getStartLongitude()));
+        issueOrderBean.setStartPlace(adressBean.getStartPlace());
+        issueorderStartTv.setText(adressBean.getStartPlace());
+        issueOrderBean.setDestinationPlace(adressBean.getDestinationPlace());
+        issueOrderBean.setDstLatitude(String.valueOf(adressBean.getDstLatitude()));
+        issueOrderBean.setDstLongitude(String.valueOf(adressBean.getDstLongitude()));
+        issueorderEndTv.setText(adressBean.getDestinationPlace());
+        selectRoute.setText(adressBean.getTotalDistance());
+    }
+
+    @OnClick(R2.id.issueorder_end_tv)
+    public void onIssueorderEndTvClicked() {
+        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 1).navigation(mContext);
+    }
+
+    private CustomDatePicker mTimerPicker;
+
+    private void initTimerPicker() {
+
+        String beginTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
+        String endTime = DateFormatUtils.long2Str(System.currentTimeMillis() + 315360000000L, true);
+        issueOrdertimeEt.setText(beginTime);
+
+        // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
+        mTimerPicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
+            @Override
+            public void onTimeSelected(long timestamp) {
+                issueOrdertimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
+            }
+        }, beginTime, endTime);
+        // 允许点击屏幕或物理返回键关闭
+        mTimerPicker.setCancelable(true);
+        // 显示时和分
+        mTimerPicker.setCanShowPreciseTime(true);
+        // 允许循环滚动
+        mTimerPicker.setScrollLoop(true);
+        // 允许滚动动画
+        mTimerPicker.setCanShowAnim(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @OnClick(R2.id.rb_tong)
+    public void onRbTongClicked() {
+        rgType.setVisibility(View.VISIBLE);
+        int id = rgType.getCheckedRadioButtonId();
+        if (id == R.id.rg_16) {
+            issueOrderBean.setCarType("T16");
+        } else if (id == R.id.rg_18) {
+            issueOrderBean.setCarType("T18");
+        } else if (id == R.id.rg_20) {
+            issueOrderBean.setCarType("T20");
+        }
+    }
+
+    @OnClick(R2.id.rb_beng)
+    public void onRbBengClicked() {
+        rgType.setVisibility(View.INVISIBLE);
+        issueOrderBean.setCarType("B");
+    }
+
+    @OnClick(R2.id.rg_16)
+    public void onRg16Clicked() {
+        issueOrderBean.setCarType("T16");
+    }
+
+    @OnClick(R2.id.rg_18)
+    public void onRg18Clicked() {
+        issueOrderBean.setCarType("T18");
+    }
+
+    @OnClick(R2.id.rg_20)
+    public void onRg20Clicked() {
+        issueOrderBean.setCarType("T20");
+    }
+
+    @OnClick(R2.id.release_order)
+    public void onViewClicked() {
+        if (TextUtils.isEmpty(issueOrdertimeEt.getText().toString())) {
+            showToast("请选择订单时间");
+            return;
+        }
+        if (TextUtils.isEmpty(issueOrdernameEt.getText().toString())) {
+            showToast("请填写订单发布单位");
+            return;
+        }
+        if (TextUtils.isEmpty(issueOrdernumberEt.getText().toString())) {
+            showToast("请选择订单订单编号");
+            return;
+        }
+        if (TextUtils.isEmpty(orderAmount.getText().toString().trim())) {
+            showToast("请选择订单数量");
+            return;
+        }
+        issueOrderBean.setOrderName(issueOrdernameEt.getText().toString());
+        issueOrderBean.setOrderAmount(orderAmount.getText().toString().trim());
+        issueOrderBean.setPerPrice(orderPrice.getText().toString());
+        issueOrderBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
+        presenter.publishOrder(issueOrderBean);
+    }
+
+    @OnClick(R2.id.issue_ordertime_et)
+    public void onViewTimeClicked() {
+        mTimerPicker.show(issueOrdertimeEt.getText().toString());
+    }
+
+    @Override
+    public void publishSuccess() {
+        finish();
     }
 }

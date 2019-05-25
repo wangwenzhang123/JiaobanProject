@@ -13,4 +13,6 @@
     <dimen name="dp_132">132dp</dimen>
     <dimen name="dp_374">374dp</dimen>
     <dimen name="dp_364">364dp</dimen>
+    <dimen name="picker_view_height">160dp</dimen>
+    <dimen name="date_unit_text_size">18sp</dimen>
 </resources>

@@ -1,4 +1,6 @@
-package com.tongdada.library_main.home.request;
+package com.example.library_commen.model;
+
+import java.io.Serializable;
 
 import retrofit2.http.Field;
 
@@ -9,7 +11,7 @@ import retrofit2.http.Field;
  * @time 2019/5/23 15:38
  * @change
  */
-public class IssueOrderBean {
+public class IssueOrderBean implements Serializable{
     String stationId;
     String orderAmount;
     String startPlace;

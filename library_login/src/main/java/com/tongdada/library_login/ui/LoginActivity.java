@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
@@ -67,7 +68,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public void getData() {
 
     }
-
+    @Override
+    public void routerIntent(String path, Bundle bundle) {
+        super.routerIntent(path,bundle);
+        finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

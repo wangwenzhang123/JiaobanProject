@@ -18,6 +18,8 @@ import com.tongdada.library_main.user.adapter.MessageAdapter;
 import com.tongdada.library_main.user.presenter.MessageContract;
 import com.tongdada.library_main.user.presenter.MessagePresenter;
 import com.tongdada.library_main.user.respose.MessageBean;
+import com.tongdada.library_main.widget.slideswaphelper.PlusItemSlideCallback;
+import com.tongdada.library_main.widget.slideswaphelper.WItemTouchHelperPlus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,14 +53,17 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         messageRecycle.setLayoutManager(new LinearLayoutManager(mContext));
         adapter=new MessageAdapter(R.layout.item_message,messageBeans);
         messageRecycle.setAdapter(adapter);
+        PlusItemSlideCallback callback = new PlusItemSlideCallback();
+        WItemTouchHelperPlus extension = new WItemTouchHelperPlus(callback);
+        extension.attachToRecyclerView(messageRecycle);
     }
 
     @Override
     public void initLinsenterner() {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                presenter.readMessage(adapter.getData().get(position).getId());
             }
         });
     }

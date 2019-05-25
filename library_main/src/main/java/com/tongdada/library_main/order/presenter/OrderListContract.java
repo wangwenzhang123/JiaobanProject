@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class OrderListContract {
     public interface View extends BaseView{
-        void setData(List<OrderBean> list);
+        void setData(List<OrderBean> list,String type);
     }
     public interface Presenter{
-
+        void getOrderList(String type);
     }
 }

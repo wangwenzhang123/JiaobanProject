@@ -38,6 +38,9 @@
         <activity android:name="com.tongdada.library_main.user.ui.MaintenancePlantActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.user.ui.AddUserActivity">
+
+        </activity>
     </application>
 
 </manifest>

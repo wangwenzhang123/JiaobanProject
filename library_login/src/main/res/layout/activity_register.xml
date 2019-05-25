@@ -303,6 +303,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
+                    android:scaleType="fitXY"
                     android:id="@+id/iv_legal_positive"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/dp_118"
@@ -338,6 +339,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
+                    android:scaleType="fitXY"
                     android:id="@+id/iv_legal_reverse"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/dp_118"
@@ -374,6 +376,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/iv_business_license"
                 android:layout_gravity="center"
                 android:layout_width="@dimen/dp_118"

@@ -2,8 +2,8 @@ package com.tongdada.library_login.net;
 
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
-import com.tongdada.library_login.net.request.RequestRegisterBean;
-import com.tongdada.library_login.net.respose.UploadBean;
+import com.example.library_commen.model.RequestRegisterBean;
+import com.example.library_commen.model.UploadBean;
 
 
 import io.reactivex.Observable;

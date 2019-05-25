@@ -1,13 +1,20 @@
 package com.tongdada.library_main.user.adapter;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
 import com.tongdada.library_main.user.respose.InformationBean;
 import com.tongdada.library_main.user.respose.MessageBean;
+import com.tongdada.library_main.widget.slideswaphelper.SlideSwapAction;
 
 import java.util.List;
 
@@ -18,13 +25,13 @@ import java.util.List;
  * @time 2019/5/20 17:56
  * @change
  */
-public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.ListBean,BaseViewHolder> {
+public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.ListBean,MessageAdapter.RecViewholder> {
     public MessageAdapter(int layoutResId, @Nullable List<MessageBean.PagenationBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MessageBean.PagenationBean.ListBean item) {
+    protected void convert(MessageAdapter.RecViewholder helper, MessageBean.PagenationBean.ListBean item) {
         helper.setText(R.id.message_title,item.getMessageContent());
         helper.setText(R.id.message_time,item.getSendTime());
         switch (item.getReadStatus()){
@@ -39,5 +46,41 @@ public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.
                     break;
         }
 
+    }
+    /**
+     * view.getWidth()获取的是屏幕中可以看到的大小.
+     */
+    public class RecViewholder extends BaseViewHolder implements SlideSwapAction {
+        public LinearLayout textView;
+        public ImageView slide;
+
+        public RecViewholder(View itemView) {
+            super(itemView);
+            slide = itemView.findViewById(R.id.item_slide);
+            textView=itemView.findViewById(R.id.ll_conten);
+        }
+
+        @Override
+        public float getActionWidth() {
+            return dip2px(slide.getContext(), 100);
+        }
+
+        @Override
+        public View ItemView() {
+            return textView;
+        }
+
+    }
+
+    /**
+     * 根据手机分辨率从DP转成PX
+     *
+     * @param context
+     * @param dpValue
+     * @return
+     */
+    public static int dip2px(Context context, float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }
