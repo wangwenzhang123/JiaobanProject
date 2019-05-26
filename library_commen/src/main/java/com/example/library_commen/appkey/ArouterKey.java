@@ -30,4 +30,6 @@ public class ArouterKey {
     public static final String WEB_WEBACITIVITY="/web/WebAcitivity";
     public static final String USER_SETORDER="/user/OrderSettingActivity";
     public static final String USER_MAINTENANCEPLANTACTIVITY="/user/MaintenancePlantActivity";
+    public static final String USER_ABOUTACTIVITY="/user/AboutActivity";
+    public static final String ORDER_ORDERDETAILACTIVITY="/order/OrderDetailActivity";
 }

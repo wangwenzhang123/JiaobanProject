@@ -187,7 +187,6 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
                 case IVLEGALPOSITIVE_CODE:
-                    //单选的话 images就只有一条数据直接get(0)即可
                     List<String> images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Log.e(TGA,"1="+images.get(0));
                     Glide.with(mContext).load(images.get(0)).into(ivLegalPositive);

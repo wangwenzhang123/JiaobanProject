@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
+import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  * @time 2019/5/17 11:13
  * @change
  */
-public class OrderAdapter extends BaseQuickAdapter<OrderBean, BaseViewHolder> {
+public class OrderAdapter extends BaseAdapter<OrderBean> {
     public OrderAdapter(int layoutResId, @Nullable List<OrderBean> data) {
         super(layoutResId, data);
     }

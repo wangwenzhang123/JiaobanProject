@@ -10,8 +10,11 @@ import com.tongdada.base.ui.mvp.base.view.BaseView;
 public class UserInfoContract {
     public interface View extends BaseView{
         void editUserSuccess();
+        void selectPic(int  code);
+        void uploadSuccess(String path,String url,int dex);
     }
     public interface Presenter{
         void editUser(UserBean userBean);
+        void upload(String path,int dex);
     }
 }

@@ -1,4 +1,4 @@
-package com.tongdada.library_main.order.ui;
+package com.tongdada.library_main.user.ui;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
@@ -7,13 +7,13 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 
 /**
- * Created by wangshen on 2019/5/19.
+ * Created by wangshen on 2019/5/26.
  */
-@Route(path = ArouterKey.ORDER_ORDERDETAILACTIVITY)
-public class OrderDetailActivity extends BaseActivity {
+@Route(path = ArouterKey.USER_ABOUTACTIVITY)
+public class AboutActivity extends BaseActivity {
     @Override
     public int getView() {
-        return R.layout.activity_orderdetail;
+        return  R.layout.activity_about;
     }
 
     @Override

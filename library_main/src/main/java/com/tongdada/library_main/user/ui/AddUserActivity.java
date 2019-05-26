@@ -1,12 +1,16 @@
 package com.tongdada.library_main.user.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.UserBean;
 import com.example.library_main.R;
@@ -18,6 +22,8 @@ import com.tongdada.library_main.user.presenter.AddUserConstract;
 import com.tongdada.library_main.user.presenter.AddUserPresenter;
 import com.tongdada.library_main.user.respose.RequestBean;
 import com.winfo.photoselector.PhotoSelector;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,10 +130,50 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
                 .setSingle(true)
                 .start(AddUserActivity.this, code);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case IVLEGALPOSITIVE_CODE:
+                    //单选的话 images就只有一条数据直接get(0)即可
+                    List<String> images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    Log.e(TGA,"1="+images.get(0));
+                    Glide.with(mContext).load(images.get(0)).into(ivLegalPositive);
+                    presenter.upload(images.get(0),IVLEGALPOSITIVE_CODE);
+                    break;
+                case IVLEGALREVERSE_CODE:
+                    //images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    List<String> images2 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    Glide.with(mContext).load(images2.get(0)).into(ivLegalReverse);
+                    Log.e(TGA,"2="+images2.get(0));
+                    presenter.upload(images2.get(0),IVLEGALREVERSE_CODE);
+                    break;
+                case USERICON_CODE:
+                    List<String> images3 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    Glide.with(mContext).load(images3.get(0)).into(userIco);
+                    presenter.upload(images3.get(0),USERICON_CODE);
+                    Log.e(TGA,"3="+images3.get(0));
+                    break;
+            }
+        }
+    }
     @Override
     public void uploadSuccess(String path, String url, int dex) {
-
+        switch (dex){
+            case IVLEGALPOSITIVE_CODE:
+                Glide.with(mContext).load(path).into(ivLegalPositive);
+                requestBean.setBackPic(url);
+                break;
+            case IVLEGALREVERSE_CODE:
+                Glide.with(mContext).load(path).into(ivLegalReverse);
+                requestBean.setFrontPic(url);
+                break;
+            case USERICON_CODE:
+                Glide.with(mContext).load(path).into(userIco);
+                requestBean.setIconPic(url);
+                break;
+        }
     }
 
     @Override

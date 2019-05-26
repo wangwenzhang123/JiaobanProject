@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -64,6 +65,8 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     TextView userName;
     @BindView(R2.id.user_phone)
     TextView userPhone;
+    @BindView(R2.id.about_app)
+    LinearLayout aboutApp;
 
     @Override
     public BasePresenter getPresenter() {
@@ -82,7 +85,7 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @Override
     public void initView() {
-       updateUi();
+        updateUi();
     }
 
     @Override
@@ -103,10 +106,12 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void update(EventUpdateUser eventUpdateUser){
-            updateUi();
+    public void update(EventUpdateUser eventUpdateUser) {
+        updateUi();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -159,5 +164,10 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
                 .apply(requestOptions).into(userIco);
         userName.setText(CommenUtils.getIncetance().getUserBean().getUserName());
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
+    }
+
+    @OnClick(R2.id.about_app)
+    public void onViewAboutClicked() {
+        ARouter.getInstance().build(ArouterKey.USER_ABOUTACTIVITY).navigation(mContext);
     }
 }

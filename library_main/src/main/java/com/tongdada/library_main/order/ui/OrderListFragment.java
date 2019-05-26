@@ -2,6 +2,7 @@ package com.tongdada.library_main.order.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -9,10 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
+import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
+import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshFragment;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
+import com.tongdada.base.view.empty.IStateLayout;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
 import com.tongdada.library_main.order.presenter.OrderListContract;
 import com.tongdada.library_main.order.presenter.OrderListPresenter;
@@ -33,34 +39,16 @@ import butterknife.Unbinder;
  * @change
  */
 @SuppressLint("ValidFragment")
-public class OrderListFragment extends BaseMvpFragment<OrderListPresenter> implements OrderListContract.View {
-    @BindView(R2.id.order_list_rv)
-    RecyclerView orderListRv;
-    Unbinder unbinder;
-    private OrderAdapter orderAdapter;
-    private List<OrderBean> orderBeanList = new ArrayList<>();
+public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListContract.View,OrderListPresenter> implements OrderListContract.View {
     private String type;
+    private List<OrderBean> orderBeanList=new ArrayList<>();
     @SuppressLint("ValidFragment")
     public OrderListFragment(String type) {
         this.type=type;
     }
-
-    @Override
-    public int getViewId() {
-        return R.layout.fragment_orderlist;
-    }
-
-    @Override
-    public BaseDialog getDialog() {
-        return null;
-    }
-
     @Override
     public void initView() {
-        orderListRv.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter=new OrderAdapter(R.layout.item_order,orderBeanList);
-        orderListRv.setAdapter(orderAdapter);
-        presenter.getOrderList(type);
+        presenter.setType(type);
     }
 
     @Override
@@ -69,41 +57,27 @@ public class OrderListFragment extends BaseMvpFragment<OrderListPresenter> imple
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getRecyclerAdapter().setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                routerIntent(ArouterKey.ORDER_ORDERDETAILACTIVITY,null);
+            }
+        });
+    }
+
+    @Override
     public void getData() {
-        orderBeanList.clear();
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderBeanList.add(new OrderBean());
-        orderAdapter.setNewData(orderBeanList);
+
     }
 
     @Override
     public OrderListPresenter getPresenter() {
         return new OrderListPresenter();
     }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public void setData(List<OrderBean> list, String type) {
-        if (TextUtils.equals(type,this.type)){
-            orderAdapter.setNewData(list);
-        }
+    public BaseAdapter createRecyclerAdapter() {
+        return new OrderAdapter(R.layout.item_order,orderBeanList);
     }
 }

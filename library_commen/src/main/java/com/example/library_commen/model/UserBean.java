@@ -48,6 +48,33 @@ public class UserBean {
     private String userName="";
     private String userPassword="";
     private String userStatus="";
+    private String frontPic="";
+    private String backPic="";
+    private String userDuty="";
+
+    public String getFrontPic() {
+        return frontPic;
+    }
+
+    public void setFrontPic(String frontPic) {
+        this.frontPic = frontPic;
+    }
+
+    public String getBackPic() {
+        return backPic;
+    }
+
+    public void setBackPic(String backPic) {
+        this.backPic = backPic;
+    }
+
+    public String getUserDuty() {
+        return userDuty;
+    }
+
+    public void setUserDuty(String userDuty) {
+        this.userDuty = userDuty;
+    }
 
     public String getCompanyId() {
         return companyId;

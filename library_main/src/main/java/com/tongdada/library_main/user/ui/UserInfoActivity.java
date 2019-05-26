@@ -1,6 +1,9 @@
 package com.tongdada.library_main.user.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +23,9 @@ import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.UserInfoContract;
 import com.tongdada.library_main.user.presenter.UserInfoPresenter;
+import com.winfo.photoselector.PhotoSelector;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +54,8 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     EditText userAddress;
     @BindView(R2.id.sure_change)
     TextView sureChange;
-
+    private UserBean userBean;
+    private static final int USERICON_CODE=0;
     @Override
     public int getView() {
         return R.layout.activity_userinfo;
@@ -71,6 +78,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
         userAge.setText("28");
         userAddress.setText(CommenUtils.getIncetance().getUserBean().getUserAddress());
+        userBean=CommenUtils.getIncetance().getUserBean();
     }
 
     @Override
@@ -102,12 +110,24 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     @OnClick(R2.id.user_ico)
     public void onUserIcoClicked() {
-
+        selectPic(USERICON_CODE);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case USERICON_CODE:
+                    List<String> images3 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    Glide.with(mContext).load(images3.get(0)).into(userIco);
+                    presenter.upload(images3.get(0),USERICON_CODE);
+                    Log.e(TGA,"3="+images3.get(0));
+                    break;
+            }
+        }
+    }
     @OnClick(R2.id.sure_change)
     public void onSureChangeClicked() {
-        UserBean userBean=CommenUtils.getIncetance().getUserBean();
         userBean.setUserName(userName.getText().toString());
         userBean.setUserAddress(userAddress.getText().toString());
         presenter.editUser(userBean);
@@ -116,5 +136,22 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     @Override
     public void editUserSuccess() {
         finish();
+    }
+
+    @Override
+    public void selectPic(int code) {
+        PhotoSelector.builder()
+                .setSingle(true)
+                .start(UserInfoActivity.this, code);
+    }
+
+    @Override
+    public void uploadSuccess(String path, String url, int dex) {
+        switch (dex){
+            case USERICON_CODE:
+                Glide.with(mContext).load(path).into(userIco);
+                userBean.setIconPic(url);
+                break;
+        }
     }
 }

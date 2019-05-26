@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.tongdada.base.dialog.LoadingDialog;
 import com.tongdada.base.dialog.base.BaseDialog;
 
 import butterknife.ButterKnife;
@@ -51,7 +52,11 @@ public abstract class BaseFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-        dialog=getDialog();
+        if (getDialog()==null){
+            dialog=new LoadingDialog(mContext);
+        }else {
+            dialog=getDialog();
+        }
         initLinsenterner();
         getData();
     }

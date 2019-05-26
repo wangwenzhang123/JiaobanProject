@@ -28,6 +28,9 @@ public class UserMapUtils {
         map.put("psAppUsers.userStatus",userBean.getUserStatus());
         map.put("psAppUsers.id",userBean.getId());
         map.put("psAppUsers.userName",userBean.getUserName());
+        map.put("psAppUsers.frontPic",userBean.getFrontPic());
+        map.put("psAppUsers.backPic",userBean.getBackPic());
+        map.put("psAppUsers.userDuty",userBean.getUserDuty());
         return map;
     }
 }

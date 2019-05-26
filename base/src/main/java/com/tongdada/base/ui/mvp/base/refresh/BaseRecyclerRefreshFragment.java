@@ -62,8 +62,10 @@ public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshC
         super.onViewCreated(view, savedInstanceState);
         srlLayout.setOnRefreshListener(this);
         srlLayout.setOnLoadMoreListener(this);
+        llTitleContent.setVisibility(View.GONE);
         setRecyclerAdapter(rvContent);
         getBackView().setVisibility(View.GONE);
+        srlLayout.autoRefresh();
     }
 
     @Override
@@ -124,7 +126,10 @@ public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshC
     public LinearLayout getBackView() {
         return llBack;
     }
-
+    @Override
+    public IStateLayout getStateLayout() {
+        return stStateLayout;
+    }
     @Override
     public TextView getBackTextView() {
         return backTv;
