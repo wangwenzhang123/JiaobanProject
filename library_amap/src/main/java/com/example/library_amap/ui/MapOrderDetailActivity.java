@@ -2,7 +2,10 @@ package com.example.library_amap.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetBehavior;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,6 +45,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.support.design.widget.BottomSheetBehavior.STATE_COLLAPSED;
+import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
+
 /**
  * Created by wangshen on 2019/5/19.
  */
@@ -80,6 +86,7 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
     TextView orderDetailTv;
     @BindView(R2.id.back_iv)
     ImageView backIv;
+    BottomSheetBehavior bottomSheetBehavior;
     private AMap aMap;
     private Marker selectMarker;
     private List<CarBean> list = new ArrayList<>();
@@ -116,6 +123,8 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
                 return false;
             }
         });
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.design_bottom_sheet1));
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
     @Override
@@ -148,6 +157,24 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
 
                     }
                 });
+        //设置监听事件
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                //拖动
+                if (newState == STATE_EXPANDED) {
+                    orderDetailTv.setVisibility(View.GONE);
+                }
+                if (newState == STATE_COLLAPSED) {
+                    orderDetailTv.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                //状态变化
+            }
+        });
     }
 
     private Bitmap getViewBitmap(CarBean carBean) {
@@ -235,7 +262,11 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
 
     @OnClick(R2.id.order_detail_tv)
     public void onViewClicked() {
-        PopwindowUtils.getIncetance().showOrderPop(orderDetailTv);
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(STATE_COLLAPSED);
+        } else if (bottomSheetBehavior.getState() == STATE_COLLAPSED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
     }
 
     @OnClick(R2.id.back_iv)

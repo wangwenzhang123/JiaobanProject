@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
     <android.support.constraint.ConstraintLayout
-        android:background="@drawable/callq1"
+        android:background="@drawable/callqw"
         android:layout_width="wrap_content"
         android:paddingTop="@dimen/dp_10"
         android:paddingRight="@dimen/dp_20"
