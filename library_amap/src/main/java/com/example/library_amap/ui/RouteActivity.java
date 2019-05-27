@@ -103,10 +103,13 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     LinearLayout planThreeLl;
     @BindView(R2.id.sure_tv)
     TextView sureTv;
+    @BindView(R2.id.back_iv)
+    ImageView backIv;
     private AMap aMap;
     private RouteSearch routeSearch;
     private LatLonPoint start, end;
     private IssueOrderBean issueOrderBean;
+
     @Override
     public int getView() {
         return R.layout.activity_route;
@@ -377,20 +380,25 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         issueOrderBean.setStartLongitude(String.valueOf(start.getLongitude()));
         issueOrderBean.setDstLatitude(String.valueOf(end.getLatitude()));
         issueOrderBean.setDstLongitude(String.valueOf(end.getLongitude()));
-        String total="0.0KM";
-        switch (index){
+        String total = "0.0KM";
+        switch (index) {
             case 0:
-                total=planOneDistance.getText().toString();
+                total = planOneDistance.getText().toString();
                 break;
             case 1:
-                total=planTwoDistance.getText().toString();
+                total = planTwoDistance.getText().toString();
                 break;
             case 2:
-                total=planThreeDistance.getText().toString();
+                total = planThreeDistance.getText().toString();
                 break;
         }
         issueOrderBean.setTotalDistance(total);
         EventBus.getDefault().post(issueOrderBean);
+        finish();
+    }
+
+    @OnClick(R2.id.back_iv)
+    public void onViewBackClicked() {
         finish();
     }
 }

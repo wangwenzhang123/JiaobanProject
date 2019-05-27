@@ -19,6 +19,7 @@
             android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/back_tv"
             android:textColor="@color/FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

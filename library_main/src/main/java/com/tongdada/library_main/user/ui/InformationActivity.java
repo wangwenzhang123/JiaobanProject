@@ -3,6 +3,7 @@ package com.tongdada.library_main.user.ui;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
@@ -14,7 +15,6 @@ import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.http.PATCH;
 
 /**
  * Created by wangshen on 2019/5/20.
@@ -25,6 +25,8 @@ public class InformationActivity extends BaseActivity {
     ImageView registerBack;
     @BindView(R2.id.information_conten)
     FrameLayout messageConten;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
 
     @Override
     public int getView() {
@@ -40,7 +42,7 @@ public class InformationActivity extends BaseActivity {
     public void initView() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.information_conten,new InformationFragment())
+                .add(R.id.information_conten, new InformationFragment())
                 .commit();
     }
 
@@ -63,6 +65,11 @@ public class InformationActivity extends BaseActivity {
 
     @OnClick(R2.id.register_back)
     public void onViewClicked() {
+        finish();
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onViewBackClicked() {
         finish();
     }
 }

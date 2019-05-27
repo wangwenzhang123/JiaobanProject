@@ -97,4 +97,8 @@
     <string name="unit_price">单价</string>
     <string name="loading_evidence">装货完成凭据</string>
     <string name="unloading_evidence">卸货完成凭据</string>
+    <string name="route_selete">订单距离选择</string>
+    <string name="modify_order">修改订单</string>
+    <string name="reject">驳回</string>
+    <string name="unload_accomplish">卸货完成</string>
 </resources>

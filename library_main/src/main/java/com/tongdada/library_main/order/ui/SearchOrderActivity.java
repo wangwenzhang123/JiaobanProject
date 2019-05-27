@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
@@ -38,11 +38,14 @@ public class SearchOrderActivity extends BaseMvpActivity<OrderListPresenter> imp
     FlowLayout historyFll;
     @BindView(R2.id.search_recycle)
     RecyclerView searchRecycle;
+    @BindView(R2.id.back_iv)
+    ImageView backIv;
     private OrderAdapter orderAdapter;
     private List<OrderBean> orderBeanList = new ArrayList<>();
     private String[] mVals = new String[]{"Java", "Android", "iOS", "Python",
             "Mac OS", "PHP", "JavaScript", "Objective-C",
             "Groovy", "Pascal", "Ruby", "Go", "Swift"};
+
     @Override
     public int getView() {
         return R.layout.activity_search_order;
@@ -56,7 +59,7 @@ public class SearchOrderActivity extends BaseMvpActivity<OrderListPresenter> imp
     @Override
     public void initView() {
         searchRecycle.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter=new OrderAdapter(R.layout.item_order,orderBeanList);
+        orderAdapter = new OrderAdapter(R.layout.item_order, orderBeanList);
         searchRecycle.setAdapter(orderAdapter);
         for (int i = 0; i < mVals.length; i++) {
             TextView tv = (TextView) LayoutInflater.from(mContext).inflate(
@@ -107,5 +110,11 @@ public class SearchOrderActivity extends BaseMvpActivity<OrderListPresenter> imp
 
     @OnClick(R2.id.select_search_tv)
     public void onViewClicked() {
+
+    }
+
+    @OnClick(R2.id.back_iv)
+    public void onViewBackClicked() {
+        finish();
     }
 }

@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.example.library_amap.R;
@@ -38,6 +39,13 @@ public class PopwindowUtils {
         orderPop.setOutsideTouchable(true);
         orderPop.setTouchable(true);
         orderPop.setAnimationStyle(R.style.mypopwindow_anim_style);
+        ImageView back=contentView.findViewById(R.id.back_iv);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderPop.dismiss();
+            }
+        });
     }
     public void showOrderPop(View view){
         orderPop.showAtLocation(view, Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);

@@ -11,7 +11,6 @@ import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.OrderSetContract;
 import com.tongdada.library_main.user.presenter.OrderSetPrensenter;
@@ -37,6 +36,8 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
     EditText bengcheEt;
     @BindView(R2.id.sure_change)
     TextView sureChange;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
 
     @Override
     public int getView() {
@@ -82,9 +83,9 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
 
     @OnClick(R2.id.sure_change)
     public void onSureChangeClicked() {
-        if (!TextUtils.isEmpty(tongcheEt.getText().toString().trim()) && !TextUtils.isEmpty(tongcheEt.getText().toString().trim())){
-            presenter.sysSet(tongcheEt.getText().toString().trim(),bengcheEt.getText().toString().trim());
-        }else {
+        if (!TextUtils.isEmpty(tongcheEt.getText().toString().trim()) && !TextUtils.isEmpty(tongcheEt.getText().toString().trim())) {
+            presenter.sysSet(tongcheEt.getText().toString().trim(), bengcheEt.getText().toString().trim());
+        } else {
             showToast("输入不能为空");
         }
 
@@ -92,6 +93,11 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
 
     @Override
     public void sysSetSuccess() {
+        finish();
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onViewClicked() {
         finish();
     }
 }

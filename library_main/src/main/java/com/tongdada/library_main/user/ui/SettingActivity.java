@@ -3,6 +3,7 @@ package com.tongdada.library_main.user.ui;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -27,6 +28,8 @@ public class SettingActivity extends BaseActivity {
     LinearLayout orderSetting;
     @BindView(R2.id.out_login)
     LinearLayout outLogin;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
 
     @Override
     public int getView() {
@@ -73,5 +76,10 @@ public class SettingActivity extends BaseActivity {
     @OnClick(R2.id.out_login)
     public void onOutLoginClicked() {
         ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onViewClicked() {
+        finish();
     }
 }

@@ -7,21 +7,17 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.geocoder.GeocodeAddress;
-import com.amap.api.services.geocoder.GeocodeQuery;
-import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
-import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
-import com.example.library_amap.adapter.SearchMapAdapter;
 import com.example.library_amap.adapter.SelectMapAdapter;
 import com.example.library_amap.model.AdressBean;
 import com.example.library_commen.appkey.ArouterKey;
@@ -37,23 +33,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.http.PATCH;
 
 @Route(path = ArouterKey.MAP_SEARCHADRESSACTIVITY)
-public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnPoiSearchListener {
+public class SearchAdressActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener {
     GeocodeSearch geocoderSearch;
     @BindView(R2.id.search_et)
     EditText searchEt;
     @BindView(R2.id.search_recycler)
     RecyclerView searchRecycler;
+    @BindView(R2.id.back_iv)
+    ImageView backIv;
     private SelectMapAdapter adapter;
     private int mapType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +71,9 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
 
     @Override
     public void initView() {
-        mapType=getIntent().getIntExtra(IntentKey.MAP_TYPE,0);
+        mapType = getIntent().getIntExtra(IntentKey.MAP_TYPE, 0);
         searchRecycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new SelectMapAdapter(R.layout.itme_selectadress,new ArrayList<AdressBean>());
+        adapter = new SelectMapAdapter(R.layout.itme_selectadress, new ArrayList<AdressBean>());
         searchRecycler.setAdapter(adapter);
     }
 
@@ -100,7 +99,7 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<AdressBean> adressBeans = adapter.getData();
                 AdressBean adressBean = adressBeans.get(position);
-                EventAdressBean eventAdressBean=new EventAdressBean();
+                EventAdressBean eventAdressBean = new EventAdressBean();
                 eventAdressBean.setAdressName(adressBean.getPoiItem().getTitle());
                 eventAdressBean.setLatitude(adressBean.getPoiItem().getLatLonPoint().getLatitude());
                 eventAdressBean.setLongitude(adressBean.getPoiItem().getLatLonPoint().getLongitude());
@@ -110,9 +109,10 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
             }
         });
     }
-    private void query(String  adress){
+
+    private void query(String adress) {
         if (TextUtils.isEmpty(adress)) {
-            ToastUtil.show(mContext,"请输入搜索地址");
+            ToastUtil.show(mContext, "请输入搜索地址");
             return;
         }
         PoiSearch.Query query = new PoiSearch.Query(adress, "", "南京市");
@@ -122,20 +122,22 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
         poiSearch.setOnPoiSearchListener(this);
         poiSearch.searchPOIAsyn();
     }
+
     @Override
     public void getData() {
 
     }
+
     @Override
     public void onPoiSearched(final PoiResult poiResult, int i) {
         Observable.create(new ObservableOnSubscribe<List<AdressBean>>() {
             @Override
             public void subscribe(ObservableEmitter<List<AdressBean>> e) throws Exception {
-                List<AdressBean> list=new ArrayList<>();
-                if (poiResult != null && poiResult.getPois() != null){
-                    for (int i =0;i< poiResult.getPois().size();i++){
-                        PoiItem poiItem=poiResult.getPois().get(i);
-                        AdressBean adressBean=new AdressBean();
+                List<AdressBean> list = new ArrayList<>();
+                if (poiResult != null && poiResult.getPois() != null) {
+                    for (int i = 0; i < poiResult.getPois().size(); i++) {
+                        PoiItem poiItem = poiResult.getPois().get(i);
+                        AdressBean adressBean = new AdressBean();
                         adressBean.setPoiItem(poiItem);
                         list.add(adressBean);
                     }
@@ -160,5 +162,10 @@ public class SearchAdressActivity extends BaseActivity implements  PoiSearch.OnP
     @Override
     public void onPoiItemSearched(PoiItem poiItem, int i) {
 
+    }
+
+    @OnClick(R2.id.back_iv)
+    public void onViewClicked() {
+        finish();
     }
 }

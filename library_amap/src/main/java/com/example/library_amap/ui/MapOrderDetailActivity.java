@@ -1,7 +1,9 @@
 package com.example.library_amap.ui;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -17,6 +20,8 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
+import com.example.library_amap.model.CarBean;
+import com.example.library_amap.model.MarkerBean;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.utils.PhoneCallUtils;
@@ -24,9 +29,18 @@ import com.example.util.PopwindowUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by wangshen on 2019/5/19.
@@ -64,8 +78,11 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
     ConstraintLayout issueorderRouteCl;
     @BindView(R2.id.order_detail_tv)
     TextView orderDetailTv;
+    @BindView(R2.id.back_iv)
+    ImageView backIv;
     private AMap aMap;
     private Marker selectMarker;
+    private List<CarBean> list = new ArrayList<>();
 
     @Override
     public int getView() {
@@ -87,33 +104,69 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         aMap.setOnMapTouchListener(this);
         aMap.setInfoWindowAdapter(this);
+        aMap.getUiSettings().setRotateGesturesEnabled(false);//禁止地图旋转手势.
+        aMap.getUiSettings().setTiltGesturesEnabled(false);
         aMap.setOnInfoWindowClickListener(this);
-        PopwindowUtils.getIncetance().initOrderPop(mContext,new OrderBean());
+        PopwindowUtils.getIncetance().initOrderPop(mContext, new OrderBean());
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(32.025216333904694, 118.7622009762265), 15));
+        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                PhoneCallUtils.call(marker.getSnippet(), mContext);
+                return false;
+            }
+        });
     }
 
     @Override
     public void initLinsenterner() {
-        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+        list.add(new CarBean("张三", "145565", 32.08896437173746, 118.81953989846146));
+        list.add(new CarBean("王五", "145564545", 31.985562554090762, 118.82025068383825));
+        list.add(new CarBean("李留", "1811946511", 32.025216333904694, 118.7622009762265));
+        Observable.create(new ObservableOnSubscribe<MarkerBean>() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                if (selectMarker == null) {
-                    selectMarker = aMap.addMarker(new MarkerOptions().position(latLng)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.car_pic))
-                            .anchor(0.5f, 0.5f));
-                    selectMarker.setTitle("王神");
-                    selectMarker.setSnippet("12345678");
-                    selectMarker.showInfoWindow();
-                    Marker marker = aMap.addMarker(new MarkerOptions().position(latLng)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.car_pic))
-                            .anchor(0.5f, 0.5f));
-                    marker.setTitle("王先生");
-                    marker.setSnippet("18119946110");
-                    marker.showInfoWindow();
-                } else {
-                    selectMarker.setPosition(latLng);
+            public void subscribe(ObservableEmitter<MarkerBean> e) throws Exception {
+                for (int i = 0; i < list.size(); i++) {
+                    Bitmap bitmap = getViewBitmap(list.get(i));
+                    MarkerBean markerBean = new MarkerBean(list.get(i).getJing(), list.get(i).getWei(), list.get(i).getPhone(), bitmap);
+                    e.onNext(markerBean);
                 }
             }
-        });
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<MarkerBean>() {
+                    @Override
+                    public void accept(MarkerBean bitmap) throws Exception {
+                        Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(bitmap.getJing(), bitmap.getWei()))
+                                .icon(BitmapDescriptorFactory.fromBitmap(bitmap.getBitmap()))
+                                .anchor(0.5f, 0.5f));
+                        marker.setSnippet(bitmap.getId());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+    }
+
+    private Bitmap getViewBitmap(CarBean carBean) {
+        LayoutInflater factory = LayoutInflater.from(mContext);
+        View view = factory.inflate(R.layout.custom_info_window, null);
+        TextView title = (TextView) view.findViewById(R.id.info_title);
+        title.setText(carBean.getName());
+        TextView conten = view.findViewById(R.id.info_contan);
+        conten.setText(carBean.getPhone());
+        view.setDrawingCacheEnabled(true);
+        //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
+        view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY));
+        //这个方法也非常重要，设置布局的尺寸和位置
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        //获得绘图缓存中的Bitmap
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
     }
 
     @Override
@@ -164,41 +217,29 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
 
     @Override
     public View getInfoWindow(Marker marker) {
-        View infoWindow = getLayoutInflater().inflate(
-                R.layout.custom_info_window, null);
 
-        render(marker, infoWindow);
-        return infoWindow;
+        return null;
     }
 
     @Override
     public View getInfoContents(Marker marker) {
-        View infoWindow = getLayoutInflater().inflate(
-                R.layout.custom_info_window, null);
 
-        render(marker, infoWindow);
-        return infoWindow;
+        return null;
     }
 
-    /**
-     * 自定义infowinfow窗口
-     */
-    public void render(Marker marker, View view) {
-        String title = marker.getTitle();
-        TextView titleUi = ((TextView) view.findViewById(R.id.info_title));
-        titleUi.setText(title);
-        String snippet = marker.getSnippet();
-        TextView snippetUi = ((TextView) view.findViewById(R.id.info_contan));
-        snippetUi.setText(snippet);
-    }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        PhoneCallUtils.call(marker.getSnippet(), mContext);
+
     }
 
     @OnClick(R2.id.order_detail_tv)
     public void onViewClicked() {
         PopwindowUtils.getIncetance().showOrderPop(orderDetailTv);
+    }
+
+    @OnClick(R2.id.back_iv)
+    public void onViewBackClicked() {
+        finish();
     }
 }

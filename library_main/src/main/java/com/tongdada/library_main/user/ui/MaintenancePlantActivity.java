@@ -9,19 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
-import com.example.library_commen.model.MixStationBean;
 import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.MaintencancePlanContract;
 import com.tongdada.library_main.user.presenter.MaintencancePlanPresenter;
@@ -41,7 +40,7 @@ import butterknife.OnClick;
  * @change
  */
 @Route(path = ArouterKey.USER_MAINTENANCEPLANTACTIVITY)
-public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPresenter> implements MaintencancePlanContract.View{
+public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPresenter> implements MaintencancePlanContract.View {
     @BindView(R2.id.register_back)
     ImageView registerBack;
     @BindView(R2.id.et_unit_name)
@@ -72,10 +71,13 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
     ImageView ivBusinessLicense;
     @BindView(R2.id.register_register_bt)
     Button registerRegisterBt;
-    private static final int IVLEGALPOSITIVE_CODE=1;
-    private static final int IVLEGALREVERSE_CODE=2;
-    private static final int IVBUSINESSLICENSE_CODE=3;
+    private static final int IVLEGALPOSITIVE_CODE = 1;
+    private static final int IVLEGALREVERSE_CODE = 2;
+    private static final int IVBUSINESSLICENSE_CODE = 3;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
     private RequestRegisterBean requestRegisterBean;
+
     @Override
     public int getView() {
         return R.layout.activity_mixing_plant;
@@ -98,7 +100,7 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
 
     @Override
     public void getData() {
-        requestRegisterBean=new RequestRegisterBean();
+        requestRegisterBean = new RequestRegisterBean();
         presenter.getMixStationById();
     }
 
@@ -136,33 +138,33 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
 
     @OnClick(R2.id.register_register_bt)
     public void onRegisterRegisterBtClicked() {
-        String unitName=etUnitName.getText().toString().trim();
-        String contact=etContact.getText().toString().trim();
-        String legalPerson=etLegalPerson.getText().toString().trim();
-        String contactPhone=etContactPhone.getText().toString().trim();
-        String address=etAddress.getText().toString().trim();
-        String registeredCapital=etRegisteredCapital.getText().toString().trim();
-        if (TextUtils.isEmpty(unitName)){
+        String unitName = etUnitName.getText().toString().trim();
+        String contact = etContact.getText().toString().trim();
+        String legalPerson = etLegalPerson.getText().toString().trim();
+        String contactPhone = etContactPhone.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
+        String registeredCapital = etRegisteredCapital.getText().toString().trim();
+        if (TextUtils.isEmpty(unitName)) {
             showToast("请输入公司名称！");
             return;
         }
-        if (TextUtils.isEmpty(contact)){
+        if (TextUtils.isEmpty(contact)) {
             showToast("请输入联系人！");
             return;
         }
-        if (TextUtils.isEmpty(legalPerson)){
+        if (TextUtils.isEmpty(legalPerson)) {
             showToast("请输入公司法人！");
             return;
         }
-        if (TextUtils.isEmpty(contactPhone)){
+        if (TextUtils.isEmpty(contactPhone)) {
             showToast("请输入联系人电话！");
             return;
         }
-        if (TextUtils.isEmpty(address)){
+        if (TextUtils.isEmpty(address)) {
             showToast("请输入公司地址！");
             return;
         }
-        if (TextUtils.isEmpty(registeredCapital)){
+        if (TextUtils.isEmpty(registeredCapital)) {
             showToast("请输入公司注册资金！");
             return;
         }
@@ -181,6 +183,7 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
                 .setSingle(true)
                 .start(MaintenancePlantActivity.this, code);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -188,29 +191,30 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
             switch (requestCode) {
                 case IVLEGALPOSITIVE_CODE:
                     List<String> images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
-                    Log.e(TGA,"1="+images.get(0));
+                    Log.e(TGA, "1=" + images.get(0));
                     Glide.with(mContext).load(images.get(0)).into(ivLegalPositive);
-                    presenter.upload(images.get(0),IVLEGALPOSITIVE_CODE);
+                    presenter.upload(images.get(0), IVLEGALPOSITIVE_CODE);
                     break;
                 case IVLEGALREVERSE_CODE:
                     //images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     List<String> images2 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Glide.with(mContext).load(images2.get(0)).into(ivLegalReverse);
-                    Log.e(TGA,"2="+images2.get(0));
-                    presenter.upload(images2.get(0),IVLEGALREVERSE_CODE);
+                    Log.e(TGA, "2=" + images2.get(0));
+                    presenter.upload(images2.get(0), IVLEGALREVERSE_CODE);
                     break;
                 case IVBUSINESSLICENSE_CODE:
                     List<String> images3 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Glide.with(mContext).load(images3.get(0)).into(ivBusinessLicense);
-                    presenter.upload(images3.get(0),IVBUSINESSLICENSE_CODE);
-                    Log.e(TGA,"3="+images3.get(0));
+                    presenter.upload(images3.get(0), IVBUSINESSLICENSE_CODE);
+                    Log.e(TGA, "3=" + images3.get(0));
                     break;
             }
         }
     }
+
     @Override
     public void uploadSuccess(String path, String url, int dex) {
-        switch (dex){
+        switch (dex) {
             case IVLEGALPOSITIVE_CODE:
                 Glide.with(mContext).load(path).into(ivLegalPositive);
                 requestRegisterBean.setBackPic(url);
@@ -234,21 +238,25 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
         etContactPhone.setText(mixStationData.getContactsPhone());
         etLegalPerson.setText(mixStationData.getLegalPersion());
         etRegisteredCapital.setText(mixStationData.getRegisterCapital());
-        requestRegisterBean=mixStationData;
+        requestRegisterBean = mixStationData;
 
-        RequestOptions requestOptions=new RequestOptions()
+        RequestOptions requestOptions = new RequestOptions()
                 .error(R.mipmap.defult)
                 .placeholder(R.mipmap.defult)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
-                ;
-        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+mixStationData.getBackPic()).apply(requestOptions).into(ivLegalReverse);
-        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+mixStationData.getFrontPic()).apply(requestOptions).into(ivLegalPositive);
-        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+mixStationData.getLicensePic()).apply(requestOptions).into(ivBusinessLicense);
+                .diskCacheStrategy(DiskCacheStrategy.DATA);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getBackPic()).apply(requestOptions).into(ivLegalReverse);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getFrontPic()).apply(requestOptions).into(ivLegalPositive);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getLicensePic()).apply(requestOptions).into(ivBusinessLicense);
 
     }
 
     @Override
     public void updataSuccess() {
+        finish();
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onViewClicked() {
         finish();
     }
 }

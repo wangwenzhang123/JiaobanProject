@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -64,6 +65,8 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
     RecyclerView selectRecycler;
     @BindView(R2.id.select_search_tv)
     TextView selectSearchTv;
+    @BindView(R2.id.back_iv)
+    ImageView backIv;
     private AMap aMap;
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
@@ -90,10 +93,12 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
     public BaseDialog getDialog() {
         return null;
     }
+
     int mapType;
+
     @Override
     public void initView() {
-        mapType=getIntent().getIntExtra(IntentKey.MAP_TYPE,0);
+        mapType = getIntent().getIntExtra(IntentKey.MAP_TYPE, 0);
         adapter = new SelectMapAdapter(R.layout.itme_selectadress, new ArrayList<AdressBean>());
         selectRecycler.setLayoutManager(new LinearLayoutManager(this));
         selectRecycler.setAdapter(adapter);
@@ -113,7 +118,7 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventAdressBean eventAdressBean=new EventAdressBean();
+                EventAdressBean eventAdressBean = new EventAdressBean();
                 List<AdressBean> adressBeans = adapter.getData();
                 AdressBean adressBean = adressBeans.get(position);
                 eventAdressBean.setAdressName(adressBean.getPoiItem().getTitle());
@@ -140,10 +145,12 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
             }
         });
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void eventAdress(EventAdressBean eventAdressBean){
+    public void eventAdress(EventAdressBean eventAdressBean) {
         finish();
     }
+
     @Override
     public void getData() {
 
@@ -259,6 +266,11 @@ public class SelectAdressActivity extends BaseActivity implements LocationSource
 
     @OnClick(R2.id.select_search_tv)
     public void onViewClicked() {
-        ARouter.getInstance().build(ArouterKey.MAP_SEARCHADRESSACTIVITY).withInt(IntentKey.MAP_TYPE,mapType).navigation(mContext);
+        ARouter.getInstance().build(ArouterKey.MAP_SEARCHADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, mapType).navigation(mContext);
+    }
+
+    @OnClick(R2.id.back_iv)
+    public void onViewBackClicked() {
+        finish();
     }
 }

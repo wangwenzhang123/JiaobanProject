@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
+        android:id="@+id/back_iv"
         android:scaleType="fitStart"
         android:background="@color/FFFFFF"
         android:src="@drawable/back"
@@ -389,7 +390,7 @@
                     android:background="@drawable/shape_login"
 
                     android:gravity="center"
-                    android:text="@string/release_order"
+                    android:text="@string/modify_order"
                     android:textColor="@color/FFFFFF" />
             </LinearLayout>
         </LinearLayout>

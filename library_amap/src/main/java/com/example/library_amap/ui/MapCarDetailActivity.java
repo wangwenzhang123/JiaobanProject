@@ -3,6 +3,7 @@ package com.example.library_amap.ui;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,9 +17,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
 import com.example.library_commen.appkey.ArouterKey;
-import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.utils.PhoneCallUtils;
-import com.example.util.PopwindowUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 
@@ -37,6 +36,8 @@ public class MapCarDetailActivity extends BaseActivity implements LocationSource
     TextView searchEt;
     @BindView(R2.id.order_detail_map)
     MapView orderDetailMap;
+    @BindView(R2.id.back_iv)
+    ImageView backIv;
     private AMap aMap;
     private Marker selectMarker;
 
@@ -170,4 +171,8 @@ public class MapCarDetailActivity extends BaseActivity implements LocationSource
         PhoneCallUtils.call(marker.getSnippet(), mContext);
     }
 
+    @OnClick(R2.id.back_iv)
+    public void onViewClicked() {
+        finish();
+    }
 }

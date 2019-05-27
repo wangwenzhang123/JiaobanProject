@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
@@ -16,11 +17,9 @@ import com.example.library_commen.model.UserBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.AddUserConstract;
 import com.tongdada.library_main.user.presenter.AddUserPresenter;
-import com.tongdada.library_main.user.respose.RequestBean;
 import com.winfo.photoselector.PhotoSelector;
 
 import java.util.List;
@@ -56,10 +55,13 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
     ImageView ivLegalReverse;
     @BindView(R2.id.register_register_bt)
     Button registerRegisterBt;
-    private static final int IVLEGALPOSITIVE_CODE=1;
-    private static final int IVLEGALREVERSE_CODE=2;
-    private static final int USERICON_CODE=3;
-    private UserBean requestBean=new UserBean();
+    private static final int IVLEGALPOSITIVE_CODE = 1;
+    private static final int IVLEGALREVERSE_CODE = 2;
+    private static final int USERICON_CODE = 3;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
+    private UserBean requestBean = new UserBean();
+
     @Override
     public int getView() {
         return R.layout.activity_adduser;
@@ -130,6 +132,7 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
                 .setSingle(true)
                 .start(AddUserActivity.this, code);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -138,29 +141,30 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
                 case IVLEGALPOSITIVE_CODE:
                     //单选的话 images就只有一条数据直接get(0)即可
                     List<String> images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
-                    Log.e(TGA,"1="+images.get(0));
+                    Log.e(TGA, "1=" + images.get(0));
                     Glide.with(mContext).load(images.get(0)).into(ivLegalPositive);
-                    presenter.upload(images.get(0),IVLEGALPOSITIVE_CODE);
+                    presenter.upload(images.get(0), IVLEGALPOSITIVE_CODE);
                     break;
                 case IVLEGALREVERSE_CODE:
                     //images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     List<String> images2 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Glide.with(mContext).load(images2.get(0)).into(ivLegalReverse);
-                    Log.e(TGA,"2="+images2.get(0));
-                    presenter.upload(images2.get(0),IVLEGALREVERSE_CODE);
+                    Log.e(TGA, "2=" + images2.get(0));
+                    presenter.upload(images2.get(0), IVLEGALREVERSE_CODE);
                     break;
                 case USERICON_CODE:
                     List<String> images3 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Glide.with(mContext).load(images3.get(0)).into(userIco);
-                    presenter.upload(images3.get(0),USERICON_CODE);
-                    Log.e(TGA,"3="+images3.get(0));
+                    presenter.upload(images3.get(0), USERICON_CODE);
+                    Log.e(TGA, "3=" + images3.get(0));
                     break;
             }
         }
     }
+
     @Override
     public void uploadSuccess(String path, String url, int dex) {
-        switch (dex){
+        switch (dex) {
             case IVLEGALPOSITIVE_CODE:
                 Glide.with(mContext).load(path).into(ivLegalPositive);
                 requestBean.setBackPic(url);
@@ -178,6 +182,13 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
 
     @Override
     public void addStationUserSuccess() {
+        finish();
+    }
+
+
+
+    @OnClick(R2.id.back_tv)
+    public void onBackTvClicked() {
         finish();
     }
 }

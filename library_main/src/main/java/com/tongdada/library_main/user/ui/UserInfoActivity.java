@@ -19,7 +19,6 @@ import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.UserInfoContract;
 import com.tongdada.library_main.user.presenter.UserInfoPresenter;
@@ -39,7 +38,7 @@ import butterknife.OnClick;
  * @change
  */
 @Route(path = ArouterKey.USER_USERINFOACTIVITY)
-public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoContract.View{
+public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoContract.View {
     @BindView(R2.id.register_back)
     ImageView registerBack;
     @BindView(R2.id.user_ico)
@@ -54,8 +53,11 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     EditText userAddress;
     @BindView(R2.id.sure_change)
     TextView sureChange;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
     private UserBean userBean;
-    private static final int USERICON_CODE=0;
+    private static final int USERICON_CODE = 0;
+
     @Override
     public int getView() {
         return R.layout.activity_userinfo;
@@ -78,7 +80,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
         userAge.setText("28");
         userAddress.setText(CommenUtils.getIncetance().getUserBean().getUserAddress());
-        userBean=CommenUtils.getIncetance().getUserBean();
+        userBean = CommenUtils.getIncetance().getUserBean();
     }
 
     @Override
@@ -112,6 +114,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     public void onUserIcoClicked() {
         selectPic(USERICON_CODE);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,12 +123,13 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
                 case USERICON_CODE:
                     List<String> images3 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
                     Glide.with(mContext).load(images3.get(0)).into(userIco);
-                    presenter.upload(images3.get(0),USERICON_CODE);
-                    Log.e(TGA,"3="+images3.get(0));
+                    presenter.upload(images3.get(0), USERICON_CODE);
+                    Log.e(TGA, "3=" + images3.get(0));
                     break;
             }
         }
     }
+
     @OnClick(R2.id.sure_change)
     public void onSureChangeClicked() {
         userBean.setUserName(userName.getText().toString());
@@ -147,11 +151,16 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     @Override
     public void uploadSuccess(String path, String url, int dex) {
-        switch (dex){
+        switch (dex) {
             case USERICON_CODE:
                 Glide.with(mContext).load(path).into(userIco);
                 userBean.setIconPic(url);
                 break;
         }
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onViewClicked() {
+        finish();
     }
 }

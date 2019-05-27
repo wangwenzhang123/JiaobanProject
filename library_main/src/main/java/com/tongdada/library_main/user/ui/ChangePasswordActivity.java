@@ -12,7 +12,6 @@ import com.example.library_commen.model.CommenUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.ChangePasswordContract;
 import com.tongdada.library_main.user.presenter.ChangePasswordPresenter;
@@ -42,6 +41,8 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
     EditText userSureNewpassword;
     @BindView(R2.id.sure_tv)
     TextView sureTv;
+    @BindView(R2.id.back_tv)
+    TextView backTv;
 
     @Override
     public int getView() {
@@ -83,14 +84,14 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
 
     @OnClick(R2.id.register_back)
     public void onRegisterBackClicked() {
-
+        finish();
     }
 
     @OnClick(R2.id.sure_tv)
     public void onSureTvClicked() {
-        if (userNewpassword.getText().toString().trim().equals(userSureNewpassword.getText().toString().trim()) && !TextUtils.isEmpty(userNewpassword.getText().toString().trim())){
+        if (userNewpassword.getText().toString().trim().equals(userSureNewpassword.getText().toString().trim()) && !TextUtils.isEmpty(userNewpassword.getText().toString().trim())) {
             presenter.editPassword(userNewpassword.getText().toString().trim());
-        }else {
+        } else {
             showToast("两次输入的新密码不一致");
         }
 
@@ -98,6 +99,11 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
 
     @Override
     public void editPasswordSueecss() {
+        finish();
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onViewClicked() {
         finish();
     }
 }

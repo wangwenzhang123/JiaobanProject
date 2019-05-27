@@ -3,18 +3,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.amap.api.maps.MapView
+
         android:id="@+id/route_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </com.amap.api.maps.MapView>
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:background="@color/FFFFFF"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+
+            android:text="@string/route_selete"
+            android:id="@+id/route_selete"
+            android:textSize="@dimen/sp_14"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/issueorder_route_cl"
         android:background="@drawable/shape_wihte_8"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
-        android:layout_marginTop="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_60"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="@dimen/dp_344"
         android:layout_height="@dimen/dp_104">
