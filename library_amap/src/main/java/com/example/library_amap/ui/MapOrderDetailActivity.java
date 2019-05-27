@@ -88,7 +88,6 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
     ImageView backIv;
     BottomSheetBehavior bottomSheetBehavior;
     private AMap aMap;
-    private Marker selectMarker;
     private List<CarBean> list = new ArrayList<>();
 
     @Override
