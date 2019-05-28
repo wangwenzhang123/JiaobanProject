@@ -65,7 +65,7 @@ public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshC
         llTitleContent.setVisibility(View.GONE);
         setRecyclerAdapter(rvContent);
         getBackView().setVisibility(View.GONE);
-        srlLayout.autoRefresh();
+        presenter.init();
     }
 
     @Override
@@ -111,6 +111,11 @@ public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshC
         return srlLayout;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     public void setEnableLoadMore(boolean enabled) {

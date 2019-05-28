@@ -69,7 +69,7 @@ public class TransportCarActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        pager.setOffscreenPageLimit(5);
     }
 
     @Override
@@ -87,11 +87,11 @@ public class TransportCarActivity extends BaseActivity {
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
-                fragments.add(new TransportCarFragment());
-                fragments.add(new TransportCarFragment());
-                fragments.add(new TransportCarFragment());
-                fragments.add(new TransportCarFragment());
-                fragments.add(new TransportCarFragment());
+                fragments.add(new TransportCarFragment("A"));
+                fragments.add(new TransportCarFragment("Z"));
+                fragments.add(new TransportCarFragment("X"));
+                fragments.add(new TransportCarFragment("S"));
+                fragments.add(new TransportCarFragment("E"));
                 e.onNext(fragments);
             }
         }).subscribeOn(Schedulers.io())

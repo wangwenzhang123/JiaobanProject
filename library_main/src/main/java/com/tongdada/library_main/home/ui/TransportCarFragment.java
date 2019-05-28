@@ -1,6 +1,8 @@
 package com.tongdada.library_main.home.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,8 @@ import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
+import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
+import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshFragment;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.home.adapter.TransportCarrAdapter;
 import com.tongdada.library_main.home.presenter.TransportCarContract;
@@ -33,16 +37,12 @@ import butterknife.Unbinder;
  * @time 2019/5/20 11:32
  * @change
  */
-public class TransportCarFragment extends BaseMvpFragment<TransportCarPresenter> implements TransportCarContract.View {
+@SuppressLint("ValidFragment")
+public class TransportCarFragment extends BaseRecyclerRefreshFragment<TransportCarContract.View,TransportCarPresenter> implements TransportCarContract.View {
+    private String type;
 
-    @BindView(R2.id.transport_recycle)
-    RecyclerView transportRecycle;
-    Unbinder unbinder;
-    private TransportCarrAdapter adapter;
-    private List<TransportCarBean> transportCarBeanList=new ArrayList<>();
-    @Override
-    public int getViewId() {
-        return R.layout.fragment_transport;
+    public TransportCarFragment(String type) {
+        this.type = type;
     }
 
     @Override
@@ -52,14 +52,18 @@ public class TransportCarFragment extends BaseMvpFragment<TransportCarPresenter>
 
     @Override
     public void initView() {
-        transportRecycle.setLayoutManager(new LinearLayoutManager(mContext));
-        adapter=new TransportCarrAdapter(R.layout.item_transport_car,transportCarBeanList);
-        transportRecycle.setAdapter(adapter);
+        presenter.setType(type);
     }
 
     @Override
     public void initLinsenterner() {
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getRecyclerAdapter().setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 routerIntent(ArouterKey.MAP_MAPCARDETAILACTIVITY,null);
@@ -69,12 +73,7 @@ public class TransportCarFragment extends BaseMvpFragment<TransportCarPresenter>
 
     @Override
     public void getData() {
-        transportCarBeanList.add(new TransportCarBean());
-        transportCarBeanList.add(new TransportCarBean());
-        transportCarBeanList.add(new TransportCarBean());
-        transportCarBeanList.add(new TransportCarBean());
-        transportCarBeanList.add(new TransportCarBean());
-        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -89,16 +88,12 @@ public class TransportCarFragment extends BaseMvpFragment<TransportCarPresenter>
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    public BaseAdapter createRecyclerAdapter() {
+        return new TransportCarrAdapter(R.layout.item_transport_car,new ArrayList<TransportCarBean>());
     }
 }

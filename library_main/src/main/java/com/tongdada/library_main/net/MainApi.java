@@ -5,6 +5,7 @@ import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_commen.model.UploadBean;
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
+import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.home.respose.BannerBean;
 import com.tongdada.library_main.order.respose.OrderListBean;
 import com.tongdada.library_main.user.respose.MessageBean;
@@ -163,4 +164,12 @@ public interface MainApi {
      */
     @POST("/interface/uploadAttach.action")
     Observable<BaseAppEntity<UploadBean>> upload(@Body RequestBody requestBody);
+    /**
+     * 系统设置
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/detailOrderList.action")
+    Observable<PagenationBase<CarOrderBean>> detailOrderList(@Field("psMixingStations.id") String id, @Field("psDetailOrders.orderStatus") String tongPrice);
+
 }
