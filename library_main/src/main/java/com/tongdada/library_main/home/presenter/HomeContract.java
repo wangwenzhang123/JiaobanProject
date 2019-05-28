@@ -18,5 +18,6 @@ public class HomeContract {
     }
     public interface Presenter{
         void shuffling();
+        void getMixStationById();
     }
 }

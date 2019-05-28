@@ -87,6 +87,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     @Override
     public void initView() {
         presenter.shuffling();
+        presenter.getMixStationById();
     }
 
     @Override

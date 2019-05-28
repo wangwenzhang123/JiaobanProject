@@ -29,19 +29,20 @@ public class MaintencancePlanPresenter extends BasePresenter<MaintencancePlanCon
     @Override
     public void register(RequestRegisterBean requestRegisterBean) {
         MainApiUtils.getMainApi().updateMixStation(requestRegisterBean)
-                .compose(this.<BaseAppEntity<UserBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
+                .compose(this.<BaseAppEntity<RequestRegisterBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<RequestRegisterBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<UserBean> userBeanBaseAppEntity) throws Exception {
+                    public void accept(BaseAppEntity<RequestRegisterBean> userBeanBaseAppEntity) throws Exception {
                         if (userBeanBaseAppEntity != null && userBeanBaseAppEntity.getContent() != null){
                             getView().showToast("修改成功！");
+                            CommenUtils.getIncetance().setRequestRegisterBean(userBeanBaseAppEntity.getContent());
                             getView().updataSuccess();
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        getView().showToast(throwable.getMessage());
                     }
                 });
     }
@@ -81,7 +82,7 @@ public class MaintencancePlanPresenter extends BasePresenter<MaintencancePlanCon
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        getView().showToast(throwable.getMessage());
                     }
                 });
     }
@@ -94,13 +95,14 @@ public class MaintencancePlanPresenter extends BasePresenter<MaintencancePlanCon
                     @Override
                     public void accept(BaseAppEntity<RequestRegisterBean> objectBaseAppEntity) throws Exception {
                         if (objectBaseAppEntity != null && objectBaseAppEntity.getContent() != null){
+                            CommenUtils.getIncetance().setRequestRegisterBean(objectBaseAppEntity.getContent());
                             getView().setMixStationData(objectBaseAppEntity.getContent());
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        getView().showToast(throwable.getMessage());
                     }
                 });
     }

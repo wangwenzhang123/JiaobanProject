@@ -154,7 +154,7 @@ public interface MainApi {
      * @return
      */
     @POST("/interface/updateMixStation.action")
-    Observable<BaseAppEntity<UserBean>> updateMixStation(@Body RequestRegisterBean params);
+    Observable<BaseAppEntity<RequestRegisterBean>> updateMixStation(@Body RequestRegisterBean params);
 
     /**
      * 上传图片
