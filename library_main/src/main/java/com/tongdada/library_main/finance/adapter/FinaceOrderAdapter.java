@@ -8,6 +8,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
 import com.tongdada.library_main.finance.net.respose.FinaceBean;
+import com.tongdada.library_main.home.net.CarOrderBean;
+import com.tongdada.library_main.home.respose.TransportCarBean;
 
 import java.util.List;
 
@@ -15,13 +17,17 @@ import java.util.List;
  * Created by wangshen on 2019/5/21.
  */
 
-public class FinaceOrderAdapter  extends BaseQuickAdapter<FinaceBean,BaseViewHolder>{
-    public FinaceOrderAdapter(int layoutResId, @Nullable List<FinaceBean> data) {
+public class FinaceOrderAdapter  extends BaseQuickAdapter<TransportCarBean,BaseViewHolder>{
+    public FinaceOrderAdapter(int layoutResId, @Nullable List<TransportCarBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final FinaceBean item) {
+    protected void convert(BaseViewHolder helper, final TransportCarBean item) {
+        helper.setText(R.id.transport_carnumber,item.getCarNo());
+        helper.setText(R.id.driver_name,item.getDriverName());
+        helper.setText(R.id.order_accept_time,item.getAcceptTime());
+        helper.setText(R.id.distance_text,item.getTotalDistance()+"km");
         CheckBox checkBox=helper.getView(R.id.btn_select);
         helper.addOnClickListener(R.id.btn_select);
         if (item.isCheck()){

@@ -97,6 +97,13 @@ public interface MainApi {
     @FormUrlEncoded
     @POST("/interface/userList.action")
     Observable<UserListBean> userList(@Field("psAppUsers.stationId") String id);
+    /**
+     * 删除人员
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/interface/deleteUser.action")
+    Observable<UserListBean> deleteUser(@Field("psAppUsers.id") String id);
 
     /**
      * 修改人员信息

@@ -34,4 +34,22 @@ public class UserManagerPresenter extends BasePresenter<UserManagerContract.View
                     }
                 });
     }
+
+    @Override
+    public void deleteUser(String id) {
+        MainApiUtils.getMainApi().deleteUser(id)
+                .compose(this.<UserListBean>handleEverythingResult())
+                .subscribe(new Consumer<UserListBean>() {
+                    @Override
+                    public void accept(UserListBean userListBean) throws Exception {
+                        getUserList();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        getView().showToast(throwable.getMessage());
+                    }
+                });
+    }
+
 }

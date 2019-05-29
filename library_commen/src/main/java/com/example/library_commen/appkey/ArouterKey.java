@@ -26,6 +26,7 @@ public class ArouterKey {
     public static final String MAP_ROUTEACTIVITY="/map/RouteActivity";
     public static final String FINANCE_FINACEORDERACTIVITY="/finance/FinaceOrderActivity";
     public static final String USER_ADDUSERACTIVITY="/user/AddUserActivity";
+    public static final String USER_ADDUSERDETAILACTIVITY="/user/AddUserDetailActivity";
     public static final String ORDER_SEARCHORDERACTIVITY="/order/SearchOrderActivity";
     public static final String WEB_WEBACITIVITY="/web/WebAcitivity";
     public static final String USER_SETORDER="/user/OrderSettingActivity";

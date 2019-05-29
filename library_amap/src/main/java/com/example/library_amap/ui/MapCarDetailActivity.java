@@ -16,10 +16,15 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
+import com.example.library_amap.presenter.MapCarDetailContract;
+import com.example.library_amap.presenter.MapCarDetailPresenter;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.utils.PhoneCallUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
+import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
+import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +34,7 @@ import butterknife.OnClick;
  * Created by wangshen on 2019/5/19.
  */
 @Route(path = ArouterKey.MAP_MAPCARDETAILACTIVITY)
-public class MapCarDetailActivity extends BaseActivity implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener {
+public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter> implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener ,MapCarDetailContract.View{
 
 
     @BindView(R2.id.search_et)
@@ -62,7 +67,8 @@ public class MapCarDetailActivity extends BaseActivity implements LocationSource
         aMap.setOnMapTouchListener(this);
         aMap.setInfoWindowAdapter(this);
         aMap.setOnInfoWindowClickListener(this);
-
+        String id=getIntent().getStringExtra(IntentKey.MAP_ORDERID);
+        presenter.getDetailOrderById(id);
     }
 
     @Override
@@ -88,6 +94,11 @@ public class MapCarDetailActivity extends BaseActivity implements LocationSource
                 }
             }
         });
+    }
+
+    @Override
+    public MapCarDetailPresenter getPresenter() {
+        return new MapCarDetailPresenter();
     }
 
     @Override

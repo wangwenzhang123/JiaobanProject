@@ -16,6 +16,7 @@ import com.tongdada.library_main.finance.adapter.FinaceCompleteAdapter;
 import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.finance.presenter.FinanceContract;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
+import com.tongdada.library_main.home.respose.TransportCarBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class FinanceCompleteFragment extends BaseMvpFragment<FinancePresenter> i
     RecyclerView financeCompleteRecycle;
     Unbinder unbinder;
     private FinaceCompleteAdapter adapter;
-    private List<FinaceBean> list=new ArrayList<>();
+    private List<TransportCarBean> list=new ArrayList<>();
     @Override
     public int getViewId() {
         return R.layout.fragment_finance_complete;
@@ -46,13 +47,11 @@ public class FinanceCompleteFragment extends BaseMvpFragment<FinancePresenter> i
 
     @Override
     public void initView() {
-        list.clear();
-        list.add(new FinaceBean());
-        list.add(new FinaceBean());
-        list.add(new FinaceBean());
+        presenter.setType("S");
         financeCompleteRecycle.setLayoutManager(new LinearLayoutManager(mContext));
         adapter=new FinaceCompleteAdapter(R.layout.item_finace_complete,list);
         financeCompleteRecycle.setAdapter(adapter);
+        presenter.detailOrderList();
     }
 
     @Override
@@ -82,5 +81,10 @@ public class FinanceCompleteFragment extends BaseMvpFragment<FinancePresenter> i
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void setOrderList(List<TransportCarBean> list) {
+        adapter.setNewData(list);
     }
 }

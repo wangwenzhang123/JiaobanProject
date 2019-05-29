@@ -20,6 +20,7 @@ import com.tongdada.base.util.SharedPreferencesUtil;
  * @change
  */
 public class AppContext extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,5 +41,6 @@ public class AppContext extends Application {
         KRetrofitFactory.init(config);
         CrashHandler.getInstance().init(this);
         SharedPreferencesUtil.init(this, Context.MODE_PRIVATE);
+        AppContextWrapper.getInstance().init(this);
     }
 }

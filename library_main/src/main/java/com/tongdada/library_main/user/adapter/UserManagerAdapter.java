@@ -13,6 +13,8 @@ import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.library_main.user.respose.UserListBean;
 import com.tongdada.library_main.user.respose.UserManagerBean;
+import com.tongdada.library_main.widget.MessageSlidingMenu;
+import com.tongdada.library_main.widget.UserSlidingMenu;
 
 import java.util.List;
 
@@ -39,5 +41,18 @@ public class UserManagerAdapter extends BaseQuickAdapter<UserListBean.Pagenation
         Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getIconPic()).apply(requestOptions).into(imageView);
         helper.setText(R.id.user_name,item.getUserName());
         helper.setText(R.id.user_position, item.getStationRemarks());
+        helper.addOnClickListener(R.id.cl_conten);
+        helper.addOnClickListener(R.id.item_slide);
+    }
+    private UserSlidingMenu mOpenMenu;
+
+    public void holdOpenMenu(UserSlidingMenu slidingMenu) {
+        mOpenMenu = slidingMenu;
+    }
+
+    public void closeOpenMenu() {
+        if (mOpenMenu != null && mOpenMenu.isOpen()) {
+            mOpenMenu.closeMenu();
+        }
     }
 }

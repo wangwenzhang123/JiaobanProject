@@ -3,10 +3,13 @@ package com.tongdada.library_main.user.ui;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.event.EventAddBean;
 import com.example.library_main.R;
@@ -69,7 +72,17 @@ public class UserManagerActivity extends BaseMvpActivity<UserManagerPresenter> i
 
     @Override
     public void initLinsenterner() {
-
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
+                int id=view.getId();
+                if (id == R.id.cl_conten) {
+                    ARouter.getInstance().build(ArouterKey.USER_ADDUSERDETAILACTIVITY).navigation(mContext);
+                } else if (id == R.id.item_slide) {
+                    presenter.deleteUser(adapter.getData().get(position).getId());
+                }
+            }
+        });
     }
 
     @Override

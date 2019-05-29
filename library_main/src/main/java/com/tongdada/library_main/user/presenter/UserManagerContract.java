@@ -15,5 +15,6 @@ public class UserManagerContract {
     }
     public interface Presenter{
         void getUserList();
+        void deleteUser(String id);
     }
 }

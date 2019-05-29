@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.tongdada.base.dialog.LoadingDialog;
+import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
 import com.tongdada.base.util.ToastUtils;
@@ -37,6 +39,11 @@ public abstract class BaseMvpActivity <P extends BasePresenter> extends BaseActi
             }
         });
 
+    }
+
+    @Override
+    public BaseDialog getDialog() {
+        return new LoadingDialog(this);
     }
 
     @Override

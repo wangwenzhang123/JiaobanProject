@@ -51,4 +51,21 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
                     }
                 });
     }
+
+    @Override
+    public void deleteMessage(String id) {
+        MainApiUtils.getMainApi().deleteMessage(id)
+                .compose(this.<BaseAppEntity<Object>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<Object>>() {
+                    @Override
+                    public void accept(BaseAppEntity<Object> objectBaseAppEntity) throws Exception {
+                        getMessageList();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+    }
 }

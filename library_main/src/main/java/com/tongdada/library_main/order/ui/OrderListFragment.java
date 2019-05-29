@@ -39,7 +39,7 @@ import butterknife.Unbinder;
  * @change
  */
 @SuppressLint("ValidFragment")
-public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListContract.View,OrderListPresenter> implements OrderListContract.View {
+public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListContract.View,OrderListPresenter,OrderBean> implements OrderListContract.View {
     private String type;
     private List<OrderBean> orderBeanList=new ArrayList<>();
     @SuppressLint("ValidFragment")

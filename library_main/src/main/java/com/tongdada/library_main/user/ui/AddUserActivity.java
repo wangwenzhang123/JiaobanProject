@@ -68,26 +68,6 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
     }
 
     @Override
-    public BaseDialog getDialog() {
-        return null;
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
     public AddUserPresenter getPresenter() {
         return new AddUserPresenter();
     }

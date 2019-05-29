@@ -31,7 +31,7 @@ import butterknife.BindView;
  * time： 2018/8/30 17:38
  * <p>
  */
-public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshContact.View, P extends BaseRecyclerRefreshPresenter> extends BaseMvpFragment<P> implements BaseRecyclerRefreshContact.View, OnRefreshListener, OnLoadMoreListener {
+public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshContact.View, P extends BaseRecyclerRefreshPresenter,Modle> extends BaseMvpFragment<P> implements BaseRecyclerRefreshContact.View, OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R2.id.tbl_title)
     TextView tblTitle;
@@ -79,7 +79,7 @@ public abstract class BaseRecyclerRefreshFragment<V extends BaseRecyclerRefreshC
     }
 
     @Override
-    public BaseAdapter getRecyclerAdapter() {
+    public BaseAdapter<Modle> getRecyclerAdapter() {
         return adapter;
     }
 

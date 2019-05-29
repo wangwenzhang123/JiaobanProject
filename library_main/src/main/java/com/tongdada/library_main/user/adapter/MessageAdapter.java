@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
 import com.tongdada.library_main.user.respose.InformationBean;
 import com.tongdada.library_main.user.respose.MessageBean;
+import com.tongdada.library_main.widget.MessageSlidingMenu;
 import com.tongdada.library_main.widget.slideswaphelper.SlideSwapAction;
 
 import java.util.List;
@@ -25,15 +26,17 @@ import java.util.List;
  * @time 2019/5/20 17:56
  * @change
  */
-public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.ListBean,MessageAdapter.RecViewholder> {
+public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.ListBean,BaseViewHolder> {
     public MessageAdapter(int layoutResId, @Nullable List<MessageBean.PagenationBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(MessageAdapter.RecViewholder helper, MessageBean.PagenationBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, MessageBean.PagenationBean.ListBean item) {
         helper.setText(R.id.message_title,item.getMessageContent());
         helper.setText(R.id.message_time,item.getSendTime());
+        helper.addOnClickListener(R.id.ll_conten);
+        helper.addOnClickListener(R.id.item_slide);
         switch (item.getReadStatus()){
             case "N":
                 helper.setText(R.id.message_state,"未读") ;
@@ -47,31 +50,17 @@ public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.
         }
 
     }
-    /**
-     * view.getWidth()获取的是屏幕中可以看到的大小.
-     */
-    public class RecViewholder extends BaseViewHolder implements SlideSwapAction {
-        public LinearLayout textView;
-        public ImageView slide;
+    private MessageSlidingMenu mOpenMenu;
 
-        public RecViewholder(View itemView) {
-            super(itemView);
-            slide = itemView.findViewById(R.id.item_slide);
-            textView=itemView.findViewById(R.id.ll_conten);
-        }
-
-        @Override
-        public float getActionWidth() {
-            return dip2px(slide.getContext(), 100);
-        }
-
-        @Override
-        public View ItemView() {
-            return textView;
-        }
-
+    public void holdOpenMenu(MessageSlidingMenu slidingMenu) {
+        mOpenMenu = slidingMenu;
     }
 
+    public void closeOpenMenu() {
+        if (mOpenMenu != null && mOpenMenu.isOpen()) {
+            mOpenMenu.closeMenu();
+        }
+    }
     /**
      * 根据手机分辨率从DP转成PX
      *

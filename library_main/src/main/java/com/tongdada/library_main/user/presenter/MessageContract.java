@@ -16,5 +16,6 @@ public class MessageContract {
     public interface Presenter{
         void getMessageList();
         void readMessage(String  id);
+        void deleteMessage(String id);
     }
 }

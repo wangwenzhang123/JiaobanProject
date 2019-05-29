@@ -51,7 +51,15 @@ public class TransportCarBean {
     private String totalDistance;
     private Object updateTime;
     private String updateUserID;
+    private boolean isCheck;
 
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
     public String getAcceptTime() {
         return acceptTime;
     }

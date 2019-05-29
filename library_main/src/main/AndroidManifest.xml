@@ -44,6 +44,9 @@
         <activity android:name="com.tongdada.library_main.user.ui.AboutActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.user.ui.AddUserDetailActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -79,21 +79,6 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
         list.add("未核算");
         list.add("已核算");
         pager.setOffscreenPageLimit(2);
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
@@ -138,6 +123,22 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
                         ToastUtils.showToast(mContext,throwable.getMessage());
                     }
                 });
+
+    }
+
+    @Override
+    public void initLinsenterner() {
+
+    }
+
+    @Override
+    public void getData() {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 

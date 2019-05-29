@@ -53,17 +53,26 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         messageRecycle.setLayoutManager(new LinearLayoutManager(mContext));
         adapter=new MessageAdapter(R.layout.item_message,messageBeans);
         messageRecycle.setAdapter(adapter);
-        PlusItemSlideCallback callback = new PlusItemSlideCallback();
-        WItemTouchHelperPlus extension = new WItemTouchHelperPlus(callback);
-        extension.attachToRecyclerView(messageRecycle);
     }
 
     @Override
     public void initLinsenterner() {
+/*
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 presenter.readMessage(adapter.getData().get(position).getId());
+            }
+        });
+*/
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
+                if (view.getId() == R.id.ll_conten){
+                    presenter.readMessage(adapter.getData().get(position).getId());
+                }else if (view.getId() == R.id.item_slide){
+                    presenter.deleteMessage(adapter.getData().get(position).getId());
+                }
             }
         });
     }
