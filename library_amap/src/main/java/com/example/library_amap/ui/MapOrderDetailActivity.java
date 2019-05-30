@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,11 +25,15 @@ import com.example.library_amap.R2;
 import com.example.library_amap.model.CarBean;
 import com.example.library_amap.model.MarkerBean;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.OrderBean;
+import com.example.library_commen.presenter.OrderDetailContract;
+import com.example.library_commen.presenter.OrderPresenter;
 import com.example.library_commen.utils.PhoneCallUtils;
 import com.example.util.PopwindowUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
+import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +55,7 @@ import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
  * Created by wangshen on 2019/5/19.
  */
 @Route(path = ArouterKey.MAP_MAPORDERDETAILACTIVITY)
-public class MapOrderDetailActivity extends BaseActivity implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener {
+public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> implements OrderDetailContract.View, LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener {
 
     @BindView(R2.id.search_et)
     TextView searchEt;
@@ -87,6 +90,26 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
     @BindView(R2.id.back_iv)
     ImageView backIv;
     BottomSheetBehavior bottomSheetBehavior;
+    @BindView(R2.id.order_totalDistance)
+    TextView orderTotalDistance;
+    @BindView(R2.id.orderName)
+    TextView orderName;
+    @BindView(R2.id.order_publish)
+    TextView orderPublish;
+    @BindView(R2.id.order_publishTime)
+    TextView orderPublishTime;
+    @BindView(R2.id.orderAmount)
+    TextView orderAmount;
+    @BindView(R2.id.car_type1)
+    TextView carType1;
+    @BindView(R2.id.car_type2)
+    TextView carType2;
+    @BindView(R2.id.orderremark)
+    TextView orderremark;
+    @BindView(R2.id.order_startPlace)
+    TextView orderStartPlace;
+    @BindView(R2.id.order_destinationPlace)
+    TextView orderDestinationPlace;
     private AMap aMap;
     private List<CarBean> list = new ArrayList<>();
 
@@ -102,6 +125,12 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
 
     @Override
     public void initView() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String id = bundle.getString(IntentKey.ORDER_ID);
+            presenter.getOrderById(id);
+        }
+
         if (aMap == null) {
             aMap = orderDetailMap.getMap();
         }
@@ -174,6 +203,11 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
                 //状态变化
             }
         });
+    }
+
+    @Override
+    public OrderPresenter getPresenter() {
+        return new OrderPresenter();
     }
 
     private Bitmap getViewBitmap(CarBean carBean) {
@@ -271,5 +305,23 @@ public class MapOrderDetailActivity extends BaseActivity implements LocationSour
     @OnClick(R2.id.back_iv)
     public void onViewBackClicked() {
         finish();
+    }
+
+    @Override
+    public void setOrderDetail(OrderBean orderDetail) {
+        orderStartPlace.setText(orderDetail.getStartPlace());
+        orderDestinationPlace.setText(orderDetail.getDestinationPlace());
+        orderTotalDistance.setText(orderDetail.getTotalDistance());
+        orderAmount.setText(orderDetail.getOrderAmount()+"方");
+        orderName.setText(orderDetail.getOrderName());
+        orderPublishTime.setText(orderDetail.getPublishTime());
+        orderPublish.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
+        carType2.setText(orderDetail.getCarType());
+        if (orderDetail.getCarType().equals("B")){
+            carType1.setText("泵车");
+        }else {
+            carType1.setText("砼车");
+        }
+        orderremark.setText(orderDetail.getOrderRemark());
     }
 }

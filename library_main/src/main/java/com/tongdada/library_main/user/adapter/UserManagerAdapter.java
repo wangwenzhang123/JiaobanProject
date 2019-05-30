@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.IExpandable;
+import com.example.library_commen.model.UserBean;
 import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.library_main.user.respose.UserListBean;
@@ -25,13 +26,13 @@ import java.util.List;
  * @time 2019/5/20 17:56
  * @change
  */
-public class UserManagerAdapter extends BaseQuickAdapter<UserListBean.PagenationBean.ListBean,BaseViewHolder> {
-    public UserManagerAdapter(int layoutResId, @Nullable List<UserListBean.PagenationBean.ListBean> data) {
+public class UserManagerAdapter extends BaseQuickAdapter<UserBean,BaseViewHolder> {
+    public UserManagerAdapter(int layoutResId, @Nullable List<UserBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, UserListBean.PagenationBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, UserBean item) {
         ImageView imageView=helper.getView(R.id.user_pic);
         RequestOptions requestOptions=new RequestOptions()
                 .error(R.mipmap.user_sample)
@@ -41,6 +42,7 @@ public class UserManagerAdapter extends BaseQuickAdapter<UserListBean.Pagenation
         Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getIconPic()).apply(requestOptions).into(imageView);
         helper.setText(R.id.user_name,item.getUserName());
         helper.setText(R.id.user_position, item.getStationRemarks());
+        helper.setText(R.id.user_position,item.getUserDuty());
         helper.addOnClickListener(R.id.cl_conten);
         helper.addOnClickListener(R.id.item_slide);
     }

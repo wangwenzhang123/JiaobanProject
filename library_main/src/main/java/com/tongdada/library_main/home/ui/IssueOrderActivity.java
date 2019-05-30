@@ -1,8 +1,11 @@
 package com.tongdada.library_main.home.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventAdressBean;
@@ -26,12 +30,16 @@ import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.home.presenter.IssueOrderContract;
 import com.tongdada.library_main.home.presenter.IssueOrderPresenter;
+import com.tongdada.library_main.user.ui.AddUserActivity;
 import com.tongdada.library_main.widget.datepicker.CustomDatePicker;
 import com.tongdada.library_main.widget.datepicker.DateFormatUtils;
+import com.winfo.photoselector.PhotoSelector;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,30 +135,15 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @BindView(R2.id.order_pic)
     ImageView orderPic;
     private IssueOrderBean issueOrderBean = new IssueOrderBean();
-
+    private static final int ORDER_PIC=0;
     @Override
     public int getView() {
         return R.layout.activity_issueorder;
     }
 
     @Override
-    public BaseDialog getDialog() {
-        return null;
-    }
-
-    @Override
     public void initView() {
-
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
+        orderPrice.setText(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice());
     }
 
     @Override
@@ -218,6 +211,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         issueOrderBean.setDstLongitude(String.valueOf(adressBean.getDstLongitude()));
         issueorderEndTv.setText(adressBean.getDestinationPlace());
         selectRoute.setText(adressBean.getTotalDistance());
+        issueOrderBean.setTotalDistance(adressBean.getTotalDistance());
     }
 
     @OnClick(R2.id.issueorder_end_tv)
@@ -259,6 +253,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @OnClick(R2.id.rb_tong)
     public void onRbTongClicked() {
         rgType.setVisibility(View.VISIBLE);
+        orderPrice.setText(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice());
         int id = rgType.getCheckedRadioButtonId();
         if (id == R.id.rg_16) {
             issueOrderBean.setCarType("T16");
@@ -272,6 +267,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @OnClick(R2.id.rb_beng)
     public void onRbBengClicked() {
         rgType.setVisibility(View.INVISIBLE);
+        orderPrice.setText(CommenUtils.getIncetance().getRequestRegisterBean().getBengPrice());
         issueOrderBean.setCarType("B");
     }
 
@@ -312,6 +308,8 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         issueOrderBean.setOrderAmount(orderAmount.getText().toString().trim());
         issueOrderBean.setPerPrice(orderPrice.getText().toString());
         issueOrderBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
+        issueOrderBean.setPublishTime(issueOrdertimeEt.getText().toString().trim());
+        issueOrderBean.setOrderRemark(etNote.getText().toString().trim());
         presenter.publishOrder(issueOrderBean);
     }
 
@@ -325,7 +323,35 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         finish();
     }
 
+    @Override
+    public void selectPic(int code) {
+        PhotoSelector.builder()
+                .setSingle(true)
+                .start(IssueOrderActivity.this, code);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case ORDER_PIC:
+                    //单选的话 images就只有一条数据直接get(0)即可
+                    List<String> images = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    Log.e(TGA, "1=" + images.get(0));
+                    Glide.with(mContext).load(images.get(0)).into(orderPic);
+                    presenter.upload(images.get(0));
+                    break;
+            }
+        }
+    }
+    @Override
+    public void uploadSuccess(String path, String url) {
+        Glide.with(mContext).load(path).into(orderPic);
+        issueOrderBean.setOrderPic(url);
+    }
+
     @OnClick(R2.id.order_pic)
     public void onViewPicClicked() {
+        selectPic(ORDER_PIC);
     }
 }

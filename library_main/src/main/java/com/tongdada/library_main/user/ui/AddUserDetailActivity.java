@@ -6,10 +6,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.model.UserBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
+import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.AddUserPresenter;
@@ -46,7 +51,7 @@ public class AddUserDetailActivity extends BaseMvpActivity<AddUserPresenter> {
     LinearLayout llLegalReverse;
     @BindView(R2.id.iv_legal_reverse)
     ImageView ivLegalReverse;
-    private UserBean requestBean = new UserBean();
+    private UserBean userBean = new UserBean();
 
     @Override
     public int getView() {
@@ -60,7 +65,18 @@ public class AddUserDetailActivity extends BaseMvpActivity<AddUserPresenter> {
 
     @Override
     public void initView() {
-
+        userBean= (UserBean) getIntent().getSerializableExtra(IntentKey.USER_DETAIL);
+        userName.setText(userBean.getUserName());
+        userPhone.setText(userBean.getUserContacts());
+        userPosition.setText(userBean.getUserDuty());
+        RequestOptions requestOptions=new RequestOptions()
+                .error(R.mipmap.defult)
+                .placeholder(R.mipmap.defult)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                ;
+        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+userBean.getIconPic()).apply(requestOptions).into(userIco);
+        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+userBean.getBackPic()).apply(requestOptions).into(ivLegalReverse);
+        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+userBean.getFrontPic()).apply(requestOptions).into(ivLegalPositive);
     }
 
     @Override

@@ -11,7 +11,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventAddBean;
+import com.example.library_commen.model.UserBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -50,7 +52,7 @@ public class UserManagerActivity extends BaseMvpActivity<UserManagerPresenter> i
     RecyclerView userManagerRecycle;
     @BindView(R2.id.add_user_tv)
     TextView addUserTv;
-    private List<UserListBean.PagenationBean.ListBean> userManagerBeanList = new ArrayList<>();
+    private List<UserBean> userManagerBeanList = new ArrayList<>();
     private UserManagerAdapter adapter;
 
     @Override
@@ -77,7 +79,7 @@ public class UserManagerActivity extends BaseMvpActivity<UserManagerPresenter> i
             public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
                 int id=view.getId();
                 if (id == R.id.cl_conten) {
-                    ARouter.getInstance().build(ArouterKey.USER_ADDUSERDETAILACTIVITY).navigation(mContext);
+                    ARouter.getInstance().build(ArouterKey.USER_ADDUSERDETAILACTIVITY).withSerializable(IntentKey.USER_DETAIL,adapter.getData().get(position)).navigation(mContext);
                 } else if (id == R.id.item_slide) {
                     presenter.deleteUser(adapter.getData().get(position).getId());
                 }
@@ -117,7 +119,7 @@ public class UserManagerActivity extends BaseMvpActivity<UserManagerPresenter> i
     }
 
     @Override
-    public void setUserList(List<UserListBean.PagenationBean.ListBean> list) {
+    public void setUserList(List<UserBean> list) {
         adapter.setNewData(list);
     }
 

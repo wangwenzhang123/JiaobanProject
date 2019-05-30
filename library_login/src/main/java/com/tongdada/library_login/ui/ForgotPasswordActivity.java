@@ -1,6 +1,7 @@
 package com.tongdada.library_login.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.utils.CheckUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_login.R;
@@ -45,26 +47,6 @@ public class ForgotPasswordActivity extends BaseMvpActivity<ForgotPresenter> imp
         return R.layout.activity_forgot_password;
     }
 
-    @Override
-    public BaseDialog getDialog() {
-        return null;
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
     @OnClick(R2.id.resetpassword_back)
     public void onResetpasswordBackClicked() {
         finish();
@@ -72,6 +54,15 @@ public class ForgotPasswordActivity extends BaseMvpActivity<ForgotPresenter> imp
 
     @OnClick(R2.id.retrieve_password)
     public void onRetrievePasswordClicked() {
-        presenter.getForgotPassword(etContactPhone.getText().toString().trim());
+        String phone=etContactPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)){
+            showToast("手机号不能为空！");
+            return;
+        }
+        if (CheckUtils.isChinaPhoneLegal(phone)){
+            presenter.getForgotPassword(etContactPhone.getText().toString().trim());
+        }else {
+            showToast("请输入正确的手机号！");
+        }
     }
 }

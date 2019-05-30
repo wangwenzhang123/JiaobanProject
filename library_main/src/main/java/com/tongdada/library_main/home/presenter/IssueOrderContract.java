@@ -10,8 +10,11 @@ import com.example.library_commen.model.IssueOrderBean;
 public class IssueOrderContract {
     public interface View extends BaseView{
         void publishSuccess();
+        void selectPic(int  code);
+        void uploadSuccess(String path,String urlx);
     }
     public interface Presenter{
         void publishOrder(IssueOrderBean issueOrderBean);
+        void upload(String path);
     }
 }

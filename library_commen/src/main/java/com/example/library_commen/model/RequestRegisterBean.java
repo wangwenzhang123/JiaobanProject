@@ -8,16 +8,16 @@ package com.example.library_commen.model;
  * @change
  */
 public class RequestRegisterBean {
-    private String stationName;//搅拌站名称
-    private String stationAddress;//搅拌站地址
-    private String stationContacts;//搅拌站联系人
-    private String legalPersion;//搅拌站法人
-    private String contactsPhone;//搅拌站联系电话
-    private String registerCapita;//搅拌站注册资金
-    private String stationRemarks;//搅拌站备注信息
-    private String licensePic;//搅拌站营业执照
-    private String frontPic;//搅拌站身份证正面
-    private String backPic;//搅拌站身份证反面
+    private String stationName="";//搅拌站名称
+    private String stationAddress="";//搅拌站地址
+    private String stationContacts="";//搅拌站联系人
+    private String legalPersion="";//搅拌站法人
+    private String contactsPhone="";//搅拌站联系电话
+    private String registerCapita="";//搅拌站注册资金
+    private String stationRemarks="";//搅拌站备注信息
+    private String licensePic="";//搅拌站营业执照
+    private String frontPic="";//搅拌站身份证正面
+    private String backPic="";//搅拌站身份证反面
     /**
      * bengPrice :
      * createTime : {"date":25,"day":6,"hours":10,"minutes":46,"month":4,"seconds":54,"time":1558752414399,"timezoneOffset":-480,"year":119}
@@ -32,17 +32,17 @@ public class RequestRegisterBean {
      * verifyStatus : N
      */
 
-    private String bengPrice;
-    private CreateTimeBean createTime;
-    private String createUserID;
-    private int delFlag;
-    private String deptId;
-    private String id;
-    private String registerCapital;
-    private String tongPrice;
-    private UpdateTimeBean updateTime;
-    private String updateUserID;
-    private String verifyStatus;
+    private String bengPrice="";
+    private CreateTimeBean createTime=new CreateTimeBean();
+    private String createUserID="";
+    private int delFlag=0;
+    private String deptId="";
+    private String id="";
+    private String registerCapital="";
+    private String tongPrice="";
+    private UpdateTimeBean updateTime=new UpdateTimeBean();
+    private String updateUserID="";
+    private String verifyStatus="";
 
     public String getStationName() {
         return stationName;

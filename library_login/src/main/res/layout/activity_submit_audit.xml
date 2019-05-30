@@ -8,7 +8,7 @@
     tools:context="com.tongdada.library_login.ui.SubmitAuditActivity">
     <RelativeLayout
         android:id="@+id/rl_back"
-        android:background="@color/_555555"
+        android:background="@color/_ffe06e38"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -50,7 +50,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/audit"
         android:id="@+id/submit_iv"
         android:layout_marginTop="@dimen/dp_50"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -59,6 +59,7 @@
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_50" />
     <TextView
+        android:layout_marginTop="@dimen/dp_10"
         android:gravity="center"
         android:text="@string/submit_wait"
         app:layout_constraintLeft_toLeftOf="parent"

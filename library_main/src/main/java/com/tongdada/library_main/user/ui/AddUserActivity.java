@@ -3,6 +3,7 @@ package com.tongdada.library_main.user.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.UserBean;
+import com.example.library_commen.utils.CheckUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -101,8 +104,26 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
 
     @OnClick(R2.id.register_register_bt)
     public void onRegisterRegisterBtClicked() {
+        if (TextUtils.isEmpty(userName.getText().toString().trim())){
+            showToast("名称不能为空！");
+            return;
+        }
+        if (TextUtils.isEmpty(userPhone.getText().toString().trim())){
+            showToast("手机号不能为空！");
+            return;
+        }
+        if (TextUtils.isEmpty(userPosition.getText().toString().trim())){
+            showToast("职务不能为空！");
+            return;
+        }
+        if (!CheckUtils.isChinaPhoneLegal(userPhone.getText().toString().trim())){
+            showToast("请输入正确的手机号！");
+            return;
+        }
         requestBean.setUserName(userName.getText().toString().trim());
         requestBean.setUserContacts(userPhone.getText().toString().trim());
+        requestBean.setUserDuty(userPosition.getText().toString().trim());
+        requestBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
         presenter.addStationUser(requestBean);
     }
 

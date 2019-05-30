@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.utils.CheckUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_login.R;
@@ -213,6 +214,10 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         }
         if (TextUtils.isEmpty(registeredCapital)){
             showToast("请输入公司注册资金！");
+            return;
+        }
+        if (!CheckUtils.isChinaPhoneLegal(contactPhone)){
+            showToast("请输入正确的手机号！");
             return;
         }
         requestRegisterBean.setContactsPhone(contactPhone);

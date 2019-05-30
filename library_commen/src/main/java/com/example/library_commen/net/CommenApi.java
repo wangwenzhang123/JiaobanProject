@@ -1,5 +1,6 @@
 package com.example.library_commen.net;
 
+import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.model.TransportCarBean;
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
@@ -26,4 +27,7 @@ public interface CommenApi {
     @FormUrlEncoded
     @POST("/interface/updateDetailOrders.action")
     Observable<BaseAppEntity<TransportCarBean>> updateDetailOrders(@FieldMap Map<String,Object> map);
+    @FormUrlEncoded
+    @POST("/interface/getOrderById.action")
+    Observable<BaseAppEntity<OrderBean>> getOrderById(@Field("psTotalOrders.id") String id);
 }

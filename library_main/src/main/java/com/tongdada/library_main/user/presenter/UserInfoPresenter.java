@@ -4,19 +4,14 @@ import com.example.library_commen.event.EventUpdateUser;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.UploadBean;
 import com.example.library_commen.model.UserBean;
+import com.example.library_commen.utils.UserMapUtils;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.library_main.net.MainApiUtils;
-import com.tongdada.library_main.user.respose.RequestBean;
-import com.tongdada.library_main.utils.UserMapUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;

@@ -26,6 +26,24 @@ public class IssueOrderBean implements Serializable{
     String orderName;
     String carType;
     String orderRemark;
+    String publishTime;
+    String orderPic;
+
+    public String getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public String getOrderPic() {
+        return orderPic;
+    }
+
+    public void setOrderPic(String orderPic) {
+        this.orderPic = orderPic;
+    }
 
     public String getStationId() {
         return stationId;

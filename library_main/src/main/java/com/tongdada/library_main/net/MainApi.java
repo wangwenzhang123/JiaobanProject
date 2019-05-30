@@ -14,6 +14,7 @@ import com.tongdada.library_main.user.respose.UserListBean;
 
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -53,7 +54,14 @@ public interface MainApi {
                                                 @Field("psTotalOrders.orderStatus") String orderStatus,
                                                 @Field("psTotalOrders.orderName") String orderName,
                                                    @Field("psTotalOrders.carType") String carType,
-                                                @Field("psTotalOrders.orderRemark") String orderRemark);
+                                                @Field("psTotalOrders.orderRemark") String orderRemark
+            ,
+                                                   @Field("psTotalOrders.publishTime") String publishTime
+            ,
+                                                   @Field("psTotalOrders.orderPic") String orderPic
+
+
+    );
     /**
      * 获取订单列表
      * @param
@@ -161,8 +169,9 @@ public interface MainApi {
      * 更新搅拌站信息
      * @return
      */
+    @FormUrlEncoded
     @POST("/interface/updateMixStation.action")
-    Observable<BaseAppEntity<RequestRegisterBean>> updateMixStation(@Body RequestRegisterBean params);
+    Observable<BaseAppEntity<RequestRegisterBean>> updateMixStation(@FieldMap Map<String,Object> params);
 
     /**
      * 上传图片

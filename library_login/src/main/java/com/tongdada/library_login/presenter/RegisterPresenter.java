@@ -2,6 +2,7 @@ package com.tongdada.library_login.presenter;
 
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.UserBean;
+import com.example.library_commen.utils.UserMapUtils;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.net.client.KRetrofitFactory;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
@@ -37,7 +38,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContact.View> imple
 
     @Override
     public void register(RequestRegisterBean requestRegisterBean) {
-        loginApi.regist(requestRegisterBean)
+        loginApi.regist(UserMapUtils.getMixingStationsMap(requestRegisterBean))
                 .compose(RegisterPresenter.this.<BaseAppEntity<UserBean>>handleEverythingResult())
                 .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
                     @Override

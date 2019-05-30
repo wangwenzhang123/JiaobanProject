@@ -1,5 +1,7 @@
 package com.example.library_commen.model;
 
+import java.io.Serializable;
+
 /**
  * @name JiaobanProject
  * @class describe

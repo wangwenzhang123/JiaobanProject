@@ -80,6 +80,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
         userAge.setText("28");
         userAddress.setText(CommenUtils.getIncetance().getUserBean().getUserAddress());
+
         userBean = CommenUtils.getIncetance().getUserBean();
     }
 

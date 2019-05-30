@@ -5,6 +5,7 @@ import com.example.library_commen.model.MixStationBean;
 import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_commen.model.UploadBean;
 import com.example.library_commen.model.UserBean;
+import com.example.library_commen.utils.UserMapUtils;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.library_main.net.MainApiUtils;
@@ -28,7 +29,7 @@ import okhttp3.RequestBody;
 public class MaintencancePlanPresenter extends BasePresenter<MaintencancePlanContract.View> implements MaintencancePlanContract.Presenter {
     @Override
     public void register(RequestRegisterBean requestRegisterBean) {
-        MainApiUtils.getMainApi().updateMixStation(requestRegisterBean)
+        MainApiUtils.getMainApi().updateMixStation(UserMapUtils.getMixingStationsMap(requestRegisterBean))
                 .compose(this.<BaseAppEntity<RequestRegisterBean>>handleEverythingResult())
                 .subscribe(new Consumer<BaseAppEntity<RequestRegisterBean>>() {
                     @Override

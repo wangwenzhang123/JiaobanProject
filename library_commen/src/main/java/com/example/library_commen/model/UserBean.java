@@ -1,5 +1,7 @@
 package com.example.library_commen.model;
 
+import java.io.Serializable;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -7,7 +9,7 @@ package com.example.library_commen.model;
  * @time 2019/5/23 16:23
  * @change
  */
-public class UserBean {
+public class UserBean implements Serializable{
 
     /**
      * companyId :
@@ -244,7 +246,7 @@ public class UserBean {
                 '}';
     }
 
-    public static class CreateTimeBean {
+    public static class CreateTimeBean implements Serializable{
         /**
          * date : 16
          * day : 4
