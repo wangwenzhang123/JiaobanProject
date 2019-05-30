@@ -124,6 +124,8 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     EditText orderAmount;
     @BindView(R2.id.order_price)
     TextView orderPrice;
+    @BindView(R2.id.order_pic)
+    ImageView orderPic;
     private IssueOrderBean issueOrderBean = new IssueOrderBean();
 
     @Override
@@ -321,5 +323,9 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @Override
     public void publishSuccess() {
         finish();
+    }
+
+    @OnClick(R2.id.order_pic)
+    public void onViewPicClicked() {
     }
 }

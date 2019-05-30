@@ -8,10 +8,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 
 import java.util.List;
 

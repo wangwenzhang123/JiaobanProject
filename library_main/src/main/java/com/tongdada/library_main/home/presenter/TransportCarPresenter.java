@@ -3,16 +3,12 @@ package com.tongdada.library_main.home.presenter;
 import android.os.Handler;
 
 import com.example.library_commen.model.CommenUtils;
-import com.example.library_commen.model.OrderBean;
-import com.tongdada.base.net.bean.BaseAppEntity;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshPresenter;
 import com.tongdada.base.ui.mvp.base.refresh.RequestCallback;
 import com.tongdada.library_main.home.net.CarOrderBean;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 import com.tongdada.library_main.net.MainApiUtils;
 import com.tongdada.library_main.net.PagenationBase;
-import com.tongdada.library_main.order.presenter.OrderListContract;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,16 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.finance.adapter.FinaceCompleteAdapter;
-import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.finance.presenter.FinanceContract;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 
 import java.util.ArrayList;
 import java.util.List;

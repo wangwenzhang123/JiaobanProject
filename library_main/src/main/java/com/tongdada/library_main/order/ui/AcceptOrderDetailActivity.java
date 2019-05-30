@@ -6,11 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 import com.tongdada.library_main.order.adapter.AcceptOrderDetailAdapter;
 import com.tongdada.library_main.order.presenter.AcceptOrderDetailContract;
 import com.tongdada.library_main.order.presenter.AcceptOrderDetailPresenter;
@@ -58,7 +57,7 @@ public class AcceptOrderDetailActivity extends BaseMvpActivity<AcceptOrderDetail
 
     @Override
     public void initView() {
-        acceptOrderDetailAdapter=new AcceptOrderDetailAdapter(R.layout.item_accept_detail,new ArrayList<OrderBean>());
+        acceptOrderDetailAdapter=new AcceptOrderDetailAdapter(R.layout.item_accept_detail,new ArrayList<TransportCarBean>());
         acceptOrderRy.setLayoutManager(new LinearLayoutManager(this));
         acceptOrderRy.setAdapter(acceptOrderDetailAdapter);
     }

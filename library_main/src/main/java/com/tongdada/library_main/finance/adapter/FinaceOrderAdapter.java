@@ -2,14 +2,11 @@ package com.tongdada.library_main.finance.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
-import com.tongdada.library_main.finance.net.respose.FinaceBean;
-import com.tongdada.library_main.home.net.CarOrderBean;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 
 import java.util.List;
 
@@ -30,6 +27,7 @@ public class FinaceOrderAdapter  extends BaseQuickAdapter<TransportCarBean,BaseV
         helper.setText(R.id.distance_text,item.getTotalDistance()+"km");
         CheckBox checkBox=helper.getView(R.id.btn_select);
         helper.addOnClickListener(R.id.btn_select);
+        helper.setText(R.id.order_price,item.getOrderPrice());
         if (item.isCheck()){
             checkBox.setChecked(true);
         }else {

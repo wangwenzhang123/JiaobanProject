@@ -17,13 +17,10 @@ import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
-import com.tongdada.library_main.finance.adapter.FinaceCompleteAdapter;
 import com.tongdada.library_main.finance.adapter.FinaceOrderAdapter;
-import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.finance.presenter.FinanceContract;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
-import com.tongdada.library_main.home.net.CarOrderBean;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,9 +73,9 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
     public void initLinsenterner() {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 //routerIntent(ArouterKey.FINANCE_FINACEORDERACTIVITY,null);
-                ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,list.get(position).getOrderId()).navigation(mContext);
+                ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getId()).navigation(mContext);
 
             }
         });

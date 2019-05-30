@@ -2,11 +2,10 @@ package com.tongdada.library_main.home.adapter;
 
 import android.support.annotation.Nullable;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
 import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 
 import java.util.List;
 

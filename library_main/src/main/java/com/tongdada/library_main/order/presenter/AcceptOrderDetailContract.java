@@ -1,8 +1,7 @@
 package com.tongdada.library_main.order.presenter;
 
-import com.example.library_commen.model.OrderBean;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
-import com.tongdada.library_main.home.respose.TransportCarBean;
+import com.example.library_commen.model.TransportCarBean;
 
 import java.util.List;
 

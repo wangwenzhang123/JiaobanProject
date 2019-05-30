@@ -1,5 +1,6 @@
 package com.example.library_amap.presenter;
 
+import com.example.library_commen.model.TransportCarBean;
 import com.example.library_commen.model.UserBean;
 import com.example.library_commen.net.CommenApi;
 import com.tongdada.base.net.bean.BaseAppEntity;
@@ -25,10 +26,10 @@ public class MapCarDetailPresenter extends BasePresenter<MapCarDetailContract.Vi
     @Override
     public void getDetailOrderById(String orderid) {
         commenApi.getDetailOrderById(orderid)
-                .compose(this.<BaseAppEntity<UserBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
+                .compose(this.<BaseAppEntity<TransportCarBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<TransportCarBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<UserBean> userBeanBaseAppEntity) throws Exception {
+                    public void accept(BaseAppEntity<TransportCarBean> userBeanBaseAppEntity) throws Exception {
 
                     }
                 }, new Consumer<Throwable>() {

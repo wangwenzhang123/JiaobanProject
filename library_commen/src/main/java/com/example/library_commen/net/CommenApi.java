@@ -1,5 +1,6 @@
 package com.example.library_commen.net;
 
+import com.example.library_commen.model.TransportCarBean;
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
 
@@ -21,8 +22,8 @@ import retrofit2.http.POST;
 public interface CommenApi {
     @FormUrlEncoded
     @POST("/interface/getDetailOrderById.action")
-    Observable<BaseAppEntity<UserBean>> getDetailOrderById(@Field("psDetailOrders.id") String id);
+    Observable<BaseAppEntity<TransportCarBean>> getDetailOrderById(@Field("psDetailOrders.id") String id);
     @FormUrlEncoded
     @POST("/interface/updateDetailOrders.action")
-    Observable<BaseAppEntity<UserBean>> updateDetailOrders(@FieldMap Map<String,Object> map);
+    Observable<BaseAppEntity<TransportCarBean>> updateDetailOrders(@FieldMap Map<String,Object> map);
 }

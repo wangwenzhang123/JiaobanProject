@@ -1,11 +1,10 @@
 package com.tongdada.library_main.finance.presenter;
 
-import com.example.library_commen.model.UserBean;
 import com.example.library_commen.net.CommenApi;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.net.client.KRetrofitFactory;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
-import com.tongdada.library_main.net.MainApiUtils;
+import com.example.library_commen.model.TransportCarBean;
 
 import io.reactivex.functions.Consumer;
 
@@ -20,17 +19,17 @@ public class FinaceOrderDetailPresenter extends BasePresenter<FinaceOrderDetailC
     private CommenApi commenApi;
 
     public FinaceOrderDetailPresenter() {
-        KRetrofitFactory.createService(CommenApi.class);
+        commenApi=KRetrofitFactory.createService(CommenApi.class);
     }
 
     @Override
     public void getOrderDetail(String id) {
         commenApi.getDetailOrderById(id)
-                .compose(this.<BaseAppEntity<UserBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
+                .compose(this.<BaseAppEntity<TransportCarBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<TransportCarBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<UserBean> userBeanBaseAppEntity) throws Exception {
-
+                    public void accept(BaseAppEntity<TransportCarBean> userBeanBaseAppEntity) throws Exception {
+                        getView().setOrderDetail(userBeanBaseAppEntity.getContent());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
