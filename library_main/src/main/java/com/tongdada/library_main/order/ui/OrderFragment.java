@@ -82,16 +82,16 @@ public class OrderFragment extends BaseMvpFragment implements OrderContract.View
 
     @Override
     public void initView() {
-        list.add("进行中");
+        list.add("发布中");
         list.add("已完成");
-        list.add("已卸货");
+        list.add("已取消");
         pager.setOffscreenPageLimit(3);
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
                 fragments.add(new OrderListFragment("F"));
                 fragments.add(new OrderListFragment("E"));
-                fragments.add(new OrderListFragment("Z"));
+                fragments.add(new OrderListFragment("A"));
                 e.onNext(fragments);
             }
         }).subscribeOn(Schedulers.io())

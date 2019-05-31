@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
-import com.example.library_commen.model.TransportCarBean;
+import com.example.library_commen.model.DriverOrderDetailBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -66,8 +66,10 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
     TextView orderStart;
     @BindView(R2.id.order_end)
     TextView orderEnd;
-    private TransportCarBean transportCarBean;
-
+    @BindView(R2.id.reject_tv)
+    TextView rejectTv;
+    private DriverOrderDetailBean transportCarBean;
+    private String id;
     @Override
     public int getView() {
         return R.layout.activity_finance_order;
@@ -80,7 +82,7 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
 
     @Override
     public void initView() {
-        String id = getIntent().getStringExtra(IntentKey.MAP_ORDERID);
+        id = getIntent().getStringExtra(IntentKey.MAP_ORDERID);
         presenter.getOrderDetail(id);
     }
 
@@ -100,20 +102,32 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
     }
 
     @Override
-    public void setOrderDetail(TransportCarBean transportCarBean) {
+    public void setOrderDetail(DriverOrderDetailBean transportCarBean) {
         this.transportCarBean = transportCarBean;
-        //orderStart.setText(transportCarBean.getS);
-        //orderEnd.setText();
-        distanceText.setText(transportCarBean.getTotalDistance()+"km");
-        //orderTotal.setText();
+        orderStart.setText(transportCarBean.getPsTotalOrder().getStartPlace());
+        orderEnd.setText(transportCarBean.getPsTotalOrder().getDestinationPlace());
+        distanceText.setText(transportCarBean.getTotalDistance() + "km");
         driverName.setText(transportCarBean.getDriverName());
-        //driverPhone.setText(transportCarBean.get);
-        acceptTotal.setText(transportCarBean.getOrderAmount()+"方");
+        driverPhone.setText(transportCarBean.getPsDriver().getDriverMobile());
+        nowLoading.setText(transportCarBean.getOrderAmount() + "方");
         transportCarnumber.setText(transportCarBean.getCarNo());
         orderRemark.setText(transportCarBean.getOrderRemark());
         orderStartTime.setText(transportCarBean.getAcceptTime());
         orderCode.setText(transportCarBean.getStationName());
         unitPrice.setText(transportCarBean.getOrderPrice());
+        orderReleaseName.setText(transportCarBean.getStation().getStationName());
+        orderTotal.setText(transportCarBean.getPsTotalOrder().getOrderAmount());
+        if (transportCarBean.getPsCar().getCarType().equals("B")) {
+            carType.setText("泵车");
+        } else {
+            carType.setText("砼车");
+            carXinghao.setText(transportCarBean.getPsCar().getCarType());
+        }
+    }
+
+    @Override
+    public void updateSuccess() {
+        finish();
     }
 
     @Override
@@ -130,6 +144,11 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
 
     @OnClick(R2.id.confirm_the_settlement)
     public void onConfirmTheSettlementClicked() {
+        presenter.updateDetailOrders(id,"S");
+    }
 
+    @OnClick(R2.id.reject_tv)
+    public void onViewClicked() {
+        presenter.updateDetailOrders(id,"X");
     }
 }

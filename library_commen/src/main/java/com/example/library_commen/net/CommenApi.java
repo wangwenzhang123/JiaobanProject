@@ -1,6 +1,9 @@
 package com.example.library_commen.net;
 
+import com.example.library_commen.model.DetailCarBean;
+import com.example.library_commen.model.DriverOrderDetailBean;
 import com.example.library_commen.model.OrderBean;
+import com.example.library_commen.model.PagenationBase;
 import com.example.library_commen.model.TransportCarBean;
 import com.example.library_commen.model.UserBean;
 import com.tongdada.base.net.bean.BaseAppEntity;
@@ -23,11 +26,17 @@ import retrofit2.http.POST;
 public interface CommenApi {
     @FormUrlEncoded
     @POST("/interface/getDetailOrderById.action")
-    Observable<BaseAppEntity<TransportCarBean>> getDetailOrderById(@Field("psDetailOrders.id") String id);
+    Observable<BaseAppEntity<DriverOrderDetailBean>> getDetailOrderById(@Field("psDetailOrders.id") String id);
     @FormUrlEncoded
     @POST("/interface/updateDetailOrders.action")
-    Observable<BaseAppEntity<TransportCarBean>> updateDetailOrders(@FieldMap Map<String,Object> map);
+    Observable<BaseAppEntity<DriverOrderDetailBean>> updateDetailOrders(@Field("psDetailOrders.orderId") String id,@Field("psDetailOrders.orderStatus") String orderStatus);
     @FormUrlEncoded
     @POST("/interface/getOrderById.action")
     Observable<BaseAppEntity<OrderBean>> getOrderById(@Field("psTotalOrders.id") String id);
+    @FormUrlEncoded
+    @POST("/interface/orderCarsList.action")
+    Observable<PagenationBase<DetailCarBean>> orderCarsList(@Field("psDetailOrders.orderId") String id);
+    @FormUrlEncoded
+    @POST("/interface/cancelOrder.action")
+    Observable<BaseAppEntity<OrderBean>> cancelOrder(@Field("psTotalOrders.id") String id);
 }

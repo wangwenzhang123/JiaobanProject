@@ -8,7 +8,7 @@ import com.tongdada.base.ui.mvp.base.refresh.RequestCallback;
 import com.tongdada.library_main.home.net.CarOrderBean;
 import com.example.library_commen.model.TransportCarBean;
 import com.tongdada.library_main.net.MainApiUtils;
-import com.tongdada.library_main.net.PagenationBase;
+import com.example.library_commen.model.PagenationBase;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -63,6 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/transport_carnumber"
                         android:text="1224511054"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -90,6 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/driver_name"
                         android:text="1224511054"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -117,6 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/driver_phone"
                         android:text="1224511054"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -133,6 +136,7 @@
 
                 </View>
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
@@ -144,6 +148,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/accept_total"
                         android:text="1224511054"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -152,6 +157,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <View
+                    android:visibility="gone"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginRight="@dimen/dp_16"
                     android:background="@color/_E0E0E0"
@@ -171,6 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/driver_attribution"
                         android:text="1224511054"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -198,6 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/now_loading"
                         android:text="1224511054"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -225,6 +233,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/unit_price"
                         android:text="100元（单位 方/公里）"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -247,6 +256,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
+                    android:id="@+id/loading_pic"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_24"
                     android:layout_width="@dimen/dp_168"
@@ -258,11 +268,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
+                    android:id="@+id/unload_pic"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_24"
                     android:layout_width="@dimen/dp_168"
                     android:layout_height="@dimen/dp_88" />
                 <LinearLayout
+                    android:id="@+id/bottom_ll"
                     android:layout_marginBottom="@dimen/dp_60"
                     android:layout_marginTop="@dimen/dp_55"
                     android:layout_marginLeft="@dimen/dp_25"
@@ -271,6 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/reject_tv"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp_42"
@@ -280,6 +293,7 @@
                         android:text="@string/reject"
                         android:textColor="@color/_333333" />
                     <TextView
+                        android:id="@+id/unload_accomplish_tv"
                         android:layout_marginLeft="@dimen/dp_41"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"

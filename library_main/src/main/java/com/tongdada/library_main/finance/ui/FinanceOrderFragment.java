@@ -1,5 +1,6 @@
 package com.tongdada.library_main.finance.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ import butterknife.Unbinder;
  * Created by wangshen on 2019/5/21.
  */
 
+@SuppressLint("ValidFragment")
 public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> implements FinanceContract.View {
     @BindView(R2.id.finance_order_recycle)
     RecyclerView financeOrderRecycle;
@@ -42,12 +44,17 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
     @BindView(R2.id.settlement_bt)
     Button settlementBt;
     Unbinder unbinder;
+    private String state;
     private FinaceOrderAdapter adapter;
     private List<TransportCarBean> list=new ArrayList<>();
     private boolean isCheckAll=false;
     @Override
     public int getViewId() {
         return R.layout.fragment_finance_order;
+    }
+
+    public FinanceOrderFragment(String state) {
+        this.state = state;
     }
 
     @Override
@@ -60,6 +67,7 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
         financeOrderRecycle.setLayoutManager(new LinearLayoutManager(mContext));
         adapter=new FinaceOrderAdapter(R.layout.item_finace,list);
         financeOrderRecycle.setAdapter(adapter);
+        presenter.setType(state);
         presenter.detailOrderList();
     }
 
@@ -75,7 +83,11 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 //routerIntent(ArouterKey.FINANCE_FINACEORDERACTIVITY,null);
-                ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getId()).navigation(mContext);
+                if (adapter.getData().get(position).getOrderStatus().equals("X")){
+                    ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getId()).navigation(mContext);
+                }else {
+                    ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getId()).navigation(mContext);
+                }
 
             }
         });

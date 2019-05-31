@@ -1,6 +1,6 @@
 package com.example.library_commen.model;
 
-import java.io.Serializable;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @name JiaobanProject
@@ -59,6 +59,14 @@ public class OrderBean {
     private String totalDistance;
     private Object updateTime;
     private String updateUserID;
+    /**
+     * orderPic :
+     * updateTime : null
+     */
+
+    private String orderPic;
+    @SerializedName("updateTime")
+    private Object updateTimeX;
 
     public String getCarType() {
         return carType;
@@ -242,6 +250,22 @@ public class OrderBean {
 
     public void setUpdateUserID(String updateUserID) {
         this.updateUserID = updateUserID;
+    }
+
+    public String getOrderPic() {
+        return orderPic;
+    }
+
+    public void setOrderPic(String orderPic) {
+        this.orderPic = orderPic;
+    }
+
+    public Object getUpdateTimeX() {
+        return updateTimeX;
+    }
+
+    public void setUpdateTimeX(Object updateTimeX) {
+        this.updateTimeX = updateTimeX;
     }
 
     public static class CreateTimeBean {

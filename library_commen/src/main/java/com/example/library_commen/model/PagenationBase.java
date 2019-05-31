@@ -1,4 +1,4 @@
-package com.tongdada.library_main.net;
+package com.example.library_commen.model;
 
 import android.text.TextUtils;
 

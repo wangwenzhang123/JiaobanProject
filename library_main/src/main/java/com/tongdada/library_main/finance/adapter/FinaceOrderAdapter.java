@@ -2,6 +2,7 @@ package com.tongdada.library_main.finance.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -28,17 +29,18 @@ public class FinaceOrderAdapter  extends BaseQuickAdapter<TransportCarBean,BaseV
         CheckBox checkBox=helper.getView(R.id.btn_select);
         helper.addOnClickListener(R.id.btn_select);
         helper.setText(R.id.order_price,item.getOrderPrice());
+        ImageView state=helper.getView(R.id.car_state_iv);
+        if (item.getOrderStatus().equals("S")){
+            state.setImageResource(R.mipmap.accounting);
+        }else if (item.getOrderStatus().equals("H")){
+            state.setImageResource(R.mipmap.weihesuan);
+        }else {
+            state.setImageResource(R.mipmap.daiqueren);
+        }
         if (item.isCheck()){
             checkBox.setChecked(true);
         }else {
             checkBox.setChecked(false);
         }
-        /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                item.setCheck(b);
-                notifyDataSetChanged();
-            }
-        });*/
     }
 }

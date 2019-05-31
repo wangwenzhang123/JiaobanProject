@@ -33,13 +33,28 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
         helper.setText(R.id.order_start_tv,item.getStartPlace());
         helper.setText(R.id.order_end_tv,item.getDestinationPlace());
         helper.setText(R.id.order_cart,item.getCarType());
-        //helper.setText(R.id.order_time,item.getUpdateTime().toString());
+        helper.setText(R.id.order_time,item.getPublishTime());
         ImageView imageView=helper.getView(R.id.order_iv);
+        ImageView state=helper.getView(R.id.car_state_iv);
+        switch (item.getOrderStatus()){
+            case "F":
+                state.setImageResource(R.mipmap.ongoing);
+                break;
+            case "E":
+                state.setImageResource(R.mipmap.yiwancheng);
+                break;
+            case "A":
+                state.setImageResource(R.mipmap.accounting);
+                break;
+            case "Z":
+                state.setImageResource(R.mipmap.daihesuan);
+                break;
+        }
         RequestOptions requestOptions=new RequestOptions()
                 .error(R.mipmap.defult)
                 .placeholder(R.mipmap.defult)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 ;
-        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getDeptId()).apply(requestOptions).into(imageView);
+        Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getOrderPic()).apply(requestOptions).into(imageView);
     }
 }

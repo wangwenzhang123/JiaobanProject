@@ -1,6 +1,7 @@
 package com.tongdada.library_main.home.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
@@ -27,5 +28,23 @@ public class TransportCarrAdapter extends BaseAdapter<TransportCarBean> {
         helper.setText(R.id.driver_name,item.getDriverName());
         helper.setText(R.id.order_accept_time,item.getAcceptTime());
         helper.setText(R.id.distance_text,item.getTotalDistance()+"km");
+        ImageView state=helper.getView(R.id.car_state_iv);
+        switch (item.getOrderStatus()){
+            case "F":
+                state.setImageResource(R.mipmap.ongoing);
+                break;
+            case "E":
+                state.setImageResource(R.mipmap.yiwancheng);
+                break;
+            case "A":
+                state.setImageResource(R.mipmap.yijiedan);
+                break;
+            case "X":
+                state.setImageResource(R.mipmap.daiqueren);
+                break;
+            case "Z":
+                state.setImageResource(R.mipmap.ongoing);
+                break;
+        }
     }
 }

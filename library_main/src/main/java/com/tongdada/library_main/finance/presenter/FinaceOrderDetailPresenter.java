@@ -1,5 +1,6 @@
 package com.tongdada.library_main.finance.presenter;
 
+import com.example.library_commen.model.DriverOrderDetailBean;
 import com.example.library_commen.net.CommenApi;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.net.client.KRetrofitFactory;
@@ -25,10 +26,10 @@ public class FinaceOrderDetailPresenter extends BasePresenter<FinaceOrderDetailC
     @Override
     public void getOrderDetail(String id) {
         commenApi.getDetailOrderById(id)
-                .compose(this.<BaseAppEntity<TransportCarBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<TransportCarBean>>() {
+                .compose(this.<BaseAppEntity<DriverOrderDetailBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<DriverOrderDetailBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<TransportCarBean> userBeanBaseAppEntity) throws Exception {
+                    public void accept(BaseAppEntity<DriverOrderDetailBean> userBeanBaseAppEntity) throws Exception {
                         getView().setOrderDetail(userBeanBaseAppEntity.getContent());
                     }
                 }, new Consumer<Throwable>() {
@@ -38,4 +39,22 @@ public class FinaceOrderDetailPresenter extends BasePresenter<FinaceOrderDetailC
                     }
                 });
     }
+
+    @Override
+    public void updateDetailOrders(String id, String state) {
+        commenApi.updateDetailOrders(id,state)
+                .compose(this.<BaseAppEntity<DriverOrderDetailBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<DriverOrderDetailBean>>() {
+                    @Override
+                    public void accept(BaseAppEntity<DriverOrderDetailBean> driverOrderDetailBeanBaseAppEntity) throws Exception {
+                        getView().updateSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        getView().showToast(throwable.getMessage());
+                    }
+                });
+    }
+
 }

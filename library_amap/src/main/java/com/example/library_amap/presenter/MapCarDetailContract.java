@@ -1,5 +1,6 @@
 package com.example.library_amap.presenter;
 
+import com.example.library_commen.model.DriverOrderDetailBean;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
 
 /**
@@ -11,9 +12,11 @@ import com.tongdada.base.ui.mvp.base.view.BaseView;
  */
 public class MapCarDetailContract  {
     public interface View extends BaseView{
-
+        void setDetailOrder(DriverOrderDetailBean detailOrder);
+        void updateSuccess();
     }
     public interface Presenter{
         void getDetailOrderById(String orderid);
+        void updateDetailOrders(String id,String state);
     }
 }

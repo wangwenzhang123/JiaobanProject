@@ -4,12 +4,10 @@ import android.os.Handler;
 
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.OrderBean;
-import com.tongdada.base.net.bean.BaseAppEntity;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshPresenter;
 import com.tongdada.base.ui.mvp.base.refresh.RequestCallback;
 import com.tongdada.library_main.net.MainApiUtils;
-import com.tongdada.library_main.net.PagenationBase;
+import com.example.library_commen.model.PagenationBase;
 import com.tongdada.library_main.order.respose.OrderListBean;
 
 import io.reactivex.functions.Consumer;
