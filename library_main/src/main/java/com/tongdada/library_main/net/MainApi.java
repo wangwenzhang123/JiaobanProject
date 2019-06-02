@@ -37,7 +37,8 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/interface/publishOrder.action")
-    Observable<BaseAppEntity<Object>> publishOrder(@Field("psTotalOrders.stationId") String stationId,
+    Observable<BaseAppEntity<Object>> publishOrder(@FieldMap Map<String,Object> map
+            /*@Field("psTotalOrders.stationId") String stationId,
                                                    @Field("psTotalOrders.orderAmount") String orderAmount,
                                                    @Field("psTotalOrders.startPlace") String startPlace,
                                                    @Field("psTotalOrders.destinationPlace") String destinationPlace,
@@ -54,7 +55,7 @@ public interface MainApi {
             ,
                                                    @Field("psTotalOrders.publishTime") String publishTime
             ,
-                                                   @Field("psTotalOrders.orderPic") String orderPic
+                                                   @Field("psTotalOrders.orderPic") String orderPic*/
 
 
     );
@@ -76,7 +77,7 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/interface/editOrder.action")
-    Observable<BaseAppEntity<Object>> editOrder(@Field("orderId") String stationId);
+    Observable<BaseAppEntity<Object>> editOrder(@FieldMap Map<String,Object> stationId);
     /**
      * 取消订单
      * @param
@@ -177,11 +178,11 @@ public interface MainApi {
     @POST("/interface/uploadAttach.action")
     Observable<BaseAppEntity<UploadBean>> upload(@Body RequestBody requestBody);
     /**
-     * 系统设置
+     * 获取子订单列表
      * @return
      */
     @FormUrlEncoded
-    @POST("/interface/detailOrderList.action")
-    Observable<PagenationBase<CarOrderBean>> detailOrderList(@Field("psMixingStations.id") String id, @Field("psDetailOrders.orderStatus") String tongPrice);
+    @POST("/interface/findDetailList.action")
+    Observable<PagenationBase<CarOrderBean>> detailOrderList(@Field("psDetailOrders.stationId") String id, @Field("psDetailOrders.orderStatus") String orderStatus);
 
 }

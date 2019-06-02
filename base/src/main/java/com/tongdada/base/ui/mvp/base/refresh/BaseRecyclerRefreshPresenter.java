@@ -118,7 +118,7 @@ public abstract class BaseRecyclerRefreshPresenter<V extends BaseRecyclerRefresh
                 if (adapterItemCount == 0) {
                     showEmptyView();
                 } else {
-                    //getView().getStateLayout().hideStateView();
+                    getView().getStateLayout().hideStateView();
                 }
         }
 

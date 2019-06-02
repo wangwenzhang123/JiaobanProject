@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.UserBean;
@@ -175,7 +177,12 @@ public class AddUserActivity extends BaseMvpActivity<AddUserPresenter> implement
                 requestBean.setFrontPic(url);
                 break;
             case USERICON_CODE:
-                Glide.with(mContext).load(path).into(userIco);
+                RequestOptions requestOptions = new RequestOptions()
+                        .error(R.mipmap.user_hpyfy)
+                        .placeholder(R.mipmap.user_hpyfy)
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.DATA);
+                Glide.with(mContext).load(path).apply(requestOptions).into(userIco);
                 requestBean.setIconPic(url);
                 break;
         }

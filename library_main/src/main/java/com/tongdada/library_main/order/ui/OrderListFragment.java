@@ -65,7 +65,12 @@ public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListCont
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 Bundle bundle=new Bundle();
                 bundle.putString(IntentKey.ORDER_ID,getRecyclerAdapter().getData().get(position).getId());
-                routerIntent(ArouterKey.MAP_MAPORDERDETAILACTIVITY,bundle);
+                if (type .equals("F")){
+                    routerIntent(ArouterKey.MAP_MAPORDERDETAILACTIVITY,bundle);
+                }else {
+                    routerIntent(ArouterKey.ORDER_ORDERDETAILACTIVITY,bundle);
+                }
+
             }
         });
     }

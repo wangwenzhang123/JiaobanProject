@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventUpdateOrderList;
 import com.example.library_commen.model.DriverOrderDetailBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -14,6 +15,8 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.finance.presenter.FinaceOrderDetailContract;
 import com.tongdada.library_main.finance.presenter.FinaceOrderDetailPresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,6 +122,7 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
         orderTotal.setText(transportCarBean.getPsTotalOrder().getOrderAmount());
         if (transportCarBean.getPsCar().getCarType().equals("B")) {
             carType.setText("泵车");
+            carXinghao.setText("无");
         } else {
             carType.setText("砼车");
             carXinghao.setText(transportCarBean.getPsCar().getCarType());
@@ -127,6 +131,7 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
 
     @Override
     public void updateSuccess() {
+        EventBus.getDefault().post(new EventUpdateOrderList());
         finish();
     }
 
@@ -149,6 +154,6 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
 
     @OnClick(R2.id.reject_tv)
     public void onViewClicked() {
-        presenter.updateDetailOrders(id,"X");
+        presenter.batchUpdateDetailOrders(id,"S");
     }
 }

@@ -18,5 +18,6 @@ public class MapCarDetailContract  {
     public interface Presenter{
         void getDetailOrderById(String orderid);
         void updateDetailOrders(String id,String state);
+        void batchUpdateDetailOrders(String id, String state);
     }
 }

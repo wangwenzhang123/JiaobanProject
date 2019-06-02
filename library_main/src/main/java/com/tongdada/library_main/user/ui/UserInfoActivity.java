@@ -73,6 +73,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.mipmap.user_hpyfy)
                 .placeholder(R.mipmap.user_hpyfy)
+                .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(this).load(BaseUrl.BASEURL + "/" + CommenUtils.getIncetance().getUserBean().getIconPic())
                 .apply(requestOptions).into(userIco);

@@ -13,6 +13,7 @@ import com.example.library_main.R;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
 import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshFragment;
+import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.home.adapter.TransportCarrAdapter;
 import com.tongdada.library_main.home.presenter.TransportCarContract;
 import com.tongdada.library_main.home.presenter.TransportCarPresenter;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * @change
  */
 @SuppressLint("ValidFragment")
-public class TransportCarFragment extends BaseRecyclerRefreshFragment<TransportCarContract.View,TransportCarPresenter,TransportCarBean> implements TransportCarContract.View {
+public class TransportCarFragment extends BaseRecyclerRefreshFragment<TransportCarContract.View,TransportCarPresenter,FinaceBean> implements TransportCarContract.View {
     private String type;
 
     public TransportCarFragment(String type) {
@@ -56,7 +57,7 @@ public class TransportCarFragment extends BaseRecyclerRefreshFragment<TransportC
         getRecyclerAdapter().setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,getRecyclerAdapter().getData().get(position).getId()).navigation(mContext);
+                ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,getRecyclerAdapter().getData().get(position).getRowId()).navigation(mContext);
             }
         });
     }
@@ -84,6 +85,6 @@ public class TransportCarFragment extends BaseRecyclerRefreshFragment<TransportC
 
     @Override
     public BaseAdapter createRecyclerAdapter() {
-        return new TransportCarrAdapter(R.layout.item_transport_car,new ArrayList<TransportCarBean>());
+        return new TransportCarrAdapter(R.layout.item_transport_car,new ArrayList<FinaceBean>());
     }
 }

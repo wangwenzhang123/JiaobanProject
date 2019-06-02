@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -23,7 +24,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
-import com.example.library_amap.model.CarBean;
+import com.example.library_commen.event.EventUpdateOrderList;
+import com.example.library_commen.model.CarBean;
 import com.example.library_amap.model.MarkerBean;
 import com.example.library_amap.presenter.MapCarDetailContract;
 import com.example.library_amap.presenter.MapCarDetailPresenter;
@@ -34,6 +36,8 @@ import com.example.library_commen.utils.PhoneCallUtils;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -126,7 +130,7 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                if (selectMarker == null) {
+               /* if (selectMarker == null) {
                     selectMarker = aMap.addMarker(new MarkerOptions().position(latLng)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.car_pic))
                             .anchor(0.5f, 0.5f));
@@ -141,7 +145,7 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
                     marker.showInfoWindow();
                 } else {
                     selectMarker.setPosition(latLng);
-                }
+                }*/
             }
         });
     }
@@ -241,16 +245,17 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
     public void setDetailOrder(final DriverOrderDetailBean detailOrder) {
         driverName.setText(detailOrder.getDriverName());
         driverPhone.setText(detailOrder.getPsDriver().getDriverMobile());
-        acceptTotal.setText(detailOrder.getOrderAmount() + "方");
         transportCarnumber.setText(detailOrder.getCarNo());
         unitPrice.setText(detailOrder.getPsTotalOrder().getPerPrice());
+        nowLoading.setText(detailOrder.getOrderAmount() + "方");
         aMap.addMarker(new MarkerOptions().position(new LatLng(31.985562554090762, 118.82025068383825))
                 .icon(BitmapDescriptorFactory.fromBitmap(getDestination()))
                 .anchor(0.5f, 0.5f));
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(31.985562554090762, 118.82025068383825), 13));
         Observable.create(new ObservableOnSubscribe<MarkerBean>() {
             @Override
             public void subscribe(ObservableEmitter<MarkerBean> e) throws Exception {
-                CarBean carBean = new CarBean(detailOrder.getDriverName(), detailOrder.getPsDriver().getDriverMobile(), Double.valueOf(detailOrder.getPsCar().getCarLatitude()), Double.valueOf(detailOrder.getPsCar().getCarLongitude()));
+                CarBean carBean = new CarBean(detailOrder.getDriverName(),detailOrder.getCarNo(), detailOrder.getPsDriver().getDriverMobile(), Double.valueOf(detailOrder.getPsCar().getCarLatitude()), Double.valueOf(detailOrder.getPsCar().getCarLongitude()));
                 Bitmap bitmap = getViewBitmap(carBean);
                 MarkerBean markerBean = new MarkerBean(carBean.getJing(), carBean.getWei(), carBean.getPhone(), bitmap);
                 e.onNext(markerBean);
@@ -278,13 +283,16 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + detailOrder.getLoadLicense()).apply(requestOptions).into(loadingPic);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + detailOrder.getUnloadLicense()).apply(requestOptions).into(unloadPic);
-        if (TextUtils.isEmpty(detailOrder.getUnloadLicense())) {
+        if (detailOrder.getOrderStatus().equals("R")){
+            bottomLl.setVisibility(View.VISIBLE);
+        }else {
             bottomLl.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void updateSuccess() {
+        EventBus.getDefault().post(new EventUpdateOrderList());
         finish();
     }
 
@@ -294,7 +302,7 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         TextView title = (TextView) view.findViewById(R.id.info_title);
         title.setText(carBean.getName());
         TextView conten = view.findViewById(R.id.info_contan);
-        conten.setText(carBean.getPhone());
+        conten.setText(carBean.getCarNo());
         view.setDrawingCacheEnabled(true);
         //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
         view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY),
@@ -329,6 +337,6 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
 
     @OnClick(R2.id.unload_accomplish_tv)
     public void onUnloadAccomplishTvClicked() {
-        presenter.updateDetailOrders(id, "X");
+        presenter.batchUpdateDetailOrders(id, "X");
     }
 }

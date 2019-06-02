@@ -19,5 +19,6 @@ public class FinaceOrderDetailContract {
     public interface Presenter{
          void getOrderDetail(String id);
         void updateDetailOrders(String id,String state);
+        void batchUpdateDetailOrders(String id,String state);
     }
 }

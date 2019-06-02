@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.MyViewPagerAdapter;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -83,7 +84,7 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
-                fragments.add(new FinanceOrderFragment("S"));
+                fragments.add(new FinanceOrderFragment("H"));
                 fragments.add(new FinanceOrderFragment("R"));
                 fragments.add(new FinanceCompleteFragment());
                 e.onNext(fragments);
@@ -160,6 +161,6 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
 
     @OnClick(R2.id.iv_order_search)
     public void onViewClicked() {
-
+        routerIntent(ArouterKey.ORDER_SEARCHORDERACTIVITY,null);
     }
 }

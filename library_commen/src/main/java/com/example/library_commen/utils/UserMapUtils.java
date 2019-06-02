@@ -1,5 +1,6 @@
 package com.example.library_commen.utils;
 
+import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_commen.model.UserBean;
 import com.google.gson.Gson;
@@ -58,6 +59,36 @@ public class UserMapUtils {
         map.put("psMixingStations.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
         map.put("psMixingStations.updateUserID",requestRegisterBean.getUpdateUserID());
         map.put("psMixingStations.verifyStatus",requestRegisterBean.getVerifyStatus());
+        return map;
+    }
+    public static Map<String,Object> getOrderMap(OrderBean requestRegisterBean){
+        Map<String,Object> map=new HashMap<>();
+        map.put("psTotalOrders.stationId",requestRegisterBean.getStationId());
+        map.put("psTotalOrders.carType",requestRegisterBean.getCarType());
+        map.put("psTotalOrders.delFlag",requestRegisterBean.getDelFlag());
+        map.put("psTotalOrders.deptId",requestRegisterBean.getDeptId());
+        map.put("psTotalOrders.destinationPlace",requestRegisterBean.getDestinationPlace());
+        map.put("psTotalOrders.dstLatitude",requestRegisterBean.getDstLatitude());
+        map.put("psTotalOrders.dstLongitude",requestRegisterBean.getDstLongitude());
+        map.put("psTotalOrders.id",requestRegisterBean.getId());
+        map.put("psTotalOrders.orderAmount",requestRegisterBean.getOrderAmount());
+        map.put("psTotalOrders.orderName",requestRegisterBean.getOrderName());
+        map.put("psTotalOrders.orderNo",requestRegisterBean.getOrderNo());
+        map.put("psTotalOrders.createTime",new Gson().toJson(requestRegisterBean.getCreateTime()));
+        map.put("psTotalOrders.orderPic",requestRegisterBean.getOrderPic());
+        map.put("psTotalOrders.orderRemark",requestRegisterBean.getOrderRemark());
+        map.put("psTotalOrders.orderStatus",requestRegisterBean.getOrderStatus());
+        map.put("psTotalOrders.perPrice",requestRegisterBean.getPerPrice());
+        map.put("psTotalOrders.publishTime",requestRegisterBean.getPublishTime());
+        map.put("psTotalOrders.startLatitude",requestRegisterBean.getStartLatitude());
+        map.put("psTotalOrders.startLongitude",requestRegisterBean.getStartLongitude());
+        map.put("psTotalOrders.startPlace",requestRegisterBean.getStartPlace());
+        map.put("psTotalOrders.updateUserID",requestRegisterBean.getUpdateUserID());
+        map.put("psTotalOrders.totalDistance",requestRegisterBean.getTotalDistance());
+        if (requestRegisterBean.getUpdateTime() !=null){
+            map.put("psTotalOrders.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
+        }
+
         return map;
     }
 }

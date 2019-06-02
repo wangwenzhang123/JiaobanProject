@@ -28,6 +28,7 @@ import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventAdressBean;
 import com.example.library_commen.model.IssueOrderBean;
+import com.example.library_commen.model.OrderBean;
 import com.example.overlay.DrivingRouteOverlay;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
@@ -108,7 +109,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     private AMap aMap;
     private RouteSearch routeSearch;
     private LatLonPoint start, end;
-    private IssueOrderBean issueOrderBean;
+    private OrderBean issueOrderBean;
 
     @Override
     public int getView() {
@@ -131,7 +132,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         aMap.setOnMapTouchListener(this);
         routeSearch = new RouteSearch(this);
         routeSearch.setRouteSearchListener(this);
-        issueOrderBean = (IssueOrderBean) getIntent().getSerializableExtra(IntentKey.MAP_ADDRESS);
+        issueOrderBean = (OrderBean) getIntent().getSerializableExtra(IntentKey.MAP_ADDRESS);
         if (issueOrderBean != null) {
             routeStart.setText(issueOrderBean.getStartPlace());
             routeEnd.setText(issueOrderBean.getDestinationPlace());

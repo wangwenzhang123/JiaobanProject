@@ -544,7 +544,8 @@
                     android:background="@drawable/shape_login"
                     android:gravity="center"
                     android:text="@string/confirm_the_settlement"
-                    android:textColor="@color/FFFFFF" />
+                    android:textColor="@color/FFFFFF"
+                    android:layout_marginStart="@dimen/dp_41" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

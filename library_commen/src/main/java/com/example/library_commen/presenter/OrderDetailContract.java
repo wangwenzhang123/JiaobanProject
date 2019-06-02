@@ -1,5 +1,6 @@
 package com.example.library_commen.presenter;
 
+import com.example.library_commen.model.DetailCarListBean;
 import com.example.library_commen.model.DriverOrderDetailBean;
 import com.example.library_commen.model.OrderBean;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
@@ -13,7 +14,7 @@ import java.util.List;
 public class OrderDetailContract {
     public interface View extends BaseView{
         void setOrderDetail(OrderBean orderDetail);
-        void setOrderCarList(List<DriverOrderDetailBean> carList);
+        void setOrderCarList(List<DetailCarListBean> carList);
         void cancelOrderSuccess();
     }
     public interface Presenter{

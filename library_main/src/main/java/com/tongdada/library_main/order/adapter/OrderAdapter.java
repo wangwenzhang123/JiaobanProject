@@ -35,7 +35,7 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
         helper.setText(R.id.order_cart,item.getCarType());
         helper.setText(R.id.order_time,item.getPublishTime());
         ImageView imageView=helper.getView(R.id.order_iv);
-        ImageView state=helper.getView(R.id.car_state_iv);
+        ImageView state=helper.getView(R.id.order_state_iv);
         switch (item.getOrderStatus()){
             case "F":
                 state.setImageResource(R.mipmap.ongoing);

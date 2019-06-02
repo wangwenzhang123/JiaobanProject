@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
@@ -22,12 +25,13 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
-import com.example.library_amap.model.CarBean;
+import com.example.library_commen.adapter.OrderDetailCarAdapter;
+import com.example.library_commen.model.CarBean;
 import com.example.library_amap.model.MarkerBean;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.model.CommenUtils;
-import com.example.library_commen.model.DriverOrderDetailBean;
+import com.example.library_commen.model.DetailCarListBean;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.presenter.OrderDetailContract;
 import com.example.library_commen.presenter.OrderPresenter;
@@ -115,8 +119,15 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
     TextView orderCancel;
     @BindView(R2.id.order_change)
     TextView orderChange;
+    @BindView(R2.id.recycle_car)
+    RecyclerView recycleCar;
+    @BindView(R2.id.accpet_detail)
+    TextView accpetDetail;
     private AMap aMap;
     private List<CarBean> list = new ArrayList<>();
+    private OrderDetailCarAdapter adapter;
+    private String id;
+    private OrderBean orderBean;
 
     @Override
     public int getView() {
@@ -132,7 +143,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
     public void initView() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String id = bundle.getString(IntentKey.ORDER_ID);
+            id = bundle.getString(IntentKey.ORDER_ID);
             presenter.getOrderById(id);
             presenter.getOrderCarsList(id);
         }
@@ -159,38 +170,14 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         });
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.design_bottom_sheet1));
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        adapter = new OrderDetailCarAdapter(R.layout.item_order_car, new ArrayList<DetailCarListBean>());
+        recycleCar.setLayoutManager(new GridLayoutManager(mContext, 4));
+        recycleCar.setAdapter(adapter);
+
     }
 
     @Override
     public void initLinsenterner() {
-        list.add(new CarBean("张三", "145565", 32.08896437173746, 118.81953989846146));
-        list.add(new CarBean("王五", "145564545", 31.985562554090762, 118.82025068383825));
-        list.add(new CarBean("李留", "1811946511", 32.025216333904694, 118.7622009762265));
-        Observable.create(new ObservableOnSubscribe<MarkerBean>() {
-            @Override
-            public void subscribe(ObservableEmitter<MarkerBean> e) throws Exception {
-                for (int i = 0; i < list.size(); i++) {
-                    Bitmap bitmap = getViewBitmap(list.get(i));
-                    MarkerBean markerBean = new MarkerBean(list.get(i).getJing(), list.get(i).getWei(), list.get(i).getPhone(), bitmap);
-                    e.onNext(markerBean);
-                }
-            }
-        }).observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<MarkerBean>() {
-                    @Override
-                    public void accept(MarkerBean bitmap) throws Exception {
-                        Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(bitmap.getJing(), bitmap.getWei()))
-                                .icon(BitmapDescriptorFactory.fromBitmap(bitmap.getBitmap()))
-                                .anchor(0.5f, 0.5f));
-                        marker.setSnippet(bitmap.getId());
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
         //设置监听事件
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -226,7 +213,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         view.setDrawingCacheEnabled(true);
         //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
         view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY));
+                View.MeasureSpec.makeMeasureSpec(266, View.MeasureSpec.EXACTLY));
         //这个方法也非常重要，设置布局的尺寸和位置
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         //获得绘图缓存中的Bitmap
@@ -315,6 +302,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
 
     @Override
     public void setOrderDetail(OrderBean orderDetail) {
+        orderBean = orderDetail;
         orderStartPlace.setText(orderDetail.getStartPlace());
         orderDestinationPlace.setText(orderDetail.getDestinationPlace());
         orderTotalDistance.setText(orderDetail.getTotalDistance());
@@ -329,11 +317,63 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
             carType1.setText("砼车");
         }
         orderremark.setText(orderDetail.getOrderRemark());
+        aMap.addMarker(new MarkerOptions().position(new LatLng(31.985562554090762, 118.82025068383825))
+                .icon(BitmapDescriptorFactory.fromBitmap(getDestination()))
+                .anchor(0.5f, 0.5f));
+    }
+
+    private Bitmap getDestination() {
+        LayoutInflater factory = LayoutInflater.from(mContext);
+        View view = factory.inflate(R.layout.marker_destination, null);
+        view.setDrawingCacheEnabled(true);
+        //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
+        view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY));
+        //这个方法也非常重要，设置布局的尺寸和位置
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        //获得绘图缓存中的Bitmap
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
     }
 
     @Override
-    public void setOrderCarList(List<DriverOrderDetailBean> carList) {
+    public void setOrderCarList(final List<DetailCarListBean> carList) {
+        adapter.setNewData(carList);
+        for (int i = 0; i < carList.size(); i++) {
+            DetailCarListBean driverOrderDetailBean = carList.get(i);
+            CarBean carBean = new CarBean(driverOrderDetailBean.getCarName(), driverOrderDetailBean.getCarNo(),
+                    driverOrderDetailBean.getDriveLicense(),
+                    Double.valueOf(driverOrderDetailBean.getCarLatitude())
+                    , Double.valueOf(driverOrderDetailBean.getCarLongitude()));
+            list.add(carBean);
+        }
+        Observable.create(new ObservableOnSubscribe<MarkerBean>() {
+            @Override
+            public void subscribe(ObservableEmitter<MarkerBean> e) throws Exception {
 
+                for (int i = 0; i < list.size(); i++) {
+                    Bitmap bitmap = getViewBitmap(list.get(i));
+                    MarkerBean markerBean = new MarkerBean(list.get(i).getJing(), list.get(i).getWei(), list.get(i).getPhone(), bitmap);
+                    e.onNext(markerBean);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<MarkerBean>() {
+                    @Override
+                    public void accept(MarkerBean bitmap) throws Exception {
+                        Marker marker = aMap.addMarker(new MarkerOptions().position(new LatLng(bitmap.getJing(), bitmap.getWei()))
+                                .icon(BitmapDescriptorFactory.fromBitmap(bitmap.getBitmap()))
+                                .anchor(0.5f, 0.5f));
+                        marker.setSnippet(bitmap.getId());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showToast(throwable.getMessage());
+                    }
+                });
     }
 
     @Override
@@ -343,11 +383,17 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
 
     @OnClick(R2.id.order_cancel)
     public void onOrderCancelClicked() {
-
+        presenter.cancelOrder(id);
     }
 
     @OnClick(R2.id.order_change)
     public void onOrderChangeClicked() {
+        ARouter.getInstance().build(ArouterKey.MAIN_ISSUEORDERACTIVITY).withSerializable(IntentKey.ORDER_BEAN, orderBean).navigation(mContext);
+        finish();
+    }
 
+    @OnClick(R2.id.accpet_detail)
+    public void onViewAcceptClicked() {
+        ARouter.getInstance().build(ArouterKey.ORDER_ACCEPTORDERDETAILACTIVITY).withString(IntentKey.ORDER_ID, orderBean.getId()).navigation(mContext);
     }
 }

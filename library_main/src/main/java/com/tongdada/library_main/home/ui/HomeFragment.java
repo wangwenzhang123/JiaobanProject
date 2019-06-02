@@ -15,15 +15,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
-import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.home.presenter.HomeContract;
 import com.tongdada.library_main.home.presenter.HomePresenter;
+import com.tongdada.library_main.home.request.MessageIntentBean;
 import com.tongdada.library_main.home.respose.BannerBean;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
 import com.tongdada.library_main.order.ui.OrderListFragment;
@@ -31,6 +32,7 @@ import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
+import java.time.chrono.MinguoEra;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +106,10 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         banner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int position) {
-                ToastUtils.showToast(mContext, "" + position);
+                BannerBean.RowsBean rowsBean=rowsBeanList.get(position);
+                MessageIntentBean  messageIntentBean=new MessageIntentBean(rowsBean.getNewsTitle(),rowsBean.getPriviewPic(),rowsBean.getNewsContent(),String.valueOf(rowsBean.getCreateTime().getTime()));
+                ARouter.getInstance().build(ArouterKey.MESSAGE_MESSAGEDETAILACTIVITY).withSerializable(IntentKey.MESSAGE_BEAN,messageIntentBean)
+                        .navigation(mContext);
             }
         });
 
@@ -139,6 +144,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R2.id.iv_home_search)
     public void onIvHomeSearchClicked() {
+        routerIntent(ArouterKey.ORDER_SEARCHORDERACTIVITY,null);
     }
 
     @OnClick(R2.id.iv_home_message)
@@ -155,13 +161,15 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     public void onViewClicked() {
         ARouter.getInstance().build(ArouterKey.HOME_TRANSPORTCARACTIVITY).navigation(mContext);
     }
-
+    private List<BannerBean.RowsBean> rowsBeanList=new ArrayList<>();
     @Override
     public void setBannerData(List<BannerBean.RowsBean> bannerData) {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < bannerData.size(); i++) {
             list.add(bannerData.get(i).getPriviewPic());
         }
+        rowsBeanList.clear();
+        rowsBeanList.addAll(bannerData);
         banner.setPages(list, new MZHolderCreator<BannerViewHolder>() {
             @Override
             public BannerViewHolder createViewHolder() {

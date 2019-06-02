@@ -5,6 +5,7 @@ import android.os.Handler;
 import com.example.library_commen.model.CommenUtils;
 import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshPresenter;
 import com.tongdada.base.ui.mvp.base.refresh.RequestCallback;
+import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.home.net.CarOrderBean;
 import com.example.library_commen.model.TransportCarBean;
 import com.tongdada.library_main.net.MainApiUtils;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * @name JiaobanProject
@@ -22,7 +24,7 @@ import io.reactivex.functions.Consumer;
  * @time 2019/5/20 11:35
  * @change
  */
-public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<TransportCarContract.View,TransportCarBean> implements TransportCarContract.Presenter {
+public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<TransportCarContract.View,FinaceBean> implements TransportCarContract.Presenter {
     private String type;
 
     public String getType() {
@@ -44,25 +46,43 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
     }
 
     @Override
-    public void onRefresh(final RequestCallback<TransportCarBean> callback) {
+    public void onRefresh(final RequestCallback<FinaceBean> callback) {
         MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
-                .subscribe(new Consumer<PagenationBase<CarOrderBean>>() {
+                .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override
-                    public void accept(final PagenationBase<CarOrderBean> objectBaseAppEntity) throws Exception {
+                    public List<FinaceBean> apply(PagenationBase<CarOrderBean> carOrderBeanPagenationBase) throws Exception {
+                        List<FinaceBean> list=new ArrayList<>();
+                        for (int i = 0; i < carOrderBeanPagenationBase.getPagenation().getList().size(); i++) {
+                            List<String> stringList=carOrderBeanPagenationBase.getPagenation().getList().get(i);
+                            FinaceBean finaceBean=new FinaceBean(stringList.get(0),
+                                    stringList.get(1),
+                                    stringList.get(2),
+                                    stringList.get(3),
+                                    stringList.get(4),
+                                    stringList.get(5),
+                                    stringList.get(6),
+                                    stringList.get(7),
+                                    stringList.get(8),
+                                    stringList.get(9),
+                                    stringList.get(10),
+                                    stringList.get(11),
+                                    stringList.get(12),
+                                    stringList.get(13),
+                                    stringList.get(14),
+                                    stringList.get(15)
+                            );
+                            list.add(finaceBean);
+                        }
+                        return list;
+                    }
+                }).subscribe(new Consumer<List<FinaceBean>>() {
+                    @Override
+                    public void accept(final List<FinaceBean> objectBaseAppEntity) throws Exception {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                List<TransportCarBean> list=new ArrayList<>();
-                                if (objectBaseAppEntity.getPagenation().getList() != null){
-                                    for (int i = 0; i < objectBaseAppEntity.getPagenation().getList().size(); i++) {
-                                        TransportCarBean transportCarBean=objectBaseAppEntity.getPagenation().getList().get(i);
-                                        if (type.equals(transportCarBean.getOrderStatus())){
-                                            list.add(transportCarBean);
-                                        }
-                                    }
-                                }
-                                callback.onSuccess(list);
+                                callback.onSuccess(objectBaseAppEntity);
                             }
                         },2000);
                     }
@@ -75,33 +95,51 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
     }
 
     @Override
-    public void onLoadMore(final RequestCallback<TransportCarBean> callback) {
+    public void onLoadMore(final RequestCallback<FinaceBean> callback) {
         MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
-                .subscribe(new Consumer<PagenationBase<CarOrderBean>>() {
+                .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override
-                    public void accept(final PagenationBase<CarOrderBean> objectBaseAppEntity) throws Exception {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                List<TransportCarBean> list=new ArrayList<>();
-                                if (objectBaseAppEntity.getPagenation().getList() != null){
-                                    for (int i = 0; i < objectBaseAppEntity.getPagenation().getList().size(); i++) {
-                                        TransportCarBean transportCarBean=objectBaseAppEntity.getPagenation().getList().get(i);
-                                        if (type.equals(transportCarBean.getOrderStatus())){
-                                            list.add(transportCarBean);
-                                        }
-                                    }
-                                }
-                                callback.onSuccess(list);
-                            }
-                        },2000);
+                    public List<FinaceBean> apply(PagenationBase<CarOrderBean> carOrderBeanPagenationBase) throws Exception {
+                        List<FinaceBean> list=new ArrayList<>();
+                        for (int i = 0; i < carOrderBeanPagenationBase.getPagenation().getList().size(); i++) {
+                            List<String> stringList=carOrderBeanPagenationBase.getPagenation().getList().get(i);
+                            FinaceBean finaceBean=new FinaceBean(stringList.get(0),
+                                    stringList.get(1),
+                                    stringList.get(2),
+                                    stringList.get(3),
+                                    stringList.get(4),
+                                    stringList.get(5),
+                                    stringList.get(6),
+                                    stringList.get(7),
+                                    stringList.get(8),
+                                    stringList.get(9),
+                                    stringList.get(10),
+                                    stringList.get(11),
+                                    stringList.get(12),
+                                    stringList.get(13),
+                                    stringList.get(14),
+                                    stringList.get(15)
+                            );
+                            list.add(finaceBean);
+                        }
+                        return list;
                     }
-                }, new Consumer<Throwable>() {
+                }).subscribe(new Consumer<List<FinaceBean>>() {
+            @Override
+            public void accept(final List<FinaceBean> objectBaseAppEntity) throws Exception {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        getView().showToast(throwable.getMessage());
+                    public void run() {
+                        callback.onSuccess(objectBaseAppEntity);
                     }
-                });
+                },2000);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                getView().showToast(throwable.getMessage());
+            }
+        });
     }
 }

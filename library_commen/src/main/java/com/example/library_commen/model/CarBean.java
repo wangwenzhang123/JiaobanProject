@@ -1,4 +1,4 @@
-package com.example.library_amap.model;
+package com.example.library_commen.model;
 
 /**
  * @name JiaobanProject
@@ -12,12 +12,21 @@ public class CarBean {
     private String phone;
     private double jing;
     private double wei;
-
-    public CarBean(String name, String phone, double jing, double wei) {
+    private String carNo;
+    public CarBean(String name,String carNo, String phone, double jing, double wei) {
         this.name = name;
         this.phone = phone;
         this.jing = jing;
         this.wei = wei;
+        this.carNo=carNo;
+    }
+
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public void setCarNo(String carNo) {
+        this.carNo = carNo;
     }
 
     public double getJing() {

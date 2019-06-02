@@ -1,6 +1,8 @@
 package com.tongdada.library_main.home.presenter;
 
+import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.model.UploadBean;
+import com.example.library_commen.utils.UserMapUtils;
 import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.example.library_commen.model.IssueOrderBean;
@@ -26,10 +28,10 @@ import okhttp3.RequestBody;
 public class IssueOrderPresenter extends BasePresenter<IssueOrderContract.View> implements IssueOrderContract.Presenter {
 
     @Override
-    public void publishOrder(IssueOrderBean issueOrderBean) {
-        MainApiUtils.getMainApi().publishOrder(issueOrderBean.getStationId(),issueOrderBean.getOrderAmount(),issueOrderBean.getStartPlace(),issueOrderBean.getDestinationPlace(),issueOrderBean.getStartLongitude(),
+    public void publishOrder(OrderBean issueOrderBean) {
+        MainApiUtils.getMainApi().publishOrder(UserMapUtils.getOrderMap(issueOrderBean)/*issueOrderBean.getStationId(),issueOrderBean.getOrderAmount(),issueOrderBean.getStartPlace(),issueOrderBean.getDestinationPlace(),issueOrderBean.getStartLongitude(),
                 issueOrderBean.getStartLatitude(),issueOrderBean.getDstLongitude(),issueOrderBean.getDstLatitude(),issueOrderBean.getTotalDistance(),issueOrderBean.getPerPrice(),issueOrderBean.getOrderStatus(),issueOrderBean.getOrderName(),
-                issueOrderBean.getCarType(),issueOrderBean.getOrderRemark(),issueOrderBean.getPublishTime(),issueOrderBean.getOrderPic())
+                issueOrderBean.getCarType(),issueOrderBean.getOrderRemark(),issueOrderBean.getPublishTime(),issueOrderBean.getOrderPic()*/)
                 .compose(this.<BaseAppEntity<Object>>handleEverythingResult())
                 .subscribe(new Consumer<BaseAppEntity<Object>>() {
                     @Override
@@ -85,5 +87,22 @@ public class IssueOrderPresenter extends BasePresenter<IssueOrderContract.View> 
                     }
                 });
 
+    }
+
+    @Override
+    public void editOrder(OrderBean issueOrderBean) {
+        MainApiUtils.getMainApi().editOrder(UserMapUtils.getOrderMap(issueOrderBean))
+                .compose(this.<BaseAppEntity<Object>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<Object>>() {
+                    @Override
+                    public void accept(BaseAppEntity<Object> objectBaseAppEntity) throws Exception {
+                        getView().publishSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        getView().showToast(throwable.getMessage());
+                    }
+                });
     }
 }

@@ -38,7 +38,7 @@ public class DetailCarBean {
     private SortDirectionBean sortDirection;
     private String sortType;
     private int totalCount;
-    private List<DriverOrderDetailBean> list;
+    private List<DetailCarListBean> list;
     private List<ListOfObjectBean> listOfObject;
 
     public boolean isExportAllData() {
@@ -129,11 +129,11 @@ public class DetailCarBean {
         this.totalCount = totalCount;
     }
 
-    public List<DriverOrderDetailBean> getList() {
+    public List<DetailCarListBean> getList() {
         return list;
     }
 
-    public void setList(List<DriverOrderDetailBean> list) {
+    public void setList(List<DetailCarListBean> list) {
         this.list = list;
     }
 

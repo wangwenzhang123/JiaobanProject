@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
 import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
 import com.example.library_commen.model.TransportCarBean;
+import com.tongdada.library_main.finance.net.respose.FinaceBean;
 
 import java.util.List;
 
@@ -17,13 +18,13 @@ import java.util.List;
  * @time 2019/5/17 11:13
  * @change
  */
-public class TransportCarrAdapter extends BaseAdapter<TransportCarBean> {
-    public TransportCarrAdapter(int layoutResId, @Nullable List<TransportCarBean> data) {
+public class TransportCarrAdapter extends BaseAdapter<FinaceBean> {
+    public TransportCarrAdapter(int layoutResId, @Nullable List<FinaceBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TransportCarBean item) {
+    protected void convert(BaseViewHolder helper, FinaceBean item) {
         helper.setText(R.id.transport_carnumber,item.getCarNo());
         helper.setText(R.id.driver_name,item.getDriverName());
         helper.setText(R.id.order_accept_time,item.getAcceptTime());

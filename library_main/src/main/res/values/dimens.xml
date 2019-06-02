@@ -16,4 +16,5 @@
     <dimen name="picker_view_height">160dp</dimen>
     <dimen name="date_unit_text_size">18sp</dimen>
     <dimen name="dp_38">38dp</dimen>
+    <dimen name="dp_172">172dp</dimen>
 </resources>

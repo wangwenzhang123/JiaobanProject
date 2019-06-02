@@ -2,6 +2,8 @@ package com.example.library_commen.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -9,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * @time 2019/5/17 11:13
  * @change
  */
-public class OrderBean {
+public class OrderBean implements Serializable{
     /**
      * carType : T20
      * createTime : {"date":24,"day":5,"hours":22,"minutes":34,"month":4,"nanos":0,"seconds":7,"time":1558708447000,"timezoneOffset":-480,"year":119}
@@ -36,37 +38,36 @@ public class OrderBean {
      * updateUserID :
      */
 
-    private String carType;
-    private CreateTimeBean createTime;
-    private String createUserID;
+    private String carType="";
+    private CreateTimeBean createTime=new CreateTimeBean();
+    private String createUserID="";
     private int delFlag;
-    private String deptId;
-    private String destinationPlace;
-    private String dstLatitude;
-    private String dstLongitude;
-    private String id;
-    private String orderAmount;
-    private String orderName;
-    private String orderNo;
-    private String orderRemark;
-    private String orderStatus;
-    private String perPrice;
-    private String publishTime;
-    private String startLatitude;
-    private String startLongitude;
-    private String startPlace;
-    private String stationId;
-    private String totalDistance;
-    private Object updateTime;
-    private String updateUserID;
+    private String deptId="";
+    private String destinationPlace="";
+    private String dstLatitude="";
+    private String dstLongitude="";
+    private String id="";
+    private String orderAmount="";
+    private String orderName="";
+    private String orderNo="";
+    private String orderRemark="";
+    private String orderStatus="";
+    private String perPrice="";
+    private String publishTime="";
+    private String startLatitude="";
+    private String startLongitude="";
+    private String startPlace="";
+    private String stationId="";
+    private String totalDistance="";
+    private CreateTimeBean updateTime=new CreateTimeBean();
+    private String updateUserID="";
     /**
      * orderPic :
      * updateTime : null
      */
 
-    private String orderPic;
-    @SerializedName("updateTime")
-    private Object updateTimeX;
+    private String orderPic="";
+
 
     public String getCarType() {
         return carType;
@@ -236,11 +237,11 @@ public class OrderBean {
         this.totalDistance = totalDistance;
     }
 
-    public Object getUpdateTime() {
+    public CreateTimeBean getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Object updateTime) {
+    public void setUpdateTime(CreateTimeBean updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -260,15 +261,7 @@ public class OrderBean {
         this.orderPic = orderPic;
     }
 
-    public Object getUpdateTimeX() {
-        return updateTimeX;
-    }
-
-    public void setUpdateTimeX(Object updateTimeX) {
-        this.updateTimeX = updateTimeX;
-    }
-
-    public static class CreateTimeBean {
+    public static class CreateTimeBean implements Serializable{
         /**
          * date : 24
          * day : 5

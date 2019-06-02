@@ -29,7 +29,7 @@ public interface CommenApi {
     Observable<BaseAppEntity<DriverOrderDetailBean>> getDetailOrderById(@Field("psDetailOrders.id") String id);
     @FormUrlEncoded
     @POST("/interface/updateDetailOrders.action")
-    Observable<BaseAppEntity<DriverOrderDetailBean>> updateDetailOrders(@Field("psDetailOrders.orderId") String id,@Field("psDetailOrders.orderStatus") String orderStatus);
+    Observable<BaseAppEntity<DriverOrderDetailBean>> updateDetailOrders(@Field("psDetailOrders.id") String id,@Field("psDetailOrders.orderStatus") String orderStatus);
     @FormUrlEncoded
     @POST("/interface/getOrderById.action")
     Observable<BaseAppEntity<OrderBean>> getOrderById(@Field("psTotalOrders.id") String id);
@@ -39,4 +39,7 @@ public interface CommenApi {
     @FormUrlEncoded
     @POST("/interface/cancelOrder.action")
     Observable<BaseAppEntity<OrderBean>> cancelOrder(@Field("psTotalOrders.id") String id);
+    @FormUrlEncoded
+    @POST("/interface/batchUpdateDetailOrders.action")
+    Observable<BaseAppEntity<OrderBean>> batchUpdateDetailOrders(@Field("detailOrderIds") String id,@Field("orderStatus") String orderStatus);
 }

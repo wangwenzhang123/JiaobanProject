@@ -1,7 +1,5 @@
 package com.tongdada.library_main.home.net;
 
-import com.example.library_commen.model.TransportCarBean;
-
 import java.util.List;
 
 /**
@@ -14,8 +12,8 @@ public class CarOrderBean {
      * exportAllData : true
      * firstResult : 0
      * fullListSize : 2
-     * list : [{"acceptTime":"2019-05-24 22:29:54","carId":"3","carNo":"苏A123452","createTime":null,"createUserID":"","delFlag":0,"deptId":"","driverId":"12","driverName":"dasd","id":"2334","orderAmount":"123","orderId":"2334232","orderPrice":"2","orderRemark":"阿达阿达","orderStatus":"A","stationId":"4028830d6abb5115016abb860c110005","stationName":"s22s","totalDistance":"3","updateTime":null,"updateUserID":""},{"acceptTime":"2019-05-24 22:29:54","carId":"3","carNo":"苏A123452","createTime":null,"createUserID":"","delFlag":0,"deptId":"","driverId":"3","driverName":"实打实 ","id":"12312","orderAmount":"23123","orderId":"2334232","orderPrice":"123","orderRemark":"dasdasd撒大蘇打","orderStatus":"A","stationId":"4028830d6abb5115016abb860c110005","stationName":"达到","totalDistance":"123123","updateTime":null,"updateUserID":""}]
-     * listOfObject : [{"acceptTime":"2019-05-24 22:29:54","carId":"3","carNo":"苏A123452","createTime":null,"createUserID":"","delFlag":0,"deptId":"","driverId":"12","driverName":"dasd","id":"2334","orderAmount":"123","orderId":"2334232","orderPrice":"2","orderRemark":"阿达阿达","orderStatus":"A","stationId":"4028830d6abb5115016abb860c110005","stationName":"s22s","totalDistance":"3","updateTime":null,"updateUserID":""},{"acceptTime":"2019-05-24 22:29:54","carId":"3","carNo":"苏A123452","createTime":null,"createUserID":"","delFlag":0,"deptId":"","driverId":"3","driverName":"实打实 ","id":"12312","orderAmount":"23123","orderId":"2334232","orderPrice":"123","orderRemark":"dasdasd撒大蘇打","orderStatus":"A","stationId":"4028830d6abb5115016abb860c110005","stationName":"达到","totalDistance":"123123","updateTime":null,"updateUserID":""}]
+     * list : [["撤诉",null,"苏A123456","2019-05-21 22:29:54","232","南京","200米2","B","22","测试订单001","2019-05-29 00:19:14","H","12222","312312"],["马桶",null,"苏B232112","2019-05-22 22:29:54","22","南京","200米2","T16","as","测试订单001","2019-05-29 00:19:14","H","22","31"]]
+     * listOfObject : [["撤诉",null,"苏A123456","2019-05-21 22:29:54","232","南京","200米2","B","22","测试订单001","2019-05-29 00:19:14","H","12222","312312"],["马桶",null,"苏B232112","2019-05-22 22:29:54","22","南京","200米2","T16","as","测试订单001","2019-05-29 00:19:14","H","22","31"]]
      * objectsPerPage : 10
      * pageNumber : 1
      * pageSize : 10
@@ -37,8 +35,8 @@ public class CarOrderBean {
     private SortDirectionBean sortDirection;
     private String sortType;
     private int totalCount;
-    private List<TransportCarBean> list;
-    private List<ListOfObjectBean> listOfObject;
+    private List<List<String>> list;
+    private List<List<String>> listOfObject;
 
     public boolean isExportAllData() {
         return exportAllData;
@@ -128,19 +126,19 @@ public class CarOrderBean {
         this.totalCount = totalCount;
     }
 
-    public List<TransportCarBean> getList() {
+    public List<List<String>> getList() {
         return list;
     }
 
-    public void setList(List<TransportCarBean> list) {
+    public void setList(List<List<String>> list) {
         this.list = list;
     }
 
-    public List<ListOfObjectBean> getListOfObject() {
+    public List<List<String>> getListOfObject() {
         return listOfObject;
     }
 
-    public void setListOfObject(List<ListOfObjectBean> listOfObject) {
+    public void setListOfObject(List<List<String>> listOfObject) {
         this.listOfObject = listOfObject;
     }
 
@@ -167,213 +165,6 @@ public class CarOrderBean {
 
         public void setName(String name) {
             this.name = name;
-        }
-    }
-
-
-    public static class ListOfObjectBean {
-        /**
-         * acceptTime : 2019-05-24 22:29:54
-         * carId : 3
-         * carNo : 苏A123452
-         * createTime : null
-         * createUserID :
-         * delFlag : 0
-         * deptId :
-         * driverId : 12
-         * driverName : dasd
-         * id : 2334
-         * orderAmount : 123
-         * orderId : 2334232
-         * orderPrice : 2
-         * orderRemark : 阿达阿达
-         * orderStatus : A
-         * stationId : 4028830d6abb5115016abb860c110005
-         * stationName : s22s
-         * totalDistance : 3
-         * updateTime : null
-         * updateUserID :
-         */
-
-        private String acceptTime;
-        private String carId;
-        private String carNo;
-        private Object createTime;
-        private String createUserID;
-        private int delFlag;
-        private String deptId;
-        private String driverId;
-        private String driverName;
-        private String id;
-        private String orderAmount;
-        private String orderId;
-        private String orderPrice;
-        private String orderRemark;
-        private String orderStatus;
-        private String stationId;
-        private String stationName;
-        private String totalDistance;
-        private Object updateTime;
-        private String updateUserID;
-
-        public String getAcceptTime() {
-            return acceptTime;
-        }
-
-        public void setAcceptTime(String acceptTime) {
-            this.acceptTime = acceptTime;
-        }
-
-        public String getCarId() {
-            return carId;
-        }
-
-        public void setCarId(String carId) {
-            this.carId = carId;
-        }
-
-        public String getCarNo() {
-            return carNo;
-        }
-
-        public void setCarNo(String carNo) {
-            this.carNo = carNo;
-        }
-
-        public Object getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(Object createTime) {
-            this.createTime = createTime;
-        }
-
-        public String getCreateUserID() {
-            return createUserID;
-        }
-
-        public void setCreateUserID(String createUserID) {
-            this.createUserID = createUserID;
-        }
-
-        public int getDelFlag() {
-            return delFlag;
-        }
-
-        public void setDelFlag(int delFlag) {
-            this.delFlag = delFlag;
-        }
-
-        public String getDeptId() {
-            return deptId;
-        }
-
-        public void setDeptId(String deptId) {
-            this.deptId = deptId;
-        }
-
-        public String getDriverId() {
-            return driverId;
-        }
-
-        public void setDriverId(String driverId) {
-            this.driverId = driverId;
-        }
-
-        public String getDriverName() {
-            return driverName;
-        }
-
-        public void setDriverName(String driverName) {
-            this.driverName = driverName;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getOrderAmount() {
-            return orderAmount;
-        }
-
-        public void setOrderAmount(String orderAmount) {
-            this.orderAmount = orderAmount;
-        }
-
-        public String getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(String orderId) {
-            this.orderId = orderId;
-        }
-
-        public String getOrderPrice() {
-            return orderPrice;
-        }
-
-        public void setOrderPrice(String orderPrice) {
-            this.orderPrice = orderPrice;
-        }
-
-        public String getOrderRemark() {
-            return orderRemark;
-        }
-
-        public void setOrderRemark(String orderRemark) {
-            this.orderRemark = orderRemark;
-        }
-
-        public String getOrderStatus() {
-            return orderStatus;
-        }
-
-        public void setOrderStatus(String orderStatus) {
-            this.orderStatus = orderStatus;
-        }
-
-        public String getStationId() {
-            return stationId;
-        }
-
-        public void setStationId(String stationId) {
-            this.stationId = stationId;
-        }
-
-        public String getStationName() {
-            return stationName;
-        }
-
-        public void setStationName(String stationName) {
-            this.stationName = stationName;
-        }
-
-        public String getTotalDistance() {
-            return totalDistance;
-        }
-
-        public void setTotalDistance(String totalDistance) {
-            this.totalDistance = totalDistance;
-        }
-
-        public Object getUpdateTime() {
-            return updateTime;
-        }
-
-        public void setUpdateTime(Object updateTime) {
-            this.updateTime = updateTime;
-        }
-
-        public String getUpdateUserID() {
-            return updateUserID;
-        }
-
-        public void setUpdateUserID(String updateUserID) {
-            this.updateUserID = updateUserID;
         }
     }
 }

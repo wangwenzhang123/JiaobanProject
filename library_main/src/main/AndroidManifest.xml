@@ -47,6 +47,15 @@
         <activity android:name="com.tongdada.library_main.user.ui.AddUserDetailActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.home.ui.MessageDetailActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.order.ui.AcceptOrderDetailActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.order.ui.AcceptDetailActivity">
+
+        </activity>
     </application>
 
 </manifest>

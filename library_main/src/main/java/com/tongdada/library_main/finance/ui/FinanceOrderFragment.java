@@ -14,14 +14,20 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventUpdateOrderList;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.finance.adapter.FinaceOrderAdapter;
+import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.finance.presenter.FinanceContract;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
 import com.example.library_commen.model.TransportCarBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +51,9 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
     Button settlementBt;
     Unbinder unbinder;
     private String state;
+    private String type="S";
     private FinaceOrderAdapter adapter;
-    private List<TransportCarBean> list=new ArrayList<>();
+    private List<FinaceBean> list=new ArrayList<>();
     private boolean isCheckAll=false;
     @Override
     public int getViewId() {
@@ -64,10 +71,15 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         financeOrderRecycle.setLayoutManager(new LinearLayoutManager(mContext));
         adapter=new FinaceOrderAdapter(R.layout.item_finace,list);
         financeOrderRecycle.setAdapter(adapter);
         presenter.setType(state);
+        if (state.equals("R")){
+            settlementBt.setText("确认卸货");
+            type="X";
+        }
         presenter.detailOrderList();
     }
 
@@ -76,17 +88,20 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
         super.onResume();
 
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(EventUpdateOrderList EventUpdateOrderList){
+        presenter.detailOrderList();
+    }
     @Override
     public void initLinsenterner() {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 //routerIntent(ArouterKey.FINANCE_FINACEORDERACTIVITY,null);
-                if (adapter.getData().get(position).getOrderStatus().equals("X")){
-                    ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getId()).navigation(mContext);
+                if (adapter.getData().get(position).getOrderStatus().equals("H")){
+                    ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getRowId()).navigation(mContext);
                 }else {
-                    ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getId()).navigation(mContext);
+                    ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getRowId()).navigation(mContext);
                 }
 
             }
@@ -96,7 +111,7 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     int id=view.getId();
                 if (id == R.id.btn_select) {
-                    TransportCarBean finaceBean=list.get(position);
+                    FinaceBean finaceBean=list.get(position);
                     if (finaceBean.isCheck()){
                         finaceBean.setCheck(false);
                     }else {
@@ -151,10 +166,23 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
 
     @OnClick(R2.id.settlement_bt)
     public void onSettlementBtClicked() {
+        StringBuilder stringBuilder=new StringBuilder();
+        for (int i = 0; i < list.size() ; i++) {
+            FinaceBean finaceBean=list.get(i);
+            if (finaceBean.isCheck()){
+                if (i == list.size() -1){
+                    stringBuilder.append(finaceBean.getRowId());
+                }else {
+                    stringBuilder.append(finaceBean.getRowId()+",");
+                }
+            }
+        }
+        presenter.batchUpdateDetailOrders(stringBuilder.toString(),type);
     }
 
     @Override
-    public void setOrderList(List<TransportCarBean> list) {
+    public void setOrderList(List<FinaceBean> list) {
+        this.list=list;
         adapter.setNewData(list);
     }
 }

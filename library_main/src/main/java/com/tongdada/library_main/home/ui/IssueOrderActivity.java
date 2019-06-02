@@ -23,14 +23,13 @@ import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventAdressBean;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.IssueOrderBean;
+import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
-import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.home.presenter.IssueOrderContract;
 import com.tongdada.library_main.home.presenter.IssueOrderPresenter;
-import com.tongdada.library_main.user.ui.AddUserActivity;
 import com.tongdada.library_main.widget.datepicker.CustomDatePicker;
 import com.tongdada.library_main.widget.datepicker.DateFormatUtils;
 import com.winfo.photoselector.PhotoSelector;
@@ -134,8 +133,12 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     TextView orderPrice;
     @BindView(R2.id.order_pic)
     ImageView orderPic;
-    private IssueOrderBean issueOrderBean = new IssueOrderBean();
-    private static final int ORDER_PIC=0;
+    @BindView(R2.id.title)
+    TextView title;
+    private OrderBean issueOrderBean = new OrderBean();
+    private static final int ORDER_PIC = 0;
+    private boolean isUpdate = false;
+
     @Override
     public int getView() {
         return R.layout.activity_issueorder;
@@ -161,6 +164,15 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         initTimerPicker();
     }
 
+    @Override
+    public void getData() {
+        OrderBean orderBean = (OrderBean) getIntent().getSerializableExtra(IntentKey.ORDER_BEAN);
+        if (orderBean != null) {
+            issueOrderBean = orderBean;
+            isUpdate = true;
+            initUi();
+        }
+    }
 
     @OnClick(R2.id.issueorder_start_tv)
     public void onIssueorderStartTvClicked() {
@@ -201,7 +213,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void eventRoute(IssueOrderBean adressBean) {
+    public void eventRoute(OrderBean adressBean) {
         issueOrderBean.setStartLatitude(String.valueOf(adressBean.getStartLatitude()));
         issueOrderBean.setStartLongitude(String.valueOf(adressBean.getStartLongitude()));
         issueOrderBean.setStartPlace(adressBean.getStartPlace());
@@ -296,10 +308,6 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             showToast("请填写订单发布单位");
             return;
         }
-        if (TextUtils.isEmpty(issueOrdernumberEt.getText().toString())) {
-            showToast("请选择订单订单编号");
-            return;
-        }
         if (TextUtils.isEmpty(orderAmount.getText().toString().trim())) {
             showToast("请选择订单数量");
             return;
@@ -310,7 +318,11 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         issueOrderBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
         issueOrderBean.setPublishTime(issueOrdertimeEt.getText().toString().trim());
         issueOrderBean.setOrderRemark(etNote.getText().toString().trim());
-        presenter.publishOrder(issueOrderBean);
+        if (isUpdate){
+            presenter.editOrder(issueOrderBean);
+        }else {
+            presenter.publishOrder(issueOrderBean);
+        }
     }
 
     @OnClick(R2.id.issue_ordertime_et)
@@ -329,6 +341,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
                 .setSingle(true)
                 .start(IssueOrderActivity.this, code);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -344,10 +357,45 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             }
         }
     }
+
     @Override
     public void uploadSuccess(String path, String url) {
         Glide.with(mContext).load(path).into(orderPic);
         issueOrderBean.setOrderPic(url);
+    }
+
+    @Override
+    public void initUi() {
+        issueorderStartTv.setText(issueOrderBean.getStartPlace());
+        issueOrdertimeEt.setText(issueOrderBean.getPublishTime());
+        issueorderEndTv.setText(issueOrderBean.getDestinationPlace());
+        selectRoute.setText(issueOrderBean.getTotalDistance());
+        etNote.setText(issueOrderBean.getOrderRemark());
+        issueOrdernumberEt.setText(issueOrderBean.getOrderName());
+        issueOrdernameEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
+        orderPrice.setText(issueOrderBean.getPerPrice());
+        orderAmount.setText(issueOrderBean.getOrderAmount());
+        releaseOrder.setText("确认修改");
+        title.setText("修改订单");
+        if (issueOrderBean.getCarType().equals("B")) {
+            rbBeng.setChecked(true);
+        } else {
+            rbTong.setChecked(true);
+            switch (issueOrderBean.getCarType()) {
+                case "T16":
+                    rg16.setChecked(true);
+                    issueOrderBean.setCarType("T16");
+                    break;
+                case "T18":
+                    rg18.setChecked(true);
+                    issueOrderBean.setCarType("T18");
+                    break;
+                case "T20":
+                    rg20.setChecked(true);
+                    issueOrderBean.setCarType("T20");
+                    break;
+            }
+        }
     }
 
     @OnClick(R2.id.order_pic)

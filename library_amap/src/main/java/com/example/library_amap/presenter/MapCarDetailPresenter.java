@@ -1,6 +1,7 @@
 package com.example.library_amap.presenter;
 
 import com.example.library_commen.model.DriverOrderDetailBean;
+import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.model.TransportCarBean;
 import com.example.library_commen.model.UserBean;
 import com.example.library_commen.net.CommenApi;
@@ -43,11 +44,27 @@ public class MapCarDetailPresenter extends BasePresenter<MapCarDetailContract.Vi
 
     @Override
     public void updateDetailOrders(String id, String state) {
-        commenApi.updateDetailOrders(id,state)
-                .compose(this.<BaseAppEntity<DriverOrderDetailBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<DriverOrderDetailBean>>() {
+        commenApi.batchUpdateDetailOrders(id,state)
+                .compose(this.<BaseAppEntity<OrderBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<OrderBean>>() {
                     @Override
-                    public void accept(BaseAppEntity<DriverOrderDetailBean> driverOrderDetailBeanBaseAppEntity) throws Exception {
+                    public void accept(BaseAppEntity<OrderBean> driverOrderDetailBeanBaseAppEntity) throws Exception {
+                        getView().updateSuccess();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        getView().showToast(throwable.getMessage());
+                    }
+                });
+    }
+    @Override
+    public void batchUpdateDetailOrders(String id, String state) {
+        commenApi.batchUpdateDetailOrders(id,state)
+                .compose(this.<BaseAppEntity<OrderBean>>handleEverythingResult())
+                .subscribe(new Consumer<BaseAppEntity<OrderBean>>() {
+                    @Override
+                    public void accept(BaseAppEntity<OrderBean> orderBeanBaseAppEntity) throws Exception {
                         getView().updateSuccess();
                     }
                 }, new Consumer<Throwable>() {

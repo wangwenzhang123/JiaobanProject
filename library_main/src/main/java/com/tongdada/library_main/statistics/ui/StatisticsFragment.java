@@ -77,21 +77,6 @@ public class StatisticsFragment extends BaseMvpFragment implements StatisticsCon
     public void initView() {
         list.add("订单统计");
         list.add("供应商统计");
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
@@ -136,6 +121,22 @@ public class StatisticsFragment extends BaseMvpFragment implements StatisticsCon
                         ToastUtils.showToast(mContext,throwable.getMessage());
                     }
                 });
+
+    }
+
+    @Override
+    public void initLinsenterner() {
+
+    }
+
+    @Override
+    public void getData() {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 

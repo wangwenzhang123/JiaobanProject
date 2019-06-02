@@ -1,13 +1,11 @@
 package com.tongdada.library_main.order.ui;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +20,8 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.base.util.ToastUtils;
-import com.tongdada.library_main.order.presenter.OrderContract;
 import com.tongdada.library_main.utils.TalUtils;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
  * @time 2019/5/14 9:46
  * @change
  */
-public class OrderFragment extends BaseMvpFragment implements OrderContract.View {
+public class OrderFragment extends BaseMvpFragment{
 
 
     @BindView(R2.id.iv_order_search)
@@ -84,6 +80,7 @@ public class OrderFragment extends BaseMvpFragment implements OrderContract.View
     public void initView() {
         list.add("发布中");
         list.add("已完成");
+        list.add("已核算");
         list.add("已取消");
         pager.setOffscreenPageLimit(3);
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
@@ -91,6 +88,7 @@ public class OrderFragment extends BaseMvpFragment implements OrderContract.View
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
                 fragments.add(new OrderListFragment("F"));
                 fragments.add(new OrderListFragment("E"));
+                fragments.add(new OrderListFragment("Z"));
                 fragments.add(new OrderListFragment("A"));
                 e.onNext(fragments);
             }

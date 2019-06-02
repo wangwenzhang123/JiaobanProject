@@ -1,5 +1,6 @@
 package com.tongdada.library_main.home.presenter;
 
+import com.example.library_commen.model.OrderBean;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
 import com.example.library_commen.model.IssueOrderBean;
 
@@ -12,9 +13,11 @@ public class IssueOrderContract {
         void publishSuccess();
         void selectPic(int  code);
         void uploadSuccess(String path,String urlx);
+        void initUi();
     }
     public interface Presenter{
-        void publishOrder(IssueOrderBean issueOrderBean);
+        void publishOrder(OrderBean issueOrderBean);
         void upload(String path);
+        void editOrder(OrderBean issueOrderBean);
     }
 }

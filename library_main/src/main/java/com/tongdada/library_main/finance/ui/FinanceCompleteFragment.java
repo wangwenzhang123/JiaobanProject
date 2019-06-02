@@ -12,6 +12,7 @@ import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.finance.adapter.FinaceCompleteAdapter;
+import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.finance.presenter.FinanceContract;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
 import com.example.library_commen.model.TransportCarBean;
@@ -82,7 +83,8 @@ public class FinanceCompleteFragment extends BaseMvpFragment<FinancePresenter> i
     }
 
     @Override
-    public void setOrderList(List<TransportCarBean> list) {
-        adapter.setNewData(list);
+    public void setOrderList(List<FinaceBean> list)
+    {
+        //adapter.setNewData(list);
     }
 }

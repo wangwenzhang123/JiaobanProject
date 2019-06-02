@@ -33,4 +33,7 @@ public class ArouterKey {
     public static final String USER_MAINTENANCEPLANTACTIVITY="/user/MaintenancePlantActivity";
     public static final String USER_ABOUTACTIVITY="/user/AboutActivity";
     public static final String ORDER_ORDERDETAILACTIVITY="/order/OrderDetailActivity";
+    public static final String ORDER_ACCEPTORDERDETAILACTIVITY="/order/AcceptOrderDetailActivity";
+    public static final String ORDER_ACCEPTDETAILACTIVITY="/order/AcceptDetailActivity";
+    public static final String MESSAGE_MESSAGEDETAILACTIVITY="/message/MessageDetailActivity";
 }
