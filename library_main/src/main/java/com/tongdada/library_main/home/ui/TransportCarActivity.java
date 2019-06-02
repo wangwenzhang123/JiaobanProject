@@ -81,15 +81,13 @@ public class TransportCarActivity extends BaseActivity {
     public void getData() {
         list.add("已接单");
         list.add("已装货");
-        list.add("已完成");
         list.add("已卸货");
-        list.add("已结算");
+        list.add("已核算");
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
                 fragments.add(new TransportCarFragment("A"));
                 fragments.add(new TransportCarFragment("Z"));
-                fragments.add(new TransportCarFragment("X"));
                 fragments.add(new TransportCarFragment("S"));
                 fragments.add(new TransportCarFragment("E"));
                 e.onNext(fragments);

@@ -32,10 +32,14 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
         helper.setText(R.id.order_name,item.getOrderName());
         helper.setText(R.id.order_start_tv,item.getStartPlace());
         helper.setText(R.id.order_end_tv,item.getDestinationPlace());
-        helper.setText(R.id.order_cart,item.getCarType());
         helper.setText(R.id.order_time,item.getPublishTime());
         ImageView imageView=helper.getView(R.id.order_iv);
         ImageView state=helper.getView(R.id.order_state_iv);
+        if (item.getCarType().equals("B")){
+            helper.setText(R.id.order_cart,"泵车");
+        }else {
+            helper.setText(R.id.order_cart,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方");
+        }
         switch (item.getOrderStatus()){
             case "F":
                 state.setImageResource(R.mipmap.ongoing);

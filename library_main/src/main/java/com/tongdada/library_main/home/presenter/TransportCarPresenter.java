@@ -37,7 +37,7 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
 
     @Override
     public boolean isEnableLoadMore() {
-        return false;
+        return true;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
 
     @Override
     public void onRefresh(final RequestCallback<FinaceBean> callback) {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type)
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null, String.valueOf(getFirstPageIndex()))
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override
@@ -96,7 +96,7 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
 
     @Override
     public void onLoadMore(final RequestCallback<FinaceBean> callback) {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type)
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null, String.valueOf(getCurrentPage()))
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override

@@ -56,6 +56,9 @@
         <activity android:name="com.tongdada.library_main.order.ui.AcceptDetailActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.finance.ui.SearchFinaceActivity">
+
+        </activity>
     </application>
 
 </manifest>

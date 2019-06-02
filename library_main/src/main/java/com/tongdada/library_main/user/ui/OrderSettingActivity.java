@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.model.CommenUtils;
+import com.example.library_commen.net.CommenApi;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -51,17 +53,8 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
 
     @Override
     public void initView() {
-
-    }
-
-    @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
+        tongcheEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice());
+        bengcheEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getBengPrice());
     }
 
     @Override

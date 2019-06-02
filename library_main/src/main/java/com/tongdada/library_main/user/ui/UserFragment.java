@@ -67,6 +67,8 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     TextView userPhone;
     @BindView(R2.id.about_app)
     LinearLayout aboutApp;
+    @BindView(R2.id.out_login)
+    LinearLayout outLogin;
 
     @Override
     public BasePresenter getPresenter() {
@@ -146,7 +148,7 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.setting)
     public void onSettingClicked() {
-        routerIntent(ArouterKey.USER_SETTINGACTIVITY, null);
+        routerIntent(ArouterKey.USER_SETORDER, null);
     }
 
     @OnClick(R2.id.plant_maintenace)
@@ -170,5 +172,13 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     @OnClick(R2.id.about_app)
     public void onViewAboutClicked() {
         ARouter.getInstance().build(ArouterKey.USER_ABOUTACTIVITY).navigation(mContext);
+    }
+
+    @OnClick(R2.id.out_login)
+    public void onViewOutClicked() {
+        ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        if (getActivity() != null){
+            getActivity().finish();
+        }
     }
 }

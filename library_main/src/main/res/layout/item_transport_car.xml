@@ -65,6 +65,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/car_type"
         android:layout_marginLeft="@dimen/dp_26"
         android:text="砼车 | 装载16方"
         android:layout_marginTop="@dimen/dp_8"

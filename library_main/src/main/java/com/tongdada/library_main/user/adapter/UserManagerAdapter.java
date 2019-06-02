@@ -37,6 +37,7 @@ public class UserManagerAdapter extends BaseQuickAdapter<UserBean,BaseViewHolder
         RequestOptions requestOptions=new RequestOptions()
                 .error(R.mipmap.user_sample)
                 .placeholder(R.mipmap.user_sample)
+                .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 ;
         Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getIconPic()).apply(requestOptions).into(imageView);

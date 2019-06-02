@@ -110,7 +110,7 @@
                     android:textSize="@dimen/sp_10"
                     android:gravity="center"
                     android:textColor="@color/_ffe06e38"
-                    android:text="已完成"
+                    android:text="未核算"
                     android:background="@drawable/shape_user"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/dp_40"
@@ -543,7 +543,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/shape_login"
                     android:gravity="center"
-                    android:text="@string/confirm_the_settlement"
+                    android:text="@string/submit_settlement"
                     android:textColor="@color/FFFFFF"
                     android:layout_marginStart="@dimen/dp_41" />
             </LinearLayout>

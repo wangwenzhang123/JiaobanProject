@@ -1,4 +1,4 @@
-package com.tongdada.library_main.order.ui;
+package com.tongdada.library_main.finance.ui;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
@@ -22,6 +23,10 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.base.util.SharedPreferencesUtil;
 import com.tongdada.base.util.ToastUtils;
+import com.tongdada.library_main.finance.net.respose.FinaceBean;
+import com.tongdada.library_main.finance.presenter.SearchFiancePresenter;
+import com.tongdada.library_main.finance.presenter.SearchFinaceContract;
+import com.tongdada.library_main.home.adapter.TransportCarrAdapter;
 import com.tongdada.library_main.order.adapter.OrderAdapter;
 import com.tongdada.library_main.order.presenter.SearchOrderContract;
 import com.tongdada.library_main.order.presenter.SearchOrderPresenter;
@@ -38,8 +43,8 @@ import butterknife.OnClick;
 /**
  * Created by wangshen on 2019/5/22.
  */
-@Route(path = ArouterKey.ORDER_SEARCHORDERACTIVITY)
-public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> implements SearchOrderContract.View {
+@Route(path = ArouterKey.ORDER_SEARCHFINACEACTIVITY)
+public class SearchFinaceActivity extends BaseMvpActivity<SearchFiancePresenter> implements SearchFinaceContract.View {
     @BindView(R2.id.select_search_tv)
     EditText selectSearchTv;
     @BindView(R2.id.history_fll)
@@ -50,8 +55,8 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
     ImageView backIv;
     @BindView(R2.id.search_tv)
     TextView searchTv;
-    private OrderAdapter orderAdapter;
-    private List<OrderBean> orderBeanList = new ArrayList<>();
+    TransportCarrAdapter adapter;
+
     private String[] mVals = new String[]{};
     private String search;
 
@@ -68,22 +73,20 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
     @Override
     public void initView() {
         searchRecycle.setLayoutManager(new LinearLayoutManager(mContext));
-        orderAdapter = new OrderAdapter(R.layout.item_order, orderBeanList);
-        searchRecycle.setAdapter(orderAdapter);
+        adapter = new TransportCarrAdapter(R.layout.item_transport_car, new ArrayList<FinaceBean>());
+        searchRecycle.setAdapter(adapter);
 
     }
 
     @Override
     public void initLinsenterner() {
-        orderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle=new Bundle();
-                bundle.putString(IntentKey.ORDER_ID,orderAdapter.getData().get(position).getId());
-                if (orderAdapter.getData().get(position).getOrderStatus() .equals("F")){
-                    routerIntent(ArouterKey.MAP_MAPORDERDETAILACTIVITY,bundle);
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                if (adapter.getData().get(position).getOrderStatus().equals("H")){
+                    ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getRowId()).navigation(mContext);
                 }else {
-                    routerIntent(ArouterKey.ORDER_ORDERDETAILACTIVITY,bundle);
+                    ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,adapter.getData().get(position).getRowId()).navigation(mContext);
                 }
             }
         });
@@ -91,7 +94,7 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
 
     @Override
     public void getData() {
-        search = SharedPreferencesUtil.getInstance().getString(ShareKey.SEARCH_RECORD, null);
+        search = SharedPreferencesUtil.getInstance().getString(ShareKey.SEARCH_FINACE, null);
         if (search != null) {
             mVals = search.split(",");
             String [] strings=new String[10];
@@ -109,7 +112,7 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
                 tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        presenter.getSearchOrder(tv.getText().toString());
+                        presenter.findDetailList(tv.getText().toString());
                     }
                 });
                 historyFll.addView(tv);
@@ -119,8 +122,8 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
     }
 
     @Override
-    public SearchOrderPresenter getPresenter() {
-        return new SearchOrderPresenter();
+    public SearchFiancePresenter getPresenter() {
+        return new SearchFiancePresenter();
     }
 
     @Override
@@ -137,12 +140,12 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
             ToastUtils.showToast(mContext, "请输入想要搜索的内容！");
             return;
         }
-        presenter.getSearchOrder(result);
+        presenter.findDetailList(result);
         if (TextUtils.isEmpty(search)) {
             search = result;
-            SharedPreferencesUtil.getInstance().putString(ShareKey.SEARCH_RECORD, search);
+            SharedPreferencesUtil.getInstance().putString(ShareKey.SEARCH_FINACE, search);
         } else {
-            SharedPreferencesUtil.getInstance().putString(ShareKey.SEARCH_RECORD, search + "," + result);
+            SharedPreferencesUtil.getInstance().putString(ShareKey.SEARCH_FINACE, search + "," + result);
         }
         selectSearchTv.setText("");
     }
@@ -153,7 +156,7 @@ public class SearchOrderActivity extends BaseMvpActivity<SearchOrderPresenter> i
     }
 
     @Override
-    public void setSearchOrderList(List<OrderBean> list) {
-        orderAdapter.setNewData(list);
+    public void setDataList(List<FinaceBean> list) {
+        adapter.setNewData(list);
     }
 }

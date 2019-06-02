@@ -244,9 +244,6 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     private void drawPath() {
         aMap.clear();
         for (int i = 0; i < driveRouteResult.getPaths().size(); i++) {
-            if (i == index) {
-                continue;
-            }
             DrivePath drivePath = driveRouteResult.getPaths().get(i);
             DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
                     mContext, aMap, drivePath,

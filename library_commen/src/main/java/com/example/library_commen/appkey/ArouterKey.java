@@ -36,4 +36,5 @@ public class ArouterKey {
     public static final String ORDER_ACCEPTORDERDETAILACTIVITY="/order/AcceptOrderDetailActivity";
     public static final String ORDER_ACCEPTDETAILACTIVITY="/order/AcceptDetailActivity";
     public static final String MESSAGE_MESSAGEDETAILACTIVITY="/message/MessageDetailActivity";
+    public static final String ORDER_SEARCHFINACEACTIVITY="/finace/SearchFinaceActivity";
 }

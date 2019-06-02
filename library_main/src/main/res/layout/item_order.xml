@@ -33,7 +33,7 @@
         android:layout_height="wrap_content" />
     <ImageView
 
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/border"
         android:id="@+id/order_iv"
         android:layout_marginTop="@dimen/dp_10"

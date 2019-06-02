@@ -15,7 +15,7 @@
     <string name="add_manager">添加</string>
     <string name="user_setting">我的设置</string>
     <string name="message_notice">消息通知</string>
-    <string name="submit_settlement">确认结算</string>
+    <string name="submit_settlement">确认核算</string>
     <string name="confirm_the_settlement">确认结算</string>
     <string name="order_information">订单信息</string>
     <string name="user_position">职务</string>
@@ -35,4 +35,5 @@
     <string name="about_app">关于砼哒哒</string>
     <string name="accept_list">接单列表</string>
     <string name="order_pic">订单图片</string>
+    <string name="price_setting">单价设置</string>
 </resources>

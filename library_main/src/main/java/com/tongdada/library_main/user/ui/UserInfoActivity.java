@@ -3,6 +3,7 @@ package com.tongdada.library_main.user.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -134,8 +135,21 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     @OnClick(R2.id.sure_change)
     public void onSureChangeClicked() {
+        if (TextUtils.isEmpty(userName.getText().toString())){
+            showToast("名字不能空!");
+            return;
+        }
+        if (TextUtils.isEmpty(userAddress.getText().toString())){
+            showToast("地址不能空!");
+            return;
+        }
+        if (TextUtils.isEmpty(userPhone.getText().toString())){
+            showToast("手机号不能空!");
+            return;
+        }
         userBean.setUserName(userName.getText().toString());
         userBean.setUserAddress(userAddress.getText().toString());
+        userBean.setUserContacts(userPhone.getText().toString().trim());
         presenter.editUser(userBean);
     }
 

@@ -272,6 +272,7 @@
 
                     </View>
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:layout_marginRight="@dimen/dp_16"
                         android:layout_marginTop="@dimen/dp_8"
@@ -293,6 +294,7 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                     <View
+                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:layout_marginRight="@dimen/dp_16"
                         android:background="@color/_E0E0E0"

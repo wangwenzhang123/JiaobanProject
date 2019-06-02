@@ -304,15 +304,11 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             showToast("请选择订单时间");
             return;
         }
-        if (TextUtils.isEmpty(issueOrdernameEt.getText().toString())) {
-            showToast("请填写订单发布单位");
-            return;
-        }
+
         if (TextUtils.isEmpty(orderAmount.getText().toString().trim())) {
             showToast("请选择订单数量");
             return;
         }
-        issueOrderBean.setOrderName(issueOrdernameEt.getText().toString());
         issueOrderBean.setOrderAmount(orderAmount.getText().toString().trim());
         issueOrderBean.setPerPrice(orderPrice.getText().toString());
         issueOrderBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
@@ -332,6 +328,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
 
     @Override
     public void publishSuccess() {
+        EventBus.getDefault().post(new OrderBean());
         finish();
     }
 

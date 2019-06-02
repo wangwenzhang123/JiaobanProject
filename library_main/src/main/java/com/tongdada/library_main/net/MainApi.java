@@ -67,7 +67,7 @@ public interface MainApi {
     @FormUrlEncoded
     @POST("/interface/orderList.action")
     Observable<PagenationBase<OrderListBean>> orderList(@Field("psTotalOrders.stationId") String stationId,
-                                                        @Field("pagination.pageNumber") String pageNumber,
+                                                        @Field("page") String pageNumber,
                                                         @Field("psTotalOrders.orderName") String orderName,
                                                         @Field("psTotalOrders.orderStatus") String orderStatus);
     /**
@@ -183,6 +183,9 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/interface/findDetailList.action")
-    Observable<PagenationBase<CarOrderBean>> detailOrderList(@Field("psDetailOrders.stationId") String id, @Field("psDetailOrders.orderStatus") String orderStatus);
+    Observable<PagenationBase<CarOrderBean>> detailOrderList(@Field("psDetailOrders.stationId") String id, @Field("psDetailOrders.orderStatus") String orderStatus
+            , @Field("psDetailOrders.orderRemark") String orderRemark,
+                                                             @Field("page") String pageNumber
+    );
 
 }

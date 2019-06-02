@@ -1,45 +1,29 @@
 package com.tongdada.library_main.finance.presenter;
 
 import com.example.library_commen.model.CommenUtils;
-import com.example.library_commen.model.OrderBean;
-import com.example.library_commen.net.CommenApi;
-import com.tongdada.base.net.bean.BaseAppEntity;
-import com.tongdada.base.net.client.KRetrofitFactory;
+import com.example.library_commen.model.PagenationBase;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.net.MainApiUtils;
-import com.example.library_commen.model.PagenationBase;
+import com.tongdada.library_main.order.presenter.SearchOrderContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by wangshen on 2019/5/14.
+ * Created by wangshen on 2019/6/2.
  */
 
-public class FinancePresenter extends BasePresenter<FinanceContract.View> implements FinanceContract.Presenter {
-    private String type;
-    private CommenApi commenApi;
-    public FinancePresenter() {
-        commenApi= KRetrofitFactory.createService(CommenApi.class);
-    }
+public class SearchFiancePresenter extends BasePresenter<SearchFinaceContract.View> implements SearchFinaceContract.Presenter {
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Override
-    public void detailOrderList() {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null,"1")
+    public void findDetailList(String result) {
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),"",result,"1")
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override
@@ -63,7 +47,7 @@ public class FinancePresenter extends BasePresenter<FinanceContract.View> implem
                                     stringList.get(13),
                                     stringList.get(14),
                                     stringList.get(15)
-                                    );
+                            );
                             list.add(finaceBean);
                         }
                         return list;
@@ -72,24 +56,7 @@ public class FinancePresenter extends BasePresenter<FinanceContract.View> implem
                 .subscribe(new Consumer<List<FinaceBean>>() {
                     @Override
                     public void accept(List<FinaceBean> carOrderBeanPagenationBase) throws Exception {
-                        getView().setOrderList(carOrderBeanPagenationBase);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        getView().showToast(throwable.getMessage());
-                    }
-                });
-    }
-
-    @Override
-    public void batchUpdateDetailOrders(String id, String state) {
-        commenApi.batchUpdateDetailOrders(id,state)
-                .compose(this.<BaseAppEntity<OrderBean>>handleEverythingResult())
-                .subscribe(new Consumer<BaseAppEntity<OrderBean>>() {
-                    @Override
-                    public void accept(BaseAppEntity<OrderBean> orderBeanBaseAppEntity) throws Exception {
-                        detailOrderList();
+                        getView().setDataList(carOrderBeanPagenationBase);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

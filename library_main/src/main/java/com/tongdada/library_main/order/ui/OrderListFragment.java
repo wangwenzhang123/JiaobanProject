@@ -25,6 +25,10 @@ import com.tongdada.library_main.order.presenter.OrderListContract;
 import com.tongdada.library_main.order.presenter.OrderListPresenter;
 import com.example.library_commen.model.OrderBean;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +64,7 @@ public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListCont
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        EventBus.getDefault().register(this);
         getRecyclerAdapter().setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
@@ -79,7 +84,10 @@ public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListCont
     public void getData() {
 
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventOrder(OrderBean orderBean){
+        getRefreshLayout().autoRefresh();
+    }
     @Override
     public OrderListPresenter getPresenter() {
         return new OrderListPresenter();
