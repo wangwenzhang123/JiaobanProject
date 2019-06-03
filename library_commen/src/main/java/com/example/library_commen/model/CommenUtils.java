@@ -1,5 +1,9 @@
 package com.example.library_commen.model;
 
+import com.example.library_commen.appkey.ShareKey;
+import com.google.gson.Gson;
+import com.tongdada.base.util.SharedPreferencesUtil;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -38,5 +42,6 @@ public class CommenUtils {
 
     public void setUserBean(UserBean userBean) {
         this.userBean = userBean;
+        SharedPreferencesUtil.getInstance().putString(ShareKey.USER_BEAN,new Gson().toJson(userBean));
     }
 }

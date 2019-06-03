@@ -7,4 +7,5 @@ package com.example.library_commen.appkey;
 public class ShareKey {
     public static final String SEARCH_RECORD="SEARCH_RECORD";
     public static final String SEARCH_FINACE="SEARCH_FINACE";
+    public static final String USER_BEAN="USER_BEAN";
 }

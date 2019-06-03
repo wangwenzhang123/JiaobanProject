@@ -21,6 +21,7 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
                 .subscribe(new Consumer<BaseAppEntity<UserBean>>() {
                     @Override
                     public void accept(BaseAppEntity<UserBean> objectBaseAppEntity) throws Exception {
+
                         CommenUtils.getIncetance().setUserBean(objectBaseAppEntity.getContent());
                         getView().showToast("修改密码成功");
                         getView().editPasswordSueecss();

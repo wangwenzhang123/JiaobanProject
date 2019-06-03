@@ -3,7 +3,14 @@ package com.tongdada.library_login.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.ShareKey;
+import com.example.library_commen.model.CommenUtils;
+import com.example.library_commen.model.UserBean;
+import com.google.gson.Gson;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 import com.tongdada.base.util.SharedPreferencesUtil;
@@ -58,10 +65,13 @@ public class SplashActivity extends BaseActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (SharedPreferencesUtil.getInstance().isFirstRun(mContext)){
-                    startActivity(new Intent(mContext,LoginActivity.class));
+                String user=SharedPreferencesUtil.getInstance().getString(ShareKey.USER_BEAN,null);
+                if (TextUtils.isEmpty(user)){
+                    ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
                 }else {
-                    startActivity(new Intent(mContext,LoginActivity.class));
+                    UserBean userBean=new Gson().fromJson(user,UserBean.class);
+                    CommenUtils.getIncetance().setUserBean(userBean);
+                    ARouter.getInstance().build(ArouterKey.MAIN_MAINACTIVITY).navigation(mContext);
                 }
                 finish();
             }
