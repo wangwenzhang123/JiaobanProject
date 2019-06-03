@@ -39,7 +39,7 @@ public class FinancePresenter extends BasePresenter<FinanceContract.View> implem
 
     @Override
     public void detailOrderList() {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null,"1")
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null,"1",null)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override

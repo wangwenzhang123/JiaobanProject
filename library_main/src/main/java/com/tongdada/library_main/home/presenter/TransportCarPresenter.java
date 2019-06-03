@@ -47,7 +47,7 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
 
     @Override
     public void onRefresh(final RequestCallback<FinaceBean> callback) {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null, String.valueOf(getFirstPageIndex()))
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null, String.valueOf(getFirstPageIndex()),null)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override
@@ -96,7 +96,7 @@ public class TransportCarPresenter extends BaseRecyclerRefreshPresenter<Transpor
 
     @Override
     public void onLoadMore(final RequestCallback<FinaceBean> callback) {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null, String.valueOf(getCurrentPage()))
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),type,null, String.valueOf(getCurrentPage()),null)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override

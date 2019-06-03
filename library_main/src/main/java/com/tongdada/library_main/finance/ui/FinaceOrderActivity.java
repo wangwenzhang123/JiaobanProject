@@ -90,16 +90,6 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
     }
 
     @Override
-    public void initLinsenterner() {
-
-    }
-
-    @Override
-    public void getData() {
-
-    }
-
-    @Override
     public FinaceOrderDetailPresenter getPresenter() {
         return new FinaceOrderDetailPresenter();
     }

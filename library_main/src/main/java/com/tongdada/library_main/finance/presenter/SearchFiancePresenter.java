@@ -23,7 +23,7 @@ public class SearchFiancePresenter extends BasePresenter<SearchFinaceContract.Vi
 
     @Override
     public void findDetailList(String result) {
-        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),"",result,"1")
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),"",result,"1",null)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override

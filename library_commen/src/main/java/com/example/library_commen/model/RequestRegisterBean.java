@@ -31,7 +31,7 @@ public class RequestRegisterBean {
      * updateUserID :
      * verifyStatus : N
      */
-
+    private String logoPic="";
     private String bengPrice="";
     private CreateTimeBean createTime=new CreateTimeBean();
     private String createUserID="";
@@ -43,6 +43,14 @@ public class RequestRegisterBean {
     private UpdateTimeBean updateTime=new UpdateTimeBean();
     private String updateUserID="";
     private String verifyStatus="";
+
+    public String getLogoPic() {
+        return logoPic;
+    }
+
+    public void setLogoPic(String logoPic) {
+        this.logoPic = logoPic;
+    }
 
     public String getStationName() {
         return stationName;

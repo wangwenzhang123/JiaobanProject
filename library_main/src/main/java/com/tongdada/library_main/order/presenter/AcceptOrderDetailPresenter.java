@@ -7,6 +7,7 @@ import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.net.MainApiUtils;
 import com.example.library_commen.model.PagenationBase;
 
+import java.net.IDN;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class AcceptOrderDetailPresenter extends BasePresenter<AcceptOrderDetailC
 
     @Override
     public void detailOrderList(String id) {
-        MainApiUtils.getMainApi().detailOrderList(id,"",null,"1")
+        MainApiUtils.getMainApi().detailOrderList(CommenUtils.getIncetance().getUserBean().getStationId(),"",null,"1", id)
                 .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
                 .map(new Function<PagenationBase<CarOrderBean>, List<FinaceBean>>() {
                     @Override

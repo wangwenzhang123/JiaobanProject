@@ -38,6 +38,7 @@ public class UserMapUtils {
     }
     public static Map<String,Object> getMixingStationsMap(RequestRegisterBean requestRegisterBean){
         Map<String,Object> map=new HashMap<>();
+        map.put("psMixingStations.logoPic",requestRegisterBean.getLogoPic());
         map.put("psMixingStations.stationName",requestRegisterBean.getStationName());
         map.put("psMixingStations.stationAddress",requestRegisterBean.getStationAddress());
         map.put("psMixingStations.stationContacts",requestRegisterBean.getStationContacts());

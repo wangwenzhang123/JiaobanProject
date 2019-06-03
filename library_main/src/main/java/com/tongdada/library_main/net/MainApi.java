@@ -185,7 +185,7 @@ public interface MainApi {
     @POST("/interface/findDetailList.action")
     Observable<PagenationBase<CarOrderBean>> detailOrderList(@Field("psDetailOrders.stationId") String id, @Field("psDetailOrders.orderStatus") String orderStatus
             , @Field("psDetailOrders.orderRemark") String orderRemark,
-                                                             @Field("page") String pageNumber
+                                                             @Field("page") String pageNumber, @Field("psDetailOrders.orderId") String orderId
     );
 
 }

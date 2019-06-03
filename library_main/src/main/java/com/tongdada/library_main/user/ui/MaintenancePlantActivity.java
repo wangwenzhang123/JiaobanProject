@@ -74,8 +74,11 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
     private static final int IVLEGALPOSITIVE_CODE = 1;
     private static final int IVLEGALREVERSE_CODE = 2;
     private static final int IVBUSINESSLICENSE_CODE = 3;
+    private static final int USERLOGO_CODE = 4;
     @BindView(R2.id.back_tv)
     TextView backTv;
+    @BindView(R2.id.user_logo)
+    ImageView userLogo;
     private RequestRegisterBean requestRegisterBean;
 
     @Override
@@ -208,6 +211,12 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
                     presenter.upload(images3.get(0), IVBUSINESSLICENSE_CODE);
                     Log.e(TGA, "3=" + images3.get(0));
                     break;
+                case USERLOGO_CODE:
+                    List<String> images4 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
+                    Glide.with(mContext).load(images4.get(0)).into(ivBusinessLicense);
+                    presenter.upload(images4.get(0), USERLOGO_CODE);
+                    Log.e(TGA, "3=" + images4.get(0));
+                    break;
             }
         }
     }
@@ -226,6 +235,10 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
             case IVBUSINESSLICENSE_CODE:
                 Glide.with(mContext).load(path).into(ivBusinessLicense);
                 requestRegisterBean.setLicensePic(url);
+                break;
+            case USERLOGO_CODE:
+                Glide.with(mContext).load(path).into(userLogo);
+                requestRegisterBean.setLogoPic(url);
                 break;
         }
     }
@@ -256,7 +269,12 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
     }
 
     @OnClick(R2.id.back_tv)
-    public void onViewClicked() {
+    public void onViewBackClicked() {
         finish();
+    }
+
+    @OnClick(R2.id.user_logo)
+    public void onViewClicked() {
+        selectPic(USERLOGO_CODE);
     }
 }
