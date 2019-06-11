@@ -257,15 +257,15 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
             drivingRouteOverlay.zoomToSpan();
             switch (i) {
                 case 0:
-                    planOneDistance.setText(drivePath.getDistance() / 1000 + "KM");
+                    planOneDistance.setText(drivePath.getDistance() / 1000 + "km");
                     planOneTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
                 case 1:
-                    planTwoDistance.setText(drivePath.getDistance() / 1000 + "KM");
+                    planTwoDistance.setText(drivePath.getDistance() / 1000 + "km");
                     planTwoTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
                 case 2:
-                    planThreeDistance.setText(drivePath.getDistance() / 1000 + "KM");
+                    planThreeDistance.setText(drivePath.getDistance() / 1000 + "km");
                     planThreeTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
             }
@@ -378,7 +378,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         issueOrderBean.setStartLongitude(String.valueOf(start.getLongitude()));
         issueOrderBean.setDstLatitude(String.valueOf(end.getLatitude()));
         issueOrderBean.setDstLongitude(String.valueOf(end.getLongitude()));
-        String total = "0.0KM";
+        String total = "0.0km";
         switch (index) {
             case 0:
                 total = planOneDistance.getText().toString();
