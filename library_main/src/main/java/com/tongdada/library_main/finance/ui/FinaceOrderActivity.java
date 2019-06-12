@@ -144,6 +144,6 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
 
     @OnClick(R2.id.reject_tv)
     public void onViewClicked() {
-        presenter.batchUpdateDetailOrders(id,"S");
+        presenter.batchUpdateDetailOrders(id,"X");
     }
 }
