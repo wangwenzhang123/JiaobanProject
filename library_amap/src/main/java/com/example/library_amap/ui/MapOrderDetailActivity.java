@@ -207,9 +207,9 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         LayoutInflater factory = LayoutInflater.from(mContext);
         View view = factory.inflate(R.layout.custom_info_window, null);
         TextView title = (TextView) view.findViewById(R.id.info_title);
-        title.setText(carBean.getName());
+        title.setText(carBean.getCarNo());
         TextView conten = view.findViewById(R.id.info_contan);
-        conten.setText(carBean.getPhone());
+        conten.setText(carBean.getCarNo());
         view.setDrawingCacheEnabled(true);
         //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
         view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY),
@@ -317,7 +317,8 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
             carType1.setText("砼车");
         }
         orderremark.setText(orderDetail.getOrderRemark());
-        aMap.addMarker(new MarkerOptions().position(new LatLng(31.985562554090762, 118.82025068383825))
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(orderDetail.getDstLatitude()), Double.valueOf(orderDetail.getDstLongitude())), 15));
+        aMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(orderDetail.getDstLatitude()), Double.valueOf(orderDetail.getDstLongitude())))
                 .icon(BitmapDescriptorFactory.fromBitmap(getDestination()))
                 .anchor(0.5f, 0.5f));
     }

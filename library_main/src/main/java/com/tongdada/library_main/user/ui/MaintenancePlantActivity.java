@@ -254,6 +254,7 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
         requestRegisterBean = mixStationData;
 
         RequestOptions requestOptions = new RequestOptions()
+                .centerCrop()
                 .error(R.mipmap.defult)
                 .placeholder(R.mipmap.defult)
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
