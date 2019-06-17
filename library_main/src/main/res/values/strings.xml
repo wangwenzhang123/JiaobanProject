@@ -37,4 +37,5 @@
     <string name="order_pic">订单图片</string>
     <string name="price_setting">单价设置</string>
     <string name="update_logo">上传logo</string>
+    <string name="accept_car">接单车辆</string>
 </resources>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventUpdateBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -86,6 +87,10 @@ public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListCont
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventOrder(OrderBean orderBean){
+        getRefreshLayout().autoRefresh();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventUpdate(EventUpdateBean orderBean){
         getRefreshLayout().autoRefresh();
     }
     @Override

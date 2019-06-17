@@ -73,7 +73,7 @@ public class InformationFragment extends BaseMvpFragment<HomePresenter> implemen
 
     @Override
     public void getData() {
-
+        presenter.shuffling();
     }
 
 

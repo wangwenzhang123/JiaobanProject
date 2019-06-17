@@ -2,7 +2,6 @@ package com.tongdada.library_main.user.ui;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,17 +13,15 @@ import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventAddBean;
 import com.example.library_commen.model.UserBean;
+import com.example.library_commen.utils.PhoneCallUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
-import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.adapter.UserManagerAdapter;
-import com.tongdada.library_main.user.presenter.UserInfoContract;
 import com.tongdada.library_main.user.presenter.UserManagerContract;
 import com.tongdada.library_main.user.presenter.UserManagerPresenter;
-import com.tongdada.library_main.user.respose.UserListBean;
-import com.tongdada.library_main.user.respose.UserManagerBean;
+import com.tongdada.library_main.widget.SlideRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,7 +46,7 @@ public class UserManagerActivity extends BaseMvpActivity<UserManagerPresenter> i
     @BindView(R2.id.register_back)
     ImageView registerBack;
     @BindView(R2.id.user_manager_recycle)
-    RecyclerView userManagerRecycle;
+    SlideRecyclerView userManagerRecycle;
     @BindView(R2.id.add_user_tv)
     TextView addUserTv;
     private List<UserBean> userManagerBeanList = new ArrayList<>();
@@ -82,6 +79,8 @@ public class UserManagerActivity extends BaseMvpActivity<UserManagerPresenter> i
                     ARouter.getInstance().build(ArouterKey.USER_ADDUSERDETAILACTIVITY).withSerializable(IntentKey.USER_DETAIL,adapter.getData().get(position)).navigation(mContext);
                 } else if (id == R.id.item_slide) {
                     presenter.deleteUser(adapter.getData().get(position).getId());
+                }else if (id == R.id.user_call){
+                    PhoneCallUtils.call(adapter.getData().get(position).getUserContacts(),mContext);
                 }
             }
         });

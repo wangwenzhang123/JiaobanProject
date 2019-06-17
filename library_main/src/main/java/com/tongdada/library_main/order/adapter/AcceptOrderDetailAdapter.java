@@ -32,11 +32,16 @@ public class AcceptOrderDetailAdapter extends BaseQuickAdapter<FinaceBean,BaseVi
         helper.setText(R.id.transport_carnumber,item.getCarNo());
         helper.setText(R.id.driver_name,item.getDriverName());
         helper.setText(R.id.order_accept_time,item.getAcceptTime());
-        helper.setText(R.id.distance_text,item.getTotalDistance()+"km");
-        helper.setText(R.id.order_time,item.getAcceptTime());
+        helper.setText(R.id.distance_text,item.getTotalDistance());
         helper.setText(R.id.address_start,item.getStartPlace());
         helper.setText(R.id.address_end,item.getDestinationPlace());
         helper.setText(R.id.car_title,item.getOrderName());
+        helper.setText(R.id.order_price,"￥"+item.getOrderPrice());
+        if (item.getCarType().equals("B")){
+            helper.setText(R.id.car_type,"泵车");
+        }else {
+            helper.setText(R.id.car_type,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方");
+        }
         ImageView state=helper.getView(R.id.car_state_iv);
         switch (item.getOrderStatus()){
             case "F":

@@ -67,7 +67,24 @@ public class OrderBean implements Serializable{
      */
 
     private String orderPic="";
+    private String acceptNumber="";
+    private String leftAmount;
 
+    public String getAcceptNumber() {
+        return acceptNumber;
+    }
+
+    public void setAcceptNumber(String acceptNumber) {
+        this.acceptNumber = acceptNumber;
+    }
+
+    public String getLeftAmount() {
+        return leftAmount;
+    }
+
+    public void setLeftAmount(String leftAmount) {
+        this.leftAmount = leftAmount;
+    }
 
     public String getCarType() {
         return carType;

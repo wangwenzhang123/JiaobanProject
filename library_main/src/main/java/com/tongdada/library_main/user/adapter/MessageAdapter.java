@@ -1,21 +1,11 @@
 package com.tongdada.library_main.user.adapter;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_main.R;
-import com.tongdada.library_main.user.respose.InformationBean;
 import com.tongdada.library_main.user.respose.MessageBean;
-import com.tongdada.library_main.widget.MessageSlidingMenu;
-import com.tongdada.library_main.widget.slideswaphelper.SlideSwapAction;
 
 import java.util.List;
 
@@ -49,27 +39,5 @@ public class MessageAdapter extends BaseQuickAdapter<MessageBean.PagenationBean.
                     break;
         }
 
-    }
-    private MessageSlidingMenu mOpenMenu;
-
-    public void holdOpenMenu(MessageSlidingMenu slidingMenu) {
-        mOpenMenu = slidingMenu;
-    }
-
-    public void closeOpenMenu() {
-        if (mOpenMenu != null && mOpenMenu.isOpen()) {
-            mOpenMenu.closeMenu();
-        }
-    }
-    /**
-     * 根据手机分辨率从DP转成PX
-     *
-     * @param context
-     * @param dpValue
-     * @return
-     */
-    public static int dip2px(Context context, float dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
     }
 }

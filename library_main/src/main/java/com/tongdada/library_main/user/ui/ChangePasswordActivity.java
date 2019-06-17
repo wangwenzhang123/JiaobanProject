@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
+
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -57,7 +58,7 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
     @Override
     public void initView() {
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
-        userOldpassword.setText(CommenUtils.getIncetance().getUserBean().getUserPassword());
+
     }
 
     @Override
@@ -89,6 +90,10 @@ public class ChangePasswordActivity extends BaseMvpActivity<ChangePasswordPresen
 
     @OnClick(R2.id.sure_tv)
     public void onSureTvClicked() {
+        if (userOldpassword.getText().toString().equals(CommenUtils.getIncetance().getUserBean().getUserPassword())){
+            showToast("旧密码输入不对!");
+            return;
+        }
         if (userNewpassword.getText().toString().trim().equals(userSureNewpassword.getText().toString().trim()) && !TextUtils.isEmpty(userNewpassword.getText().toString().trim())) {
             presenter.editPassword(userNewpassword.getText().toString().trim());
         } else {

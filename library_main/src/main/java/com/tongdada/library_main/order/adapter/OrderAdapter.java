@@ -1,6 +1,7 @@
 package com.tongdada.library_main.order.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -35,10 +36,15 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
         helper.setText(R.id.order_time,item.getPublishTime());
         ImageView imageView=helper.getView(R.id.order_iv);
         ImageView state=helper.getView(R.id.order_state_iv);
-        if (item.getCarType().equals("B")){
-            helper.setText(R.id.order_cart,"泵车");
+        if (TextUtils.isEmpty(item.getAcceptNumber())){
+            helper.setText(R.id.order_accept_number,"暂无人接单");
         }else {
-            helper.setText(R.id.order_cart,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方");
+            helper.setText(R.id.order_accept_number,item.getAcceptNumber()+"人已接单");
+        }
+        if (item.getCarType().equals("B")){
+            helper.setText(R.id.order_cart,"泵车"+"|剩余"+item.getLeftAmount()+"方");
+        }else {
+            helper.setText(R.id.order_cart,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方"+"|剩余"+item.getLeftAmount()+"方");
         }
         switch (item.getOrderStatus()){
             case "F":
@@ -48,10 +54,10 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
                 state.setImageResource(R.mipmap.yiwancheng);
                 break;
             case "A":
-                state.setImageResource(R.mipmap.accounting);
+                state.setImageResource(R.mipmap.cancel);
                 break;
             case "Z":
-                state.setImageResource(R.mipmap.cancel);
+                state.setImageResource(R.mipmap.accounting);
                 break;
         }
         RequestOptions requestOptions=new RequestOptions()

@@ -18,7 +18,7 @@ import io.reactivex.functions.Consumer;
 public class MessagePresenter extends BasePresenter<MessageContract.View> implements MessageContract.Presenter {
     @Override
     public void getMessageList() {
-        MainApiUtils.getMainApi().messageList(CommenUtils.getIncetance().getUserBean().getId(),"")
+        MainApiUtils.getMainApi().messageList(CommenUtils.getIncetance().getUserBean().getId(),null)
                 .compose(this.<MessageBean>handleEverythingResult())
                 .subscribe(new Consumer<MessageBean>() {
                     @Override
@@ -30,7 +30,7 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                            getView().showToast(throwable.getMessage());
                     }
                 });
     }
@@ -42,12 +42,12 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
                 .subscribe(new Consumer<BaseAppEntity<Object>>() {
                     @Override
                     public void accept(BaseAppEntity<Object> objectBaseAppEntity) throws Exception {
-
+                        getMessageList();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        getView().showToast(throwable.getMessage());
                     }
                 });
     }
@@ -64,7 +64,7 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        getView().showToast(throwable.getMessage());
                     }
                 });
     }

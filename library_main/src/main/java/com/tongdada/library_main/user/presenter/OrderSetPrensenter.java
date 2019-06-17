@@ -14,12 +14,14 @@ import io.reactivex.functions.Consumer;
 public class OrderSetPrensenter extends BasePresenter<OrderSetContract.View> implements OrderSetContract.Presenter{
 
     @Override
-    public void sysSet(String tong, String beng) {
+    public void sysSet(final String tong, final String beng) {
         MainApiUtils.getMainApi().sysSet(CommenUtils.getIncetance().getUserBean().getStationId(),tong,beng)
                 .compose(this.<BaseAppEntity<Object>>handleEverythingResult())
                 .subscribe(new Consumer<BaseAppEntity<Object>>() {
                     @Override
                     public void accept(BaseAppEntity<Object> objectBaseAppEntity) throws Exception {
+                        CommenUtils.getIncetance().getRequestRegisterBean().setTongPrice(tong);
+                        CommenUtils.getIncetance().getRequestRegisterBean().setBengPrice(beng);
                         getView().sysSetSuccess();
                     }
                 }, new Consumer<Throwable>() {

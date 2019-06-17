@@ -8,14 +8,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.entity.IExpandable;
 import com.example.library_commen.model.UserBean;
 import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
-import com.tongdada.library_main.user.respose.UserListBean;
-import com.tongdada.library_main.user.respose.UserManagerBean;
-import com.tongdada.library_main.widget.MessageSlidingMenu;
-import com.tongdada.library_main.widget.UserSlidingMenu;
 
 import java.util.List;
 
@@ -46,16 +41,6 @@ public class UserManagerAdapter extends BaseQuickAdapter<UserBean,BaseViewHolder
         helper.setText(R.id.user_position,item.getUserDuty());
         helper.addOnClickListener(R.id.cl_conten);
         helper.addOnClickListener(R.id.item_slide);
-    }
-    private UserSlidingMenu mOpenMenu;
-
-    public void holdOpenMenu(UserSlidingMenu slidingMenu) {
-        mOpenMenu = slidingMenu;
-    }
-
-    public void closeOpenMenu() {
-        if (mOpenMenu != null && mOpenMenu.isOpen()) {
-            mOpenMenu.closeMenu();
-        }
+        helper.addOnClickListener(R.id.user_call);
     }
 }

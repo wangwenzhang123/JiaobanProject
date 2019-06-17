@@ -1,6 +1,7 @@
 package com.example.library_amap.ui;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,20 +28,22 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
-import com.example.library_commen.adapter.OrderDetailCarAdapter;
-import com.example.library_commen.model.CarBean;
 import com.example.library_amap.model.MarkerBean;
+import com.example.library_commen.adapter.OrderDetailCarAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventUpdateBean;
+import com.example.library_commen.model.CarBean;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.DetailCarListBean;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.presenter.OrderDetailContract;
 import com.example.library_commen.presenter.OrderPresenter;
-import com.example.library_commen.utils.PhoneCallUtils;
 import com.example.util.PopwindowUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,6 +128,8 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
     RecyclerView recycleCar;
     @BindView(R2.id.accpet_detail)
     TextView accpetDetail;
+    @BindView(R2.id.leftAmount)
+    TextView leftAmount;
     private AMap aMap;
     private List<CarBean> list = new ArrayList<>();
     private OrderDetailCarAdapter adapter;
@@ -164,7 +171,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                PhoneCallUtils.call(marker.getSnippet(), mContext);
+                //PhoneCallUtils.call(marker.getSnippet(), mContext);
                 return false;
             }
         });
@@ -207,7 +214,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         LayoutInflater factory = LayoutInflater.from(mContext);
         View view = factory.inflate(R.layout.custom_info_window, null);
         TextView title = (TextView) view.findViewById(R.id.info_title);
-        title.setText(carBean.getCarNo());
+        title.setText(carBean.getName());
         TextView conten = view.findViewById(R.id.info_contan);
         conten.setText(carBean.getCarNo());
         view.setDrawingCacheEnabled(true);
@@ -233,6 +240,11 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
         orderDetailMap.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//因为不是所有的系统都可以设置颜色的，在4.4以下就不可以。。有的说4.1，所以在设置的时候要检查一下系统版本是否是4.1以上
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.FFFFFF));
+        }
     }
 
     @Override
@@ -311,6 +323,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         orderPublishTime.setText(orderDetail.getPublishTime());
         orderPublish.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
         carType2.setText(orderDetail.getCarType());
+        leftAmount.setText(orderDetail.getLeftAmount() + "方");
         if (orderDetail.getCarType().equals("B")) {
             carType1.setText("泵车");
         } else {
@@ -343,7 +356,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         adapter.setNewData(carList);
         for (int i = 0; i < carList.size(); i++) {
             DetailCarListBean driverOrderDetailBean = carList.get(i);
-            CarBean carBean = new CarBean(driverOrderDetailBean.getCarName(), driverOrderDetailBean.getCarNo(),
+            CarBean carBean = new CarBean(driverOrderDetailBean.getDriveName(), driverOrderDetailBean.getCarNo(),
                     driverOrderDetailBean.getDriveLicense(),
                     Double.valueOf(driverOrderDetailBean.getCarLatitude())
                     , Double.valueOf(driverOrderDetailBean.getCarLongitude()));
@@ -379,6 +392,7 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
 
     @Override
     public void cancelOrderSuccess() {
+        EventBus.getDefault().post(new EventUpdateBean());
         finish();
     }
 

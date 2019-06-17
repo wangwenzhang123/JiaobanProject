@@ -2,6 +2,7 @@ package com.tongdada.library_main.home.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -112,7 +114,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
                         .navigation(mContext);
             }
         });
-
+        banner.setIndicatorVisible(false);
 
     }
 
@@ -154,6 +156,11 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R2.id.home_order)
     public void onHomeOrderClicked() {
+        if (TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getBengPrice()) || TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice())){
+            showToast("请先设置单价！");
+            ARouter.getInstance().build(ArouterKey.USER_SETORDER).navigation(mContext);
+            return;
+        }
         ARouter.getInstance().build(ArouterKey.MAIN_ISSUEORDERACTIVITY).navigation(mContext);
     }
 

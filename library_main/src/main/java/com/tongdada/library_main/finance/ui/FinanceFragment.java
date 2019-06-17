@@ -20,6 +20,7 @@ import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
+import com.tongdada.library_main.home.ui.TransportCarFragment;
 import com.tongdada.library_main.order.ui.OrderListFragment;
 import com.tongdada.library_main.utils.TalUtils;
 
@@ -84,7 +85,7 @@ public class FinanceFragment extends BaseMvpFragment<FinancePresenter> {
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Fragment>> e) throws Exception {
-                fragments.add(new FinanceOrderFragment("R"));
+                fragments.add(new TransportCarFragment("R"));
                 fragments.add(new FinanceOrderFragment("H"));
                 fragments.add(new FinanceCompleteFragment());
                 e.onNext(fragments);

@@ -48,7 +48,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContact.View> imple
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        getView().showToast(throwable.getMessage());
                     }
                 });
 
