@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.library_commen.event.EventCompleBean;
+import com.example.library_commen.event.EventUpdateOrderList;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -20,6 +22,10 @@ import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.finance.presenter.FinanceContract;
 import com.tongdada.library_main.finance.presenter.FinancePresenter;
 import com.example.library_commen.model.TransportCarBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +85,7 @@ public class FinanceCompleteFragment extends BaseMvpFragment<FinancePresenter> i
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -87,8 +94,12 @@ public class FinanceCompleteFragment extends BaseMvpFragment<FinancePresenter> i
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(EventCompleBean EventUpdateOrderList) {
+        finaceCompleteSmart.autoRefresh();
+    }
     @Override
     public void setOrderList(final List<FinaceBean> list) {
         new Handler().postDelayed(new Runnable() {

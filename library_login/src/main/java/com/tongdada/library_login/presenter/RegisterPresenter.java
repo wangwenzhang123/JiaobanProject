@@ -44,6 +44,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContact.View> imple
                     @Override
                     public void accept(BaseAppEntity<UserBean> requestRegisterBean) throws Exception {
                         getView().routerIntent(ArouterKey.LOGIN_SUBMITAUDITACTIVITY,null);
+                        getView().finishActivity();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

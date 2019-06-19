@@ -1,5 +1,6 @@
 package com.tongdada.library_main.finance.presenter;
 
+import com.example.library_commen.event.EventCompleBean;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.net.CommenApi;
@@ -10,6 +11,8 @@ import com.tongdada.library_main.finance.net.respose.FinaceBean;
 import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.net.MainApiUtils;
 import com.example.library_commen.model.PagenationBase;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +93,7 @@ public class FinancePresenter extends BasePresenter<FinanceContract.View> implem
                     @Override
                     public void accept(BaseAppEntity<OrderBean> orderBeanBaseAppEntity) throws Exception {
                         detailOrderList();
+                        EventBus.getDefault().post(new EventCompleBean());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

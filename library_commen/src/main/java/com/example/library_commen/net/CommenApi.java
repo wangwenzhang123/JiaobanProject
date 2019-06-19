@@ -25,21 +25,21 @@ import retrofit2.http.POST;
  */
 public interface CommenApi {
     @FormUrlEncoded
-    @POST("/interface/getDetailOrderById.action")
+    @POST("/tonghe/getDetailOrderById.action")
     Observable<BaseAppEntity<DriverOrderDetailBean>> getDetailOrderById(@Field("psDetailOrders.id") String id);
     @FormUrlEncoded
-    @POST("/interface/updateDetailOrders.action")
+    @POST("/tonghe/updateDetailOrders.action")
     Observable<BaseAppEntity<DriverOrderDetailBean>> updateDetailOrders(@Field("psDetailOrders.id") String id,@Field("psDetailOrders.orderStatus") String orderStatus);
     @FormUrlEncoded
-    @POST("/interface/getOrderById.action")
+    @POST("/tonghe/getOrderById.action")
     Observable<BaseAppEntity<OrderBean>> getOrderById(@Field("psTotalOrders.id") String id);
     @FormUrlEncoded
-    @POST("/interface/orderCarsList.action")
+    @POST("/tonghe/orderCarsList.action")
     Observable<PagenationBase<DetailCarBean>> orderCarsList(@Field("psDetailOrders.orderId") String id);
     @FormUrlEncoded
-    @POST("/interface/cancelOrder.action")
+    @POST("/tonghe/cancelOrder.action")
     Observable<BaseAppEntity<OrderBean>> cancelOrder(@Field("psTotalOrders.id") String id);
     @FormUrlEncoded
-    @POST("/interface/batchUpdateDetailOrders.action")
+    @POST("/tonghe/batchUpdateDetailOrders.action")
     Observable<BaseAppEntity<OrderBean>> batchUpdateDetailOrders(@Field("detailOrderIds") String id,@Field("orderStatus") String orderStatus);
 }

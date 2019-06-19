@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventMessageBran;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_main.R;
@@ -33,6 +34,10 @@ import com.tongdada.library_main.order.ui.OrderListFragment;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.time.chrono.MinguoEra;
 import java.util.ArrayList;
@@ -70,6 +75,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     TextView homeCar;
     @BindView(R2.id.home_order_rv)
     FrameLayout homeOrderRv;
+    @BindView(R2.id.weidu)
+    TextView weidu;
     private OrderAdapter orderAdapter;
     private List<OrderBean> orderBeanList = new ArrayList<>();
 
@@ -128,12 +135,22 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     public void onResume() {
         super.onResume();
         banner.start();//开始轮播
+        presenter.getMessageList();
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventMessage(EventMessageBran a){
+        if (a.getNum() == 0){
+            weidu.setVisibility(View.GONE);
+        }else {
+            weidu.setVisibility(View.VISIBLE);
+        }
+        weidu.setText(a.getNum()+"");
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -142,6 +159,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R2.id.iv_home_search)
@@ -184,6 +202,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
             }
         });
     }
+
 
     public static class BannerViewHolder implements MZViewHolder<String> {
         private ImageView mImageView;

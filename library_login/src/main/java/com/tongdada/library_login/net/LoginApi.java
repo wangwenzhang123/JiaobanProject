@@ -22,15 +22,15 @@ import retrofit2.http.POST;
 
 public interface LoginApi {
     @FormUrlEncoded
-    @POST("/interface/userLogin.action")
+    @POST("/tonghe/userLogin.action")
     Observable<BaseAppEntity<UserBean>> login(@Field("phoneNo") String phone, @Field("password") String password);
 
-    @POST("/interface/uploadAttach.action")
+    @POST("/tonghe/uploadAttach.action")
     Observable<BaseAppEntity<UploadBean>> upload(@Body RequestBody requestBody);
     @FormUrlEncoded
-    @POST("/interface/mixUserRegister.action")
+    @POST("/tonghe/mixUserRegister.action")
     Observable<BaseAppEntity<UserBean>> regist(@FieldMap Map<String,Object> params);
     @FormUrlEncoded
-    @POST("/interface/forgetPassword.action")
+    @POST("/tonghe/forgetPassword.action")
     Observable<BaseAppEntity<UserBean>> forgetPassword(@Field("psAppUsers.userContacts") String phone);
 }

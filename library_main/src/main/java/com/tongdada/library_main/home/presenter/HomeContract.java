@@ -1,5 +1,6 @@
 package com.tongdada.library_main.home.presenter;
 
+import com.example.library_commen.model.OrderBean;
 import com.tongdada.base.ui.mvp.base.view.BaseView;
 import com.tongdada.library_main.home.respose.BannerBean;
 
@@ -19,5 +20,6 @@ public class HomeContract {
     public interface Presenter{
         void shuffling();
         void getMixStationById();
+        void getMessageList();
     }
 }

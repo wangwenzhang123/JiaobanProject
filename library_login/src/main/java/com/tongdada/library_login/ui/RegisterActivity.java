@@ -115,11 +115,11 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         switch (dex){
             case IVLEGALPOSITIVE_CODE:
                 Glide.with(mContext).load(path).into(ivLegalPositive);
-                requestRegisterBean.setBackPic(url);
+                requestRegisterBean.setFrontPic(url);
                 break;
             case IVLEGALREVERSE_CODE:
                 Glide.with(mContext).load(path).into(ivLegalReverse);
-                requestRegisterBean.setFrontPic(url);
+                requestRegisterBean.setBackPic(url);
                 break;
             case IVBUSINESSLICENSE_CODE:
                 Glide.with(mContext).load(path).into(ivBusinessLicense);
@@ -218,6 +218,18 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         }
         if (!CheckUtils.isChinaPhoneLegal(contactPhone)){
             showToast("请输入正确的手机号！");
+            return;
+        }
+        if (TextUtils.isEmpty(requestRegisterBean.getFrontPic())){
+            showToast("请先上传法人身份证正面照片！");
+            return;
+        }
+        if (TextUtils.isEmpty(requestRegisterBean.getBackPic())){
+            showToast("请先上传法人身份证反面照片！");
+            return;
+        }
+        if (TextUtils.isEmpty(requestRegisterBean.getLicensePic())){
+            showToast("请先上传营业执照！");
             return;
         }
         requestRegisterBean.setContactsPhone(contactPhone);

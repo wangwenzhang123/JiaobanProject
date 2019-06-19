@@ -47,9 +47,6 @@
         <activity android:name="com.tongdada.library_main.user.ui.AddUserDetailActivity">
 
         </activity>
-        <activity android:name="com.tongdada.library_main.home.ui.MessageDetailActivity">
-
-        </activity>
         <activity android:name="com.tongdada.library_main.order.ui.AcceptOrderDetailActivity">
 
         </activity>
@@ -57,6 +54,12 @@
 
         </activity>
         <activity android:name="com.tongdada.library_main.finance.ui.SearchFinaceActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.home.ui.InformaDetailActivity">
+
+        </activity>
+        <activity android:name="com.tongdada.library_main.user.ui.MessageDetailActivity">
 
         </activity>
     </application>

@@ -39,7 +39,7 @@ public class AppContext extends Application {
 
                 .build();
         KRetrofitFactory.init(config);
-        CrashHandler.getInstance().init(this);
+        //CrashHandler.getInstance().init(this);
         SharedPreferencesUtil.init(this, Context.MODE_PRIVATE);
         AppContextWrapper.getInstance().init(this);
     }

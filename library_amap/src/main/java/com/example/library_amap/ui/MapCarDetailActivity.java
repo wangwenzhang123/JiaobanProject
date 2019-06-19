@@ -256,10 +256,10 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         transportCarnumber.setText(detailOrder.getCarNo());
         unitPrice.setText(detailOrder.getPsTotalOrder().getPerPrice()+"元（单位 方/公里）");
         nowLoading.setText(detailOrder.getOrderAmount() + "方");
-        aMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(detailOrder.getPsTotalOrder().getStartLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getStartLongitude())))
+        aMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(detailOrder.getPsTotalOrder().getDstLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getDstLongitude())))
                 .icon(BitmapDescriptorFactory.fromBitmap(getDestination()))
                 .anchor(0.5f, 0.5f));
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(detailOrder.getPsTotalOrder().getStartLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getStartLongitude())), 13));
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(detailOrder.getPsTotalOrder().getDstLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getDstLongitude())), 13));
         Observable.create(new ObservableOnSubscribe<MarkerBean>() {
             @Override
             public void subscribe(ObservableEmitter<MarkerBean> e) throws Exception {
