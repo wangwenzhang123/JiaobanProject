@@ -30,15 +30,14 @@ public class UserManagerAdapter extends BaseQuickAdapter<UserBean,BaseViewHolder
     protected void convert(BaseViewHolder helper, UserBean item) {
         ImageView imageView=helper.getView(R.id.user_pic);
         RequestOptions requestOptions=new RequestOptions()
-                .error(R.mipmap.user_sample)
-                .placeholder(R.mipmap.user_sample)
+                .error(R.mipmap.user_defut)
+                .placeholder(R.mipmap.user_defut)
                 .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 ;
         Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getIconPic()).apply(requestOptions).into(imageView);
         helper.setText(R.id.user_name,item.getUserName());
-        helper.setText(R.id.user_position, item.getStationRemarks());
-        helper.setText(R.id.user_position,item.getUserDuty());
+        helper.setText(R.id.user_position,"职务："+item.getUserDuty());
         helper.addOnClickListener(R.id.cl_conten);
         helper.addOnClickListener(R.id.item_slide);
         helper.addOnClickListener(R.id.user_call);
