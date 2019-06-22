@@ -23,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.appkey.SettingString;
 import com.example.library_commen.event.EventAdressBean;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.OrderBean;
@@ -168,6 +169,8 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     LinearLayout bangLl;
     @BindView(R2.id.beng_gu_type)
     RadioGroup bengGuType;
+    @BindView(R2.id.platform_phone_tv)
+    TextView platformPhoneTv;
     private OrderBean issueOrderBean = new OrderBean();
     private static final int ORDER_PIC = 0;
     private boolean isUpdate = false;
@@ -203,6 +206,8 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         EventBus.getDefault().register(this);
         issueOrderBean.setCarType("T16");
         initTimerPicker();
+        platformPhoneTv.setText(SettingString.PHONE);
+        issueOrdernameEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getContactsPhone());
     }
 
     @Override
@@ -328,13 +333,13 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     private void getCheckTong() {
         String caType = null;
         if (rg16.isChecked()) {
-            caType = "T16,";
+            caType = "T16";
         }
         if (rg18.isChecked()) {
-            caType = caType + "T18,";
+            caType = caType + ",T18";
         }
         if (rg20.isChecked()) {
-            caType = caType + "T20";
+            caType = caType + ",T20";
         }
         issueOrderBean.setCarType(caType);
     }
@@ -381,7 +386,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             return;
         }
         issueOrderBean.setOrderAmount(orderAmount.getText().toString().trim());
-
+        issueOrderBean.setOrderPhone(issueOrdernameEt.getText().toString().trim());
         issueOrderBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
         issueOrderBean.setPublishTime(issueOrdertimeEt.getText().toString().trim());
         issueOrderBean.setOrderRemark(etNote.getText().toString().trim());
@@ -450,11 +455,12 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         issueorderEndTv.setText(issueOrderBean.getDestinationPlace());
         selectRoute.setText(issueOrderBean.getTotalDistance());
         etNote.setText(issueOrderBean.getOrderRemark());
-        issueOrdernameEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
+        issueOrdernameEt.setText(issueOrderBean.getOrderPhone());
         orderPrice.setText(issueOrderBean.getPerPrice());
         orderAmount.setText(issueOrderBean.getOrderAmount());
         releaseOrder.setText("确认修改");
         title.setText("修改订单");
+
         issueOrdernumberEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
         if (issueOrderBean.getCarType().equals("B")) {
             rbBeng.setChecked(true);
@@ -536,5 +542,10 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @OnClick(R2.id.gu_2)
     public void onGu2Clicked() {
         orderPriceBeng.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStaticPressurePrice());
+    }
+
+    @OnClick(R2.id.platform_phone_tv)
+    public void onViewPhoneClicked() {
+
     }
 }

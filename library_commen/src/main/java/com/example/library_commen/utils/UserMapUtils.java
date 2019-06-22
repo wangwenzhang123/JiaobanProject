@@ -90,6 +90,7 @@ public class UserMapUtils {
         map.put("psTotalOrders.startPlace",requestRegisterBean.getStartPlace());
         map.put("psTotalOrders.updateUserID",requestRegisterBean.getUpdateUserID());
         map.put("psTotalOrders.totalDistance",requestRegisterBean.getTotalDistance());
+        map.put("psTotalOrders.orderPhone",requestRegisterBean.getOrderPhone());
         if (requestRegisterBean.getUpdateTime() !=null){
             map.put("psTotalOrders.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
         }

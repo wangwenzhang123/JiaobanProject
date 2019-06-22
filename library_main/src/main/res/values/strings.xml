@@ -51,4 +51,6 @@
     <string name="beng_3">56-62米</string>
     <string name="beng_2">42-53米</string>
     <string name="beng_1">37米</string>
+    <string name="distance">距离</string>
+    <string name="jiaoban_phone">搅拌站电话</string>
 </resources>

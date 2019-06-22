@@ -2,8 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/FFFFFF"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <View
+        android:visibility="invisible"
         android:id="@+id/order_v"
         android:background="@color/_eaeaea"
         android:layout_width="match_parent"
@@ -102,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@id/driver_name"
         app:layout_constraintLeft_toLeftOf="@id/driver_name"
         android:gravity="center|left"
-        android:text="南京市"
+        android:text="南京市温热我认为额"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:ellipsize="end"
@@ -150,9 +152,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
-        android:visibility="invisible"
+
         app:layout_constraintTop_toBottomOf="@+id/order_accept_time"
-        android:background="@color/_eaeaea"
+        android:background="@color/_EDEDED"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10">
 

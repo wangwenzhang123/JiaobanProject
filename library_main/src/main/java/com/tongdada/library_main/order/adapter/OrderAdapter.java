@@ -9,7 +9,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_commen.model.OrderBean;
-import com.example.library_commen.utils.CheckUtils;
 import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
@@ -43,9 +42,9 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
         ImageView imageView=helper.getView(R.id.order_iv);
         ImageView state=helper.getView(R.id.order_state_iv);
         if (item.getCarType().contains("B")){
-            helper.setText(R.id.order_cart,"泵车| "+ CheckUtils.getBangName(item.getCarType())+"|剩余"+item.getLeftAmount()+"方");
+            helper.setText(R.id.order_cart,"泵车| 总货物量"+ item.getOrderAmount()+"|剩余"+item.getLeftAmount()+"方");
         }else {
-            helper.setText(R.id.order_cart,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方"+"|剩余"+item.getLeftAmount()+"方");
+            helper.setText(R.id.order_cart,"砼车| 总货物量"+item.getOrderAmount()+"|剩余"+item.getLeftAmount()+"方");
         }
         switch (item.getOrderStatus()){
             case "F":
