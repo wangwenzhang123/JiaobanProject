@@ -7,9 +7,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.library_commen.model.OrderBean;
+import com.example.library_commen.utils.CheckUtils;
 import com.example.library_main.R;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
@@ -34,15 +34,16 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
         helper.setText(R.id.order_start_tv,item.getStartPlace());
         helper.setText(R.id.order_end_tv,item.getDestinationPlace());
         helper.setText(R.id.order_time,item.getPublishTime());
-        ImageView imageView=helper.getView(R.id.order_iv);
-        ImageView state=helper.getView(R.id.order_state_iv);
         if (TextUtils.isEmpty(item.getAcceptNumber())){
             helper.setText(R.id.order_accept_number,"暂无人接单");
         }else {
             helper.setText(R.id.order_accept_number,item.getAcceptNumber()+"人已接单");
         }
-        if (item.getCarType().equals("B")){
-            helper.setText(R.id.order_cart,"泵车"+"|剩余"+item.getLeftAmount()+"方");
+
+        ImageView imageView=helper.getView(R.id.order_iv);
+        ImageView state=helper.getView(R.id.order_state_iv);
+        if (item.getCarType().contains("B")){
+            helper.setText(R.id.order_cart,"泵车| "+ CheckUtils.getBangName(item.getCarType())+"|剩余"+item.getLeftAmount()+"方");
         }else {
             helper.setText(R.id.order_cart,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方"+"|剩余"+item.getLeftAmount()+"方");
         }
@@ -54,10 +55,10 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
                 state.setImageResource(R.mipmap.yiwancheng);
                 break;
             case "A":
-                state.setImageResource(R.mipmap.cancel);
+                state.setImageResource(R.mipmap.accounting);
                 break;
             case "Z":
-                state.setImageResource(R.mipmap.accounting);
+                state.setImageResource(R.mipmap.daihesuan);
                 break;
         }
         RequestOptions requestOptions=new RequestOptions()

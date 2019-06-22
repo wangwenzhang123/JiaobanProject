@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.CommenUtils;
-import com.example.library_commen.net.CommenApi;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
@@ -34,12 +33,20 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
     ImageView registerBack;
     @BindView(R2.id.tongche_et)
     EditText tongcheEt;
-    @BindView(R2.id.bengche_et)
-    EditText bengcheEt;
     @BindView(R2.id.sure_change)
     TextView sureChange;
     @BindView(R2.id.back_tv)
     TextView backTv;
+    @BindView(R2.id.bang_1et)
+    EditText bang1et;
+    @BindView(R2.id.bang_2_et)
+    EditText bang2Et;
+    @BindView(R2.id.bang_3_et)
+    EditText bang3Et;
+    @BindView(R2.id.bang_4_et)
+    EditText bang4Et;
+    @BindView(R2.id.bang_5_et)
+    EditText bang5Et;
 
     @Override
     public int getView() {
@@ -54,7 +61,11 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
     @Override
     public void initView() {
         tongcheEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice());
-        bengcheEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getBengPrice());
+        bang1et.setText(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceThree());
+        bang2Et.setText(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceFive());
+        bang3Et.setText(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceSix());
+        bang4Et.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStaticNormalPrice());
+        bang5Et.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStaticPressurePrice());
     }
 
     @Override
@@ -76,8 +87,20 @@ public class OrderSettingActivity extends BaseMvpActivity<OrderSetPrensenter> im
 
     @OnClick(R2.id.sure_change)
     public void onSureChangeClicked() {
-        if (!TextUtils.isEmpty(tongcheEt.getText().toString().trim()) && !TextUtils.isEmpty(tongcheEt.getText().toString().trim())) {
-            presenter.sysSet(tongcheEt.getText().toString().trim(), bengcheEt.getText().toString().trim());
+        if (!TextUtils.isEmpty(tongcheEt.getText().toString().trim()) &&
+                !TextUtils.isEmpty(bang1et.getText().toString().trim()) &&
+                !TextUtils.isEmpty(bang2Et.getText().toString().trim() )&&
+                !TextUtils.isEmpty(bang3Et.getText().toString().trim()) &&
+                !TextUtils.isEmpty(bang4Et.getText().toString().trim())&&
+                !TextUtils.isEmpty(bang5Et.getText().toString().trim())
+                ) {
+            presenter.sysSet(tongcheEt.getText().toString().trim(),
+                    bang1et.getText().toString().trim(),
+                    bang2Et.getText().toString().trim(),
+                    bang3Et.getText().toString().trim(),
+                    bang4Et.getText().toString().trim(),
+                    bang5Et.getText().toString().trim()
+                    );
         } else {
             showToast("输入不能为空");
         }

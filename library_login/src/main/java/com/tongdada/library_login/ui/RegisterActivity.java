@@ -233,7 +233,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
             return;
         }
         requestRegisterBean.setContactsPhone(contactPhone);
-        requestRegisterBean.setRegisterCapita(registeredCapital);
+        requestRegisterBean.setRegisterCapital(registeredCapital);
         requestRegisterBean.setStationAddress(address);
         requestRegisterBean.setLegalPersion(legalPerson);
         requestRegisterBean.setStationName(unitName);

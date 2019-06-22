@@ -174,7 +174,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R2.id.home_order)
     public void onHomeOrderClicked() {
-        if (TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getBengPrice()) || TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice())){
+        if (TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice()) || TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceFive())){
             showToast("请先设置单价！");
             ARouter.getInstance().build(ArouterKey.USER_SETORDER).navigation(mContext);
             return;

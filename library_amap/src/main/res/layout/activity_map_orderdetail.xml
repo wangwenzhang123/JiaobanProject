@@ -462,6 +462,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_104" />
                     <LinearLayout
+                        android:id="@+id/car_ll"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -502,6 +503,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+
                             android:id="@+id/order_cancel"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_42"
@@ -510,7 +512,7 @@
                             android:background="@drawable/shape_login_hollow"
                             android:gravity="center"
                             android:text="@string/cancle_order"
-                            android:textColor="@color/_333333" />
+                            android:textColor="@color/_ffe06e38" />
                         <TextView
                             android:id="@+id/order_change"
                             android:layout_marginLeft="@dimen/dp_41"

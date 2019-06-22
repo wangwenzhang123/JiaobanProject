@@ -11,6 +11,6 @@ public class OrderSetContract {
         void sysSetSuccess();
     }
     public interface Presenter{
-        void sysSet(String tong,String beng);
+        void sysSet(String tong, String beng1, String beng2, String beng3, String beng4, String beng5);
     }
 }

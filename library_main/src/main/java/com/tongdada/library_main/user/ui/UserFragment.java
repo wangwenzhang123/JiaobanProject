@@ -92,7 +92,12 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @Override
     public void initLinsenterner() {
-
+        userIco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                routerIntent(ArouterKey.USER_USERINFOACTIVITY, null);
+            }
+        });
     }
 
     @Override

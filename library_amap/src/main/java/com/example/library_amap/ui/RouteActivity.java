@@ -243,6 +243,16 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
 
     private void drawPath() {
         aMap.clear();
+        if (driveRouteResult.getPaths().size() == 0){
+            planThreeLl.setVisibility(View.GONE);
+            planTwoLl.setVisibility(View.GONE);
+            planOneLl.setVisibility(View.GONE);
+        } else if (driveRouteResult.getPaths().size()  == 1){
+            planThreeLl.setVisibility(View.GONE);
+            planTwoLl.setVisibility(View.GONE);
+        }else if (driveRouteResult.getPaths().size() == 2){
+            planTwoLl.setVisibility(View.GONE);
+        }
         for (int i = 0; i < driveRouteResult.getPaths().size(); i++) {
             DrivePath drivePath = driveRouteResult.getPaths().get(i);
             DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
@@ -257,14 +267,17 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
             drivingRouteOverlay.zoomToSpan();
             switch (i) {
                 case 0:
+                    planOneTv.setText(drivePath.getStrategy());
                     planOneDistance.setText(drivePath.getDistance() / 1000 + "km");
                     planOneTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
                 case 1:
+                    planTwoTv.setText(drivePath.getStrategy());
                     planTwoDistance.setText(drivePath.getDistance() / 1000 + "km");
                     planTwoTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
                 case 2:
+                    planThreeTv.setText(drivePath.getStrategy());
                     planThreeDistance.setText(drivePath.getDistance() / 1000 + "km");
                     planThreeTime.setText(drivePath.getDuration() / 60 + "分钟");
                     break;
@@ -276,17 +289,21 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
     int index = 0;
 
     private void setRoute() {
-        DrivePath drivePath = driveRouteResult.getPaths().get(index);
-        DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
-                mContext, aMap, drivePath,
-                driveRouteResult.getStartPos(),
-                driveRouteResult.getTargetPos(), null);
-        drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
-        drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
-        drivingRouteOverlay.setoneColor(Color.parseColor("#1CB954"));
-        drivingRouteOverlay.removeFromMap();
-        drivingRouteOverlay.addToMap();
-        drivingRouteOverlay.zoomToSpan();
+        try {
+            DrivePath drivePath = driveRouteResult.getPaths().get(index);
+            DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                    mContext, aMap, drivePath,
+                    driveRouteResult.getStartPos(),
+                    driveRouteResult.getTargetPos(), null);
+            drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+            drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+            drivingRouteOverlay.setoneColor(Color.parseColor("#1CB954"));
+            drivingRouteOverlay.removeFromMap();
+            drivingRouteOverlay.addToMap();
+            drivingRouteOverlay.zoomToSpan();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

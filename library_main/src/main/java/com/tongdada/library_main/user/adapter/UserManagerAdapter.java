@@ -38,6 +38,7 @@ public class UserManagerAdapter extends BaseQuickAdapter<UserBean,BaseViewHolder
         Glide.with(mContext).load(BaseUrl.BASEURL+"/"+item.getIconPic()).apply(requestOptions).into(imageView);
         helper.setText(R.id.user_name,item.getUserName());
         helper.setText(R.id.user_position,"职务："+item.getUserDuty());
+        helper.setText(R.id.user_phone,item.getUserContacts());
         helper.addOnClickListener(R.id.cl_conten);
         helper.addOnClickListener(R.id.item_slide);
         helper.addOnClickListener(R.id.user_call);

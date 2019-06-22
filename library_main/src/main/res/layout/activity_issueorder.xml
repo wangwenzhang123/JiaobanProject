@@ -225,12 +225,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:layout_marginLeft="@dimen/dp_13"
                     android:layout_gravity="center"
                     android:text="@string/order_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
+                    android:layout_marginRight="@dimen/dp_10"
                     android:scaleType="centerCrop"
                     android:id="@+id/order_pic"
                     android:padding="@dimen/dp_5"
@@ -239,8 +241,19 @@
                     android:layout_width="@dimen/dp_150"
                     android:layout_height="@dimen/dp_69" />
             </LinearLayout>
+            <View
+
+                android:id="@+id/view4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="@dimen/dp_17"
+                android:layout_marginTop="@dimen/dp_12"
+                app:layout_constraintTop_toBottomOf="@id/pic_ll"
+                android:background="@color/_E0E0E0"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1">
+            </View>
             <TextView
-                android:text="@string/order_number"
+                android:text="@string/accept_name"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_34"
@@ -438,101 +451,348 @@
                 android:layout_height="@dimen/dp_1">
             </View>
             <LinearLayout
-                android:id="@+id/issue_order_ll"
-                android:background="@color/_EDEDED"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/order_type_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_44">
-                <TextView
-                    android:textColor="@color/_333333"
-                    android:layout_marginLeft="@dimen/dp_16"
-                    android:text="@string/order_price"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/_333333"
-                    android:text="485"
-                    android:id="@+id/order_price"
-                    android:textSize="@dimen/sp_14"
-                    android:hint="请输入单价"
-                    android:gravity="right"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:background="@null"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/_333333"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:layout_gravity="center"
-                    android:text="元"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/_333333"
-                    android:text="单位（方/公里）"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <TextView
-                android:textColor="@color/_333333"
-                android:id="@+id/order_type_tv1"
-                android:text="车辆型号"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginLeft="@dimen/dp_16"
-                app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <RadioGroup
-                android:id="@+id/rg_type"
-                app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
-                app:layout_constraintRight_toRightOf="parent"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_44">
-                <RadioButton
-                    android:id="@+id/rg_16"
-                    android:checked="true"
-                    android:layout_marginRight="@dimen/dp_24"
-                    android:layout_gravity="center"
-                    android:text="@string/fang_16"
-                    android:button="@null"
-                    android:drawablePadding="@dimen/dp_8"
-                    android:drawableLeft="@drawable/selector_order_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <RadioButton
-                    android:id="@+id/rg_18"
-                    android:layout_marginRight="@dimen/dp_22"
-                    android:layout_gravity="center"
-                    android:text="@string/fang_18"
-                    android:button="@null"
-                    android:drawablePadding="@dimen/dp_8"
-                    android:drawableLeft="@drawable/selector_order_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <RadioButton
-                    android:id="@+id/rg_20"
-                    android:layout_marginRight="@dimen/dp_22"
-                    android:layout_gravity="center"
-                    android:text="@string/fang_20"
-                    android:button="@null"
-                    android:drawablePadding="@dimen/dp_8"
-                    android:drawableLeft="@drawable/selector_order_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
+                app:layout_constraintTop_toBottomOf="@+id/order_type_view"
+                android:id="@+id/tong_ll"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+
+                    android:id="@+id/tong_carType_ll"
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textColor="@color/_333333"
+                        android:id="@+id/order_type_tv1"
+                        android:text="车辆型号"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:id="@+id/rg_type"
+                        app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44">
+                        <CheckBox
+                            android:id="@+id/rg_16"
+                            android:checked="true"
+                            android:layout_marginRight="@dimen/dp_24"
+                            android:layout_gravity="center"
+                            android:text="@string/fang_16"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <CheckBox
+                            android:checked="true"
+                            android:id="@+id/rg_18"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/fang_18"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <CheckBox
+                            android:checked="true"
+                            android:id="@+id/rg_20"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/fang_20"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/issue_order_ll"
+                    android:background="@color/_EDEDED"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44">
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:text="@string/order_price"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:text="485"
+                        android:id="@+id/order_price"
+                        android:textSize="@dimen/sp_14"
+                        android:hint="请输入单价"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_gravity="center"
+                        android:text="元"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:text="单位（方/公里）"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginLeft="@dimen/dp_16"
+                app:layout_constraintTop_toBottomOf="@+id/tong_ll"
+                android:id="@+id/bang_ll"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+
+                    android:id="@+id/beng_carType_ll"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textColor="@color/_333333"
+                        android:text="泵车（单位 方）"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioGroup
+
+                        app:layout_constraintTop_toBottomOf="@+id/order_total_view"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44">
+
+                        <RadioButton
+                            android:id="@+id/rb_beng_qi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/dp_24"
+                            android:button="@null"
+                            android:checked="true"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:text="@string/beng_car" />
+                        <RadioButton
+                            android:id="@+id/rb_beng_gu"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/beng_gu"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RadioGroup>
+                    <!--<LinearLayout
+                        android:layout_gravity="center"
+                        android:id="@+id/beng_type"
+                        app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44">
+                        <CheckBox
+                            android:id="@+id/beng_1"
+                            android:checked="true"
+                            android:layout_marginRight="@dimen/dp_24"
+                            android:layout_gravity="center"
+                            android:text="@string/fang_16"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <CheckBox
+                            android:checked="true"
+                            android:id="@+id/beng_2"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/fang_18"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <CheckBox
+                            android:checked="true"
+                            android:id="@+id/beng_3"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/fang_20"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>-->
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/beng_qi_ll"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textColor="@color/_333333"
+                        android:text="车辆型号"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioGroup
+                        android:layout_gravity="center"
+                        android:id="@+id/beng_type"
+                        app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44">
+                        <RadioButton
+                            android:id="@+id/beng_1"
+                            android:checked="true"
+                            android:layout_marginRight="@dimen/dp_24"
+                            android:layout_gravity="center"
+                            android:text="@string/beng_1"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <RadioButton
+
+                            android:id="@+id/beng_2"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/beng_2"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <RadioButton
+
+                            android:id="@+id/beng_3"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/beng_3"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/beng_gu_ll"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textColor="@color/_333333"
+                        android:text="车辆型号"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioGroup
+                        android:id="@+id/beng_gu_type"
+                        android:layout_gravity="center"
+                        app:layout_constraintTop_toBottomOf="@+id/issue_order_ll"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_44">
+                        <RadioButton
+                            android:id="@+id/gu_1"
+                            android:checked="true"
+                            android:layout_marginRight="@dimen/dp_24"
+                            android:layout_gravity="center"
+                            android:text="@string/putong"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <RadioButton
+                            android:id="@+id/gu_2"
+                            android:layout_marginRight="@dimen/dp_22"
+                            android:layout_gravity="center"
+                            android:text="@string/gaoya"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_8"
+                            android:drawableLeft="@drawable/selector_order_home"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/beng_order_ll"
+                    android:background="@color/_EDEDED"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44">
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:text="@string/order_price"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:text="485"
+                        android:id="@+id/order_price_beng"
+                        android:textSize="@dimen/sp_14"
+                        android:hint="请输入单价"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_gravity="center"
+                        android:text="元"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/_333333"
+                        android:text="单位（方/公里）"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
             <View
 
                 android:id="@+id/order_type_view1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="@dimen/dp_17"
                 android:layout_marginTop="@dimen/dp_12"
-                app:layout_constraintTop_toBottomOf="@id/order_type_tv1"
+                app:layout_constraintTop_toBottomOf="@id/bang_ll"
                 android:background="@color/_E0E0E0"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1">

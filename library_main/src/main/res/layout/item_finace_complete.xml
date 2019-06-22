@@ -45,7 +45,7 @@
         android:layout_height="@dimen/dp_20" />
     <ImageView
         android:id="@+id/user_pic_iv"
-        android:src="@mipmap/user_sample"
+        android:src="@mipmap/user_defut"
         android:layout_marginTop="@dimen/dp_22"
         android:layout_marginLeft="@dimen/dp_11"
         app:layout_constraintLeft_toRightOf="@id/btn_select"

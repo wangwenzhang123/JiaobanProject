@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/FFFFFF"
     android:layout_height="match_parent">
     <com.tongdada.library_main.widget.SlideRecyclerView
         android:layout_marginTop="@dimen/dp_15"

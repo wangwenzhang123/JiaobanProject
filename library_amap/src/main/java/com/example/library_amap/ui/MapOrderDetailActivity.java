@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -40,6 +41,7 @@ import com.example.library_commen.model.DetailCarListBean;
 import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.presenter.OrderDetailContract;
 import com.example.library_commen.presenter.OrderPresenter;
+import com.example.library_commen.utils.CheckUtils;
 import com.example.util.PopwindowUtils;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
@@ -131,6 +133,8 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
     TextView accpetDetail;
     @BindView(R2.id.leftAmount)
     TextView leftAmount;
+    @BindView(R2.id.car_ll)
+    LinearLayout carLl;
     private AMap aMap;
     private List<CarBean> list = new ArrayList<>();
     private OrderDetailCarAdapter adapter;
@@ -327,8 +331,10 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         leftAmount.setText(orderDetail.getLeftAmount() + "方");
         if (orderDetail.getCarType().equals("B")) {
             carType1.setText("泵车");
+            carType2.setText(CheckUtils.getBangName(orderDetail.getCarType()));
         } else {
             carType1.setText("砼车");
+            carType2.setText(orderDetail.getCarType());
         }
         orderremark.setText(orderDetail.getOrderRemark());
         aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(orderDetail.getDstLatitude()), Double.valueOf(orderDetail.getDstLongitude())), 15));
@@ -354,10 +360,13 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
 
     @Override
     public void setOrderCarList(final List<DetailCarListBean> carList) {
+        if (carList.size() == 0) {
+            carLl.setVisibility(View.GONE);
+        }
         adapter.setNewData(carList);
         for (int i = 0; i < carList.size(); i++) {
             DetailCarListBean driverOrderDetailBean = carList.get(i);
-            if (TextUtils.isEmpty(driverOrderDetailBean.getCarLatitude()) || TextUtils.isEmpty(driverOrderDetailBean.getCarLongitude())){
+            if (TextUtils.isEmpty(driverOrderDetailBean.getCarLatitude()) || TextUtils.isEmpty(driverOrderDetailBean.getCarLongitude())) {
                 continue;
             }
             CarBean carBean = new CarBean(driverOrderDetailBean.getDriveName(), driverOrderDetailBean.getCarNo(),

@@ -154,7 +154,13 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/tonghe/sysSet.action")
-    Observable<BaseAppEntity<Object>> sysSet(@Field("psMixingStations.id") String id,@Field("psMixingStations.tongPrice") String tongPrice,@Field("psMixingStations.bengPrice") String bengPrice);
+    Observable<BaseAppEntity<RequestRegisterBean>> sysSet(@Field("psMixingStations.id") String id,
+                                                          @Field("psMixingStations.tongPrice") String tongPrice,
+                                                          @Field("psMixingStations.carPriceThree") String carPriceThree,
+                                                          @Field("psMixingStations.carPriceFive") String carPriceFive,
+                                                          @Field("psMixingStations.carPriceSix") String carPriceSix,
+                                                          @Field("psMixingStations.staticNormalPrice") String staticNormalPrice,
+                                                          @Field("psMixingStations.staticPressurePrice") String staticPressurePrice);
     /**
      * 获取搅拌站信息
      * @return

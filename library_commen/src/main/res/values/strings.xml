@@ -65,10 +65,10 @@
     <string name="now_order">当前订单</string>
     <string name="start_address">出发地</string>
     <string name="end_address">目的地</string>
-    <string name="route">路线</string>
+    <string name="route">距离</string>
     <string name="order_number">订单编号</string>
     <string name="order_name">发布单位</string>
-    <string name="order_start_time">开始时间</string>
+    <string name="order_start_time">到站时间</string>
     <string name="total_amount">总货物量</string>
     <string name="vehicle_type">车辆类型</string>
     <string name="concrete_car">砼车</string>

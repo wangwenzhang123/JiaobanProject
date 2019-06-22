@@ -2,4 +2,5 @@
 <resources>
 
 
+    <dimen name="dp_110">110</dimen>
 </resources>

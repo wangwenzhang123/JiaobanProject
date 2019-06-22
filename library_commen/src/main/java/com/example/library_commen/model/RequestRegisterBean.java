@@ -13,7 +13,6 @@ public class RequestRegisterBean {
     private String stationContacts="";//搅拌站联系人
     private String legalPersion="";//搅拌站法人
     private String contactsPhone="";//搅拌站联系电话
-    private String registerCapita="";//搅拌站注册资金
     private String stationRemarks="";//搅拌站备注信息
     private String licensePic="";//搅拌站营业执照
     private String frontPic="";//搅拌站身份证正面
@@ -43,6 +42,51 @@ public class RequestRegisterBean {
     private UpdateTimeBean updateTime=new UpdateTimeBean();
     private String updateUserID="";
     private String verifyStatus="";
+    private String carPriceThree="";
+    private String carPriceFive="";
+    private String carPriceSix="";
+    private String staticNormalPrice="";
+    private String staticPressurePrice="";
+
+    public String getCarPriceThree() {
+        return carPriceThree;
+    }
+
+    public void setCarPriceThree(String carPriceThree) {
+        this.carPriceThree = carPriceThree;
+    }
+
+    public String getCarPriceFive() {
+        return carPriceFive;
+    }
+
+    public void setCarPriceFive(String carPriceFive) {
+        this.carPriceFive = carPriceFive;
+    }
+
+    public String getCarPriceSix() {
+        return carPriceSix;
+    }
+
+    public void setCarPriceSix(String carPriceSix) {
+        this.carPriceSix = carPriceSix;
+    }
+
+    public String getStaticNormalPrice() {
+        return staticNormalPrice;
+    }
+
+    public void setStaticNormalPrice(String staticNormalPrice) {
+        this.staticNormalPrice = staticNormalPrice;
+    }
+
+    public String getStaticPressurePrice() {
+        return staticPressurePrice;
+    }
+
+    public void setStaticPressurePrice(String staticPressurePrice) {
+        this.staticPressurePrice = staticPressurePrice;
+    }
 
     public String getLogoPic() {
         return logoPic;
@@ -92,13 +136,6 @@ public class RequestRegisterBean {
         this.contactsPhone = contactsPhone;
     }
 
-    public String getRegisterCapita() {
-        return registerCapita;
-    }
-
-    public void setRegisterCapita(String registerCapita) {
-        this.registerCapita = registerCapita;
-    }
 
     public String getStationRemarks() {
         return stationRemarks;

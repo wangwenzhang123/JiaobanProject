@@ -178,15 +178,16 @@
                         android:layout_height="1dp">
 
                     </View>
+
                     <LinearLayout
-                        android:id="@+id/message_management"
+                        android:id="@+id/messege_m"
                         android:layout_marginRight="@dimen/dp_16"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_44">
                         <ImageView
-                            android:src="@mipmap/messger"
+                            android:src="@mipmap/my_task"
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -194,7 +195,7 @@
                             android:textColor="@color/_333333"
                             android:textSize="@dimen/sp_14"
                             android:layout_weight="1"
-                            android:text="@string/message_management"
+                            android:text="@string/messege_m"
                             android:layout_marginLeft="@dimen/dp_9"
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -214,14 +215,14 @@
 
                     </View>
                     <LinearLayout
-                        android:id="@+id/messege_m"
+                        android:id="@+id/message_management"
                         android:layout_marginRight="@dimen/dp_16"
                         android:layout_marginLeft="@dimen/dp_16"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_44">
                         <ImageView
-                            android:src="@mipmap/my_task"
+                            android:src="@mipmap/messger"
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -229,7 +230,7 @@
                             android:textColor="@color/_333333"
                             android:textSize="@dimen/sp_14"
                             android:layout_weight="1"
-                            android:text="@string/messege_m"
+                            android:text="@string/message_management"
                             android:layout_marginLeft="@dimen/dp_9"
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"

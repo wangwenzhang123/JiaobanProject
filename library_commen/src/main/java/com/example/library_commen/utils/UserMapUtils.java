@@ -44,7 +44,6 @@ public class UserMapUtils {
         map.put("psMixingStations.stationContacts",requestRegisterBean.getStationContacts());
         map.put("psMixingStations.legalPersion",requestRegisterBean.getLegalPersion());
         map.put("psMixingStations.contactsPhone",requestRegisterBean.getContactsPhone());
-        map.put("psMixingStations.registerCapita",requestRegisterBean.getRegisterCapita());
         map.put("psMixingStations.stationRemarks",requestRegisterBean.getStationRemarks());
         map.put("psMixingStations.licensePic",requestRegisterBean.getLicensePic());
         map.put("psMixingStations.frontPic",requestRegisterBean.getFrontPic());
@@ -60,6 +59,11 @@ public class UserMapUtils {
         map.put("psMixingStations.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
         map.put("psMixingStations.updateUserID",requestRegisterBean.getUpdateUserID());
         map.put("psMixingStations.verifyStatus",requestRegisterBean.getVerifyStatus());
+        map.put("psMixingStations.carPriceThree",requestRegisterBean.getCarPriceThree());
+        map.put("psMixingStations.carPriceFive",requestRegisterBean.getCarPriceFive());
+        map.put("psMixingStations.carPriceSix",requestRegisterBean.getCarPriceSix());
+        map.put("psMixingStations.staticNormalPrice",requestRegisterBean.getStaticNormalPrice());
+        map.put("psMixingStations.staticPressurePrice",requestRegisterBean.getStaticPressurePrice());
         return map;
     }
     public static Map<String,Object> getOrderMap(OrderBean requestRegisterBean){

@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.UserBean;
+
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.config.BaseUrl;
@@ -47,7 +48,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     @BindView(R2.id.user_name)
     EditText userName;
     @BindView(R2.id.user_phone)
-    EditText userPhone;
+    TextView userPhone;
     @BindView(R2.id.user_age)
     EditText userAge;
     @BindView(R2.id.user_address)
@@ -58,7 +59,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     TextView backTv;
     private UserBean userBean;
     private static final int USERICON_CODE = 0;
-
+    RequestOptions requestOptions;
     @Override
     public int getView() {
         return R.layout.activity_userinfo;
@@ -71,9 +72,9 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
 
     @Override
     public void initView() {
-        RequestOptions requestOptions = new RequestOptions()
-                .error(R.mipmap.user_defut)
-                .placeholder(R.mipmap.user_defut)
+        requestOptions = new RequestOptions()
+                .error(R.mipmap.user_hpyfy)
+                .placeholder(R.mipmap.user_hpyfy)
                 .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(this).load(BaseUrl.BASEURL + "/" + CommenUtils.getIncetance().getUserBean().getIconPic())
@@ -125,7 +126,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
             switch (requestCode) {
                 case USERICON_CODE:
                     List<String> images3 = data.getStringArrayListExtra(PhotoSelector.SELECT_RESULT);
-                    Glide.with(mContext).load(images3.get(0)).into(userIco);
+                    Glide.with(mContext).load(images3.get(0)).apply(requestOptions).into(userIco);
                     presenter.upload(images3.get(0), USERICON_CODE);
                     Log.e(TGA, "3=" + images3.get(0));
                     break;
@@ -169,7 +170,7 @@ public class UserInfoActivity extends BaseMvpActivity<UserInfoPresenter> impleme
     public void uploadSuccess(String path, String url, int dex) {
         switch (dex) {
             case USERICON_CODE:
-                Glide.with(mContext).load(path).into(userIco);
+                Glide.with(mContext).load(path).apply(requestOptions).into(userIco);
                 userBean.setIconPic(url);
                 break;
         }

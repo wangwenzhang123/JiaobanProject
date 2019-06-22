@@ -50,7 +50,7 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
     @BindView(R2.id.et_legal_person)
     EditText etLegalPerson;
     @BindView(R2.id.et_contact_phone)
-    EditText etContactPhone;
+    TextView etContactPhone;
     @BindView(R2.id.et_address)
     EditText etAddress;
     @BindView(R2.id.et_registered_capital)
@@ -172,7 +172,7 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
             return;
         }
         requestRegisterBean.setContactsPhone(contactPhone);
-        requestRegisterBean.setRegisterCapita(registeredCapital);
+        requestRegisterBean.setRegisterCapital(registeredCapital);
         requestRegisterBean.setStationAddress(address);
         requestRegisterBean.setLegalPersion(legalPerson);
         requestRegisterBean.setStationName(unitName);
@@ -252,12 +252,12 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
         etLegalPerson.setText(mixStationData.getLegalPersion());
         etRegisteredCapital.setText(mixStationData.getRegisterCapital());
         requestRegisterBean = mixStationData;
-
         RequestOptions requestOptions = new RequestOptions()
                 .centerCrop()
                 .error(R.mipmap.defult)
                 .placeholder(R.mipmap.defult)
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getLogoPic()).apply(requestOptions).into(userLogo);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getBackPic()).apply(requestOptions).into(ivLegalReverse);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getFrontPic()).apply(requestOptions).into(ivLegalPositive);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + mixStationData.getLicensePic()).apply(requestOptions).into(ivBusinessLicense);
