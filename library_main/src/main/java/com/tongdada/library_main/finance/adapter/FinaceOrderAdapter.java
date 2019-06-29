@@ -1,6 +1,7 @@
 package com.tongdada.library_main.finance.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
@@ -29,7 +30,7 @@ public class FinaceOrderAdapter  extends BaseQuickAdapter<FinaceBean,BaseViewHol
     protected void convert(BaseViewHolder helper, final FinaceBean item) {
         helper.setText(R.id.transport_carnumber,item.getCarNo());
         helper.setText(R.id.driver_name,item.getDriverName());
-        helper.setText(R.id.order_accept_time,item.getAcceptTime());
+        //helper.setText(R.id.order_accept_time,item.getAcceptTime());
         helper.setText(R.id.car_title,item.getOrderName());
         helper.setText(R.id.distance_text,item.getTotalDistance());
         helper.setText(R.id.address_start,item.getStartPlace());
@@ -42,6 +43,11 @@ public class FinaceOrderAdapter  extends BaseQuickAdapter<FinaceBean,BaseViewHol
             helper.setText(R.id.car_type,"泵车");
         }else {
             helper.setText(R.id.car_type,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方");
+        }
+        if (TextUtils.isEmpty(item.getSignTime())){
+            helper.setText(R.id.order_accept_time,"未签到");
+        }else {
+            helper.setText(R.id.order_accept_time,"签到时间: "+item.getSignTime());
         }
         if (item.getOrderStatus().equals("S")){
             state.setImageResource(R.mipmap.accounting);

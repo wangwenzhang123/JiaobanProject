@@ -42,6 +42,11 @@ public class CommenUtils {
 
     public void setUserBean(UserBean userBean) {
         this.userBean = userBean;
-        SharedPreferencesUtil.getInstance().putString(ShareKey.USER_BEAN,new Gson().toJson(userBean));
+        if (userBean == null){
+            SharedPreferencesUtil.getInstance().putString(ShareKey.USER_BEAN,null);
+        }else {
+            SharedPreferencesUtil.getInstance().putString(ShareKey.USER_BEAN,new Gson().toJson(userBean));
+        }
+
     }
 }

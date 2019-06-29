@@ -59,11 +59,18 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public void initView() {
         rtPhoneLogin.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
         etPasswordLogin.setText(CommenUtils.getIncetance().getUserBean().getUserPassword());
+
     }
 
     @Override
     public void initLinsenterner() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommenUtils.getIncetance().setUserBean(null);
     }
 
     @Override

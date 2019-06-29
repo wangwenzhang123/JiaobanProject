@@ -54,7 +54,7 @@ public class OrderAdapter extends BaseAdapter<OrderBean> {
                 state.setImageResource(R.mipmap.yiwancheng);
                 break;
             case "A":
-                state.setImageResource(R.mipmap.accounting);
+                state.setImageResource(R.mipmap.cancel);
                 break;
             case "Z":
                 state.setImageResource(R.mipmap.daihesuan);

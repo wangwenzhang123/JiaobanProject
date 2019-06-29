@@ -462,23 +462,67 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         title.setText("修改订单");
 
         issueOrdernumberEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
-        if (issueOrderBean.getCarType().equals("B")) {
+        if (issueOrderBean.getCarType().contains("B")) {
             rbBeng.setChecked(true);
+            tongLl.setVisibility(View.GONE);
+            bangLl.setVisibility(View.VISIBLE);
+            switch (issueOrderBean.getCarType()) {
+                case "B1":
+                    bengQiLl.setVisibility(View.VISIBLE);
+                    bengGuLl.setVisibility(View.GONE);
+                    beng1.setChecked(true);
+                    rbBengQi.setChecked(true);
+                    break;
+                case "B2":
+                    bengQiLl.setVisibility(View.VISIBLE);
+                    bengGuLl.setVisibility(View.GONE);
+                    beng2.setChecked(true);
+                    rbBengQi.setChecked(true);
+                    break;
+                case "B3":
+                    bengQiLl.setVisibility(View.VISIBLE);
+                    bengGuLl.setVisibility(View.GONE);
+                    beng3.setChecked(true);
+                    rbBengQi.setChecked(true);
+                    break;
+                case "B4":
+                    rbBengGu.setChecked(true);
+                    bengQiLl.setVisibility(View.GONE);
+                    bengGuLl.setVisibility(View.VISIBLE);
+                    gu1.setChecked(true);
+
+                    break;
+                case "B5":
+                    rbBengGu.setChecked(true);
+                    bengQiLl.setVisibility(View.GONE);
+                    bengGuLl.setVisibility(View.VISIBLE);
+                    gu2.setChecked(true);
+
+                    break;
+            }
         } else {
             rbTong.setChecked(true);
+            tongLl.setVisibility(View.VISIBLE);
+            bangLl.setVisibility(View.GONE);
             switch (issueOrderBean.getCarType()) {
                 case "T16":
                     rg16.setChecked(true);
-                    issueOrderBean.setCarType("T16");
                     break;
                 case "T18":
                     rg18.setChecked(true);
-                    issueOrderBean.setCarType("T18");
                     break;
                 case "T20":
                     rg20.setChecked(true);
-                    issueOrderBean.setCarType("T20");
                     break;
+            }
+            if (!issueOrderBean.getCarType().contains("T16")){
+                rg16.setChecked(false);
+            }
+            if (!issueOrderBean.getCarType().contains("T18")){
+                rg18.setChecked(false);
+            }
+            if (!issueOrderBean.getCarType().contains("T20")){
+                rg20.setChecked(false);
             }
         }
     }

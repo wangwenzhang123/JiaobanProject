@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.dialog.DeleteDialog;
 import com.example.library_commen.event.EventUpdateUser;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_main.R;
@@ -69,7 +70,7 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     LinearLayout aboutApp;
     @BindView(R2.id.out_login)
     LinearLayout outLogin;
-
+    private DeleteDialog deleteDialog;
     @Override
     public BasePresenter getPresenter() {
         return new BasePresenter();
@@ -88,6 +89,16 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     @Override
     public void initView() {
         updateUi();
+        deleteDialog=new DeleteDialog(mContext);
+        deleteDialog.setOnClick(new DeleteDialog.OnClick() {
+            @Override
+            public void onClick(int position) {
+                ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+                if (getActivity() != null){
+                    getActivity().finish();
+                }
+            }
+        });
     }
 
     @Override
@@ -181,9 +192,8 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.out_login)
     public void onViewOutClicked() {
-        ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
-        if (getActivity() != null){
-            getActivity().finish();
-        }
+       if (deleteDialog != null){
+           deleteDialog.show("确认退出登录吗？");
+       }
     }
 }

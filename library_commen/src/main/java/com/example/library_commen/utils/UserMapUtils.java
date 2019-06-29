@@ -91,10 +91,11 @@ public class UserMapUtils {
         map.put("psTotalOrders.updateUserID",requestRegisterBean.getUpdateUserID());
         map.put("psTotalOrders.totalDistance",requestRegisterBean.getTotalDistance());
         map.put("psTotalOrders.orderPhone",requestRegisterBean.getOrderPhone());
+        map.put("psTotalOrders.leftAmount",requestRegisterBean.getLeftAmount());
+        map.put("psTotalOrders.acceptNumber",requestRegisterBean.getAcceptNumber());
         if (requestRegisterBean.getUpdateTime() !=null){
             map.put("psTotalOrders.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
         }
-
         return map;
     }
 }

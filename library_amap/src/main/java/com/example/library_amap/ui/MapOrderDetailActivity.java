@@ -34,6 +34,7 @@ import com.example.library_amap.model.MarkerBean;
 import com.example.library_commen.adapter.OrderDetailCarAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.appkey.SettingString;
 import com.example.library_commen.event.EventUpdateBean;
 import com.example.library_commen.model.CarBean;
 import com.example.library_commen.model.CommenUtils;
@@ -135,6 +136,10 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
     TextView leftAmount;
     @BindView(R2.id.car_ll)
     LinearLayout carLl;
+    @BindView(R2.id.platform_phone_tv)
+    TextView platformPhoneTv;
+    @BindView(R2.id.order_phone_tv)
+    TextView orderPhoneTv;
     private AMap aMap;
     private List<CarBean> list = new ArrayList<>();
     private OrderDetailCarAdapter adapter;
@@ -328,6 +333,8 @@ public class MapOrderDetailActivity extends BaseMvpActivity<OrderPresenter> impl
         orderPublishTime.setText(orderDetail.getPublishTime());
         orderPublish.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
         carType2.setText(orderDetail.getCarType());
+        platformPhoneTv.setText(SettingString.PHONE);
+        orderPhoneTv.setText(orderDetail.getOrderPhone());
         leftAmount.setText(orderDetail.getLeftAmount() + "方");
         if (orderDetail.getCarType().equals("B")) {
             carType1.setText("泵车");
