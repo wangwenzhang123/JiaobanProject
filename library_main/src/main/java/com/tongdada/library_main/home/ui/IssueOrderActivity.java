@@ -401,6 +401,18 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             showToast("请选择车辆类型");
             return;
         }
+        if (TextUtils.isEmpty(issueOrderBean.getStartPlace())){
+            showToast("请选择出发地");
+            return;
+        }
+        if (TextUtils.isEmpty(issueOrderBean.getDestinationPlace())){
+            showToast("请选择目的地");
+            return;
+        }
+        if (TextUtils.isEmpty(issueOrderBean.getTotalDistance())){
+            showToast("请选择路线");
+            return;
+        }
         if (isUpdate) {
             presenter.editOrder(issueOrderBean);
         } else {
@@ -460,6 +472,11 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         orderAmount.setText(issueOrderBean.getOrderAmount());
         releaseOrder.setText("确认修改");
         title.setText("修改订单");
+        RequestOptions requestOptions = new RequestOptions()
+                .error(R.mipmap.defult)
+                .placeholder(R.mipmap.defult)
+                .diskCacheStrategy(DiskCacheStrategy.DATA);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" +issueOrderBean.getOrderPic()).apply(requestOptions).into(orderPic);
 
         issueOrdernumberEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
         if (issueOrderBean.getCarType().contains("B")) {

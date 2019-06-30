@@ -132,6 +132,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         aMap.setOnMapTouchListener(this);
         routeSearch = new RouteSearch(this);
         routeSearch.setRouteSearchListener(this);
+
         issueOrderBean = (OrderBean) getIntent().getSerializableExtra(IntentKey.MAP_ADDRESS);
         if (issueOrderBean != null) {
             routeStart.setText(issueOrderBean.getStartPlace());
@@ -263,6 +264,7 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
             drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
             drivingRouteOverlay.setoneColor(Color.parseColor("#80CAB5"));
             drivingRouteOverlay.removeFromMap();
+
             drivingRouteOverlay.addToMap();
             drivingRouteOverlay.zoomToSpan();
             switch (i) {

@@ -34,6 +34,7 @@ public class FinaceCompleteAdapter extends BaseQuickAdapter<FinaceBean,BaseViewH
         helper.setText(R.id.order_price,"￥"+item.getOrderPrice());
         helper.setText(R.id.address_start,item.getStartPlace());
         helper.setText(R.id.address_end,item.getDestinationPlace());
+
         ImageView state=helper.getView(R.id.car_state_iv);
         if (item.getCarType().equals("B")){
             helper.setText(R.id.car_type,"泵车");
@@ -41,7 +42,7 @@ public class FinaceCompleteAdapter extends BaseQuickAdapter<FinaceBean,BaseViewH
             helper.setText(R.id.car_type,"砼车| 装载"+item.getCarType().substring(item.getCarType().length()-2,item.getCarType().length())+"方");
         }
         if (item.getOrderStatus().equals("S")){
-            state.setImageResource(R.mipmap.accounting);
+            state.setImageResource(R.mipmap.yihesuan);
         }else if (item.getOrderStatus().equals("H")){
             state.setImageResource(R.mipmap.weihesuan);
         }

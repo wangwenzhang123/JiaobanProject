@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventUpdateOrderList;
+import com.example.library_commen.utils.PhoneCallUtils;
 import com.example.library_main.R;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.adapter.BaseAdapter;
@@ -60,10 +61,22 @@ public class TransportCarFragment extends BaseRecyclerRefreshFragment<TransportC
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         EventBus.getDefault().register(this);
+        getRecyclerAdapter().setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.call_phone){
+                    PhoneCallUtils.call(getRecyclerAdapter().getData().get(position).getDriverMobile(),mContext);
+                }
+            }
+        });
         getRecyclerAdapter().setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID,getRecyclerAdapter().getData().get(position).getRowId()).navigation(mContext);
+                if (getRecyclerAdapter().getData().get(position).getOrderStatus().equals("H")) {
+                    ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID, getRecyclerAdapter().getData().get(position).getRowId()).navigation(mContext);
+                } else {
+                    ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID, getRecyclerAdapter().getData().get(position).getRowId()).navigation(mContext);
+                }
             }
         });
     }

@@ -50,7 +50,7 @@ public class FinaceOrderAdapter  extends BaseQuickAdapter<FinaceBean,BaseViewHol
             helper.setText(R.id.order_accept_time,"签到时间: "+item.getSignTime());
         }
         if (item.getOrderStatus().equals("S")){
-            state.setImageResource(R.mipmap.accounting);
+            state.setImageResource(R.mipmap.yihesuan);
         }else if (item.getOrderStatus().equals("H")){
             state.setImageResource(R.mipmap.weihesuan);
         }else {

@@ -48,6 +48,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.tongdada.library_main.utils.LoginUtils.isLogin;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -164,27 +166,47 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R2.id.iv_home_search)
     public void onIvHomeSearchClicked() {
-        routerIntent(ArouterKey.ORDER_SEARCHORDERACTIVITY,null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.ORDER_SEARCHORDERACTIVITY,null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.iv_home_message)
     public void onIvHomeMessageClicked() {
-        routerIntent(ArouterKey.HOME_INFORMMANAGEMENTACTIVITY, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.HOME_INFORMMANAGEMENTACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.home_order)
     public void onHomeOrderClicked() {
-        if (TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice()) || TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceFive())){
-            showToast("请先设置单价！");
-            ARouter.getInstance().build(ArouterKey.USER_SETORDER).navigation(mContext);
-            return;
+        if (isLogin()) {
+            if (TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice()) || TextUtils.isEmpty(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceFive())){
+                showToast("请先设置单价！");
+                ARouter.getInstance().build(ArouterKey.USER_SETORDER).navigation(mContext);
+                return;
+            }
+            ARouter.getInstance().build(ArouterKey.MAIN_ISSUEORDERACTIVITY).navigation(mContext);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
         }
-        ARouter.getInstance().build(ArouterKey.MAIN_ISSUEORDERACTIVITY).navigation(mContext);
+
     }
 
     @OnClick(R2.id.home_car)
     public void onViewClicked() {
-        ARouter.getInstance().build(ArouterKey.HOME_TRANSPORTCARACTIVITY).navigation(mContext);
+        if (isLogin()) {
+            ARouter.getInstance().build(ArouterKey.HOME_TRANSPORTCARACTIVITY).navigation(mContext);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
     private List<BannerBean.RowsBean> rowsBeanList=new ArrayList<>();
     @Override

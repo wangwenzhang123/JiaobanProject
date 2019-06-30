@@ -41,6 +41,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.tongdada.library_main.utils.LoginUtils.isLogin;
+
 /**
  * Created by wangshen on 2019/5/21.
  */
@@ -109,27 +111,37 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 //routerIntent(ArouterKey.FINANCE_FINACEORDERACTIVITY,null);
-                if (adapter.getData().get(position).getOrderStatus().equals("H")) {
-                    ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID, adapter.getData().get(position).getRowId()).navigation(mContext);
+                if (isLogin()) {
+                    if (adapter.getData().get(position).getOrderStatus().equals("H")) {
+                        ARouter.getInstance().build(ArouterKey.FINANCE_FINACEORDERACTIVITY).withString(IntentKey.MAP_ORDERID, adapter.getData().get(position).getRowId()).navigation(mContext);
+                    } else {
+                        ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID, adapter.getData().get(position).getRowId()).navigation(mContext);
+                    }
                 } else {
-                    ARouter.getInstance().build(ArouterKey.MAP_MAPCARDETAILACTIVITY).withString(IntentKey.MAP_ORDERID, adapter.getData().get(position).getRowId()).navigation(mContext);
+                    ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
                 }
+
 
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                int id = view.getId();
-                if (id == R.id.btn_select) {
-                    FinaceBean finaceBean = list.get(position);
-                    if (finaceBean.isCheck()) {
-                        finaceBean.setCheck(false);
-                    } else {
-                        finaceBean.setCheck(true);
+                if (isLogin()) {
+                    int id = view.getId();
+                    if (id == R.id.btn_select) {
+                        FinaceBean finaceBean = list.get(position);
+                        if (finaceBean.isCheck()) {
+                            finaceBean.setCheck(false);
+                        } else {
+                            finaceBean.setCheck(true);
+                        }
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
+                } else {
+                    ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
                 }
+
             }
         });
     }
@@ -160,37 +172,48 @@ public class FinanceOrderFragment extends BaseMvpFragment<FinancePresenter> impl
 
     @OnClick(R2.id.check_all)
     public void onCheckAllClicked() {
-        for (int i = 0; i < list.size(); i++) {
-            if (!isCheckAll) {
-                list.get(i).setCheck(true);
-            } else {
-                list.get(i).setCheck(false);
+        if (isLogin()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (!isCheckAll) {
+                    list.get(i).setCheck(true);
+                } else {
+                    list.get(i).setCheck(false);
+                }
             }
-        }
-        if (isCheckAll) {
-            checkAll.setChecked(false);
-            isCheckAll = false;
+            if (isCheckAll) {
+                checkAll.setChecked(false);
+                isCheckAll = false;
+            } else {
+                checkAll.setChecked(true);
+                isCheckAll = true;
+            }
+            adapter.notifyDataSetChanged();
         } else {
-            checkAll.setChecked(true);
-            isCheckAll = true;
+            checkAll.setChecked(false);
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
         }
-        adapter.notifyDataSetChanged();
+
     }
 
     @OnClick(R2.id.settlement_bt)
     public void onSettlementBtClicked() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            FinaceBean finaceBean = list.get(i);
-            if (finaceBean.isCheck()) {
-                if (i == list.size() - 1) {
-                    stringBuilder.append(finaceBean.getRowId());
-                } else {
-                    stringBuilder.append(finaceBean.getRowId() + ",");
+        if (isLogin()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                FinaceBean finaceBean = list.get(i);
+                if (finaceBean.isCheck()) {
+                    if (i == list.size() - 1) {
+                        stringBuilder.append(finaceBean.getRowId());
+                    } else {
+                        stringBuilder.append(finaceBean.getRowId() + ",");
+                    }
                 }
             }
+            presenter.batchUpdateDetailOrders(stringBuilder.toString(), type);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
         }
-        presenter.batchUpdateDetailOrders(stringBuilder.toString(), type);
+
     }
 
     @Override

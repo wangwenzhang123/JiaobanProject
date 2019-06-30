@@ -1,6 +1,7 @@
 package com.example.library_amap.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,20 +23,29 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DrivePath;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkRouteResult;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_amap.R;
 import com.example.library_amap.R2;
-import com.example.library_commen.event.EventUpdateOrderList;
-import com.example.library_commen.model.CarBean;
 import com.example.library_amap.model.MarkerBean;
 import com.example.library_amap.presenter.MapCarDetailContract;
 import com.example.library_amap.presenter.MapCarDetailPresenter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventUpdateOrderList;
+import com.example.library_commen.model.CarBean;
 import com.example.library_commen.model.DriverOrderDetailBean;
 import com.example.library_commen.utils.PhoneCallUtils;
+import com.example.overlay.DrivingRouteOverlay;
 import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
@@ -56,7 +66,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by wangshen on 2019/5/19.
  */
 @Route(path = ArouterKey.MAP_MAPCARDETAILACTIVITY)
-public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter> implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener, MapCarDetailContract.View {
+public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter> implements LocationSource, AMap.InfoWindowAdapter, AMap.OnMapTouchListener, AMap.OnInfoWindowClickListener, MapCarDetailContract.View, RouteSearch.OnRouteSearchListener {
 
 
     @BindView(R2.id.search_et)
@@ -90,9 +100,15 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
     TextView unloadAccomplishTv;
     @BindView(R2.id.bottom_ll)
     LinearLayout bottomLl;
+    @BindView(R2.id.total_price)
+    TextView totalPrice;
+    @BindView(R2.id.qiandao)
+    TextView qiandao;
     private AMap aMap;
     private Marker selectMarker;
     private String id;
+    private RouteSearch routeSearch;
+    private LatLonPoint start, end;
 
     @Override
     public int getView() {
@@ -126,10 +142,30 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         });
         id = getIntent().getStringExtra(IntentKey.MAP_ORDERID);
         presenter.getDetailOrderById(id);
+        routeSearch = new RouteSearch(this);
+        routeSearch.setRouteSearchListener(this);
+        orderDetailMap.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
     }
 
     @Override
     public void initLinsenterner() {
+        orderDetailMap.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (view.getId() == R.id.order_detail_map) {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        view.getParent().requestDisallowInterceptTouchEvent(false);
+                    }
+                }
+                return false;
+            }
+        });
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -149,6 +185,12 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
                 } else {
                     selectMarker.setPosition(latLng);
                 }*/
+            }
+        });
+        driverPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PhoneCallUtils.call(driverPhone.getText().toString(),mContext);
             }
         });
     }
@@ -254,16 +296,23 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         driverName.setText(detailOrder.getDriverName());
         driverPhone.setText(detailOrder.getPsDriver().getDriverMobile());
         transportCarnumber.setText(detailOrder.getCarNo());
-        unitPrice.setText(detailOrder.getPsTotalOrder().getPerPrice()+"元（单位 方/公里）");
+        totalPrice.setText(detailOrder.getOrderPrice()+"元");
+        if (TextUtils.isEmpty(detailOrder.getSignTime())){
+            qiandao.setText("未签到");
+        }else {
+            qiandao.setText(detailOrder.getSignTime());
+        }
+
+        unitPrice.setText(detailOrder.getPsTotalOrder().getPerPrice() + "元（单位 方/公里）");
         nowLoading.setText(detailOrder.getOrderAmount() + "方");
-        aMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(detailOrder.getPsTotalOrder().getDstLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getDstLongitude())))
-                .icon(BitmapDescriptorFactory.fromBitmap(getDestination()))
-                .anchor(0.5f, 0.5f));
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(detailOrder.getPsTotalOrder().getDstLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getDstLongitude())), 10));
+        start = new LatLonPoint(Double.valueOf(detailOrder.getPsTotalOrder().getStartLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getStartLongitude()));
+        end = new LatLonPoint(Double.valueOf(detailOrder.getPsTotalOrder().getDstLatitude()), Double.valueOf(detailOrder.getPsTotalOrder().getDstLongitude()));
+        queryRoute();
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(detailOrder.getPsCar().getCarLatitude()), Double.valueOf(detailOrder.getPsCar().getCarLongitude())), 10));
         Observable.create(new ObservableOnSubscribe<MarkerBean>() {
             @Override
             public void subscribe(ObservableEmitter<MarkerBean> e) throws Exception {
-                CarBean carBean = new CarBean(detailOrder.getDriverName(),detailOrder.getCarNo(), detailOrder.getPsDriver().getDriverMobile(), Double.valueOf(detailOrder.getPsCar().getCarLatitude()), Double.valueOf(detailOrder.getPsCar().getCarLongitude()));
+                CarBean carBean = new CarBean(detailOrder.getDriverName(), detailOrder.getCarNo(), detailOrder.getPsDriver().getDriverMobile(), Double.valueOf(detailOrder.getPsCar().getCarLatitude()), Double.valueOf(detailOrder.getPsCar().getCarLongitude()));
                 Bitmap bitmap = getViewBitmap(carBean);
                 MarkerBean markerBean = new MarkerBean(carBean.getJing(), carBean.getWei(), carBean.getPhone(), bitmap);
                 e.onNext(markerBean);
@@ -291,9 +340,9 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + detailOrder.getLoadLicense()).apply(requestOptions).into(loadingPic);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + detailOrder.getUnloadLicense()).apply(requestOptions).into(unloadPic);
-        if (detailOrder.getOrderStatus().equals("R")){
+        if (detailOrder.getOrderStatus().equals("R")) {
             bottomLl.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             bottomLl.setVisibility(View.GONE);
         }
     }
@@ -338,6 +387,14 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         return bitmap;
     }
 
+    public void queryRoute() {
+        if (start != null && end != null) {
+            RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(start, end);
+            RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DRIVING_MULTI_STRATEGY_FASTEST_SHORTEST_AVOID_CONGESTION, null, null, "");
+            routeSearch.calculateDriveRouteAsyn(query);
+        }
+    }
+
     @OnClick(R2.id.reject_tv)
     public void onRejectTvClicked() {
         presenter.updateDetailOrders(id, "Z");
@@ -346,5 +403,37 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
     @OnClick(R2.id.unload_accomplish_tv)
     public void onUnloadAccomplishTvClicked() {
         presenter.batchUpdateDetailOrders(id, "X");
+    }
+
+    @Override
+    public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onDriveRouteSearched(DriveRouteResult driveRouteResult, int errorCode) {
+        if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+            DrivePath drivePath = driveRouteResult.getPaths().get(0);
+            DrivingRouteOverlay drivingRouteOverlay = new DrivingRouteOverlay(
+                    mContext, aMap, drivePath,
+                    driveRouteResult.getStartPos(),
+                    driveRouteResult.getTargetPos(), null);
+            drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+            drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+            drivingRouteOverlay.setoneColor(Color.parseColor("#80CAB5"));
+            drivingRouteOverlay.removeFromMap();
+            drivingRouteOverlay.addToMap();
+            drivingRouteOverlay.zoomToSpan();
+        }
+    }
+
+    @Override
+    public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
+
+    }
+
+    @Override
+    public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
+
     }
 }

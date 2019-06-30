@@ -5,5 +5,5 @@ package com.example.library_commen.appkey;
  */
 
 public class SettingString {
-    public static final String PHONE="025-8886888";
+    public static final String PHONE="025-58769798";
 }

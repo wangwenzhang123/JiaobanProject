@@ -105,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/order_state"
                     app:layout_constraintCircle="@id/distance_text"
                     app:layout_constraintCircleRadius="40dp"
                     app:layout_constraintCircleAngle="180"
@@ -329,6 +330,7 @@
 
             </View>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginRight="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_8"
@@ -349,6 +351,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <View
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginRight="@dimen/dp_16"
                 android:background="@color/_E0E0E0"
@@ -516,6 +519,33 @@
                 android:layout_marginRight="@dimen/dp_24"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_104" />
+            <TextView
+                android:layout_marginTop="@dimen/dp_13"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:text="@string/loading_evidence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/loading_pic"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_width="@dimen/dp_168"
+                android:layout_height="@dimen/dp_88" />
+            <TextView
+                android:layout_marginTop="@dimen/dp_26"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:text="@string/unloading_evidence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/unload_pic"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginBottom="@dimen/dp_22"
+                android:layout_width="@dimen/dp_168"
+                android:layout_height="@dimen/dp_88" />
             <LinearLayout
                 android:id="@+id/bottom_ll"
                 android:layout_marginBottom="@dimen/dp_60"

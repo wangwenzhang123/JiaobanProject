@@ -33,6 +33,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.tongdada.library_main.utils.LoginUtils.isLogin;
+
 /**
  * @name JiaobanProject
  * @class describe
@@ -139,37 +141,79 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.user_info)
     public void onUserInfoClicked() {
-        routerIntent(ArouterKey.USER_USERINFOACTIVITY, null);
-    }
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_USERINFOACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
 
+    }
+    @OnClick(R2.id.user_ico)
+    public void onViewIconClicked() {
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_USERINFOACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+    }
     @OnClick(R2.id.change_password)
     public void onChangePasswordClicked() {
-        routerIntent(ArouterKey.USER_CHANGEPASSWORDACTIVITY, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_CHANGEPASSWORDACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.user_manager)
     public void onUserManagerClicked() {
-        routerIntent(ArouterKey.USER_USERMANAGERACTIVITY, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_USERMANAGERACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.message_management)
     public void onMessageManagementClicked() {
-        routerIntent(ArouterKey.USER_MESSAGEACTIVITY, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_MESSAGEACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.messege_m)
     public void onMessegeMClicked() {
-        routerIntent(ArouterKey.USER_INFORMATIONACTIVITY, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_INFORMATIONACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.setting)
     public void onSettingClicked() {
-        routerIntent(ArouterKey.USER_SETORDER, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_SETORDER, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @OnClick(R2.id.plant_maintenace)
     public void onViewClicked() {
-        routerIntent(ArouterKey.USER_MAINTENANCEPLANTACTIVITY, null);
+        if (isLogin()) {
+            routerIntent(ArouterKey.USER_MAINTENANCEPLANTACTIVITY, null);
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
+
     }
 
     @Override
@@ -192,8 +236,12 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
 
     @OnClick(R2.id.out_login)
     public void onViewOutClicked() {
-       if (deleteDialog != null){
-           deleteDialog.show("确认退出登录吗？");
-       }
+        if (isLogin()) {
+            if (deleteDialog != null) {
+                deleteDialog.show("确定要退出登录吗?");
+            }
+        } else {
+            ARouter.getInstance().build(ArouterKey.LOGIN_LOGINACTIVITY).navigation(mContext);
+        }
     }
 }

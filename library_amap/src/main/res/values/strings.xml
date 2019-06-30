@@ -6,4 +6,6 @@
     <string name="left_amount">剩余货物量</string>
     <string name="order_phone">搅拌站电话</string>
     <string name="platform_phone">平台电话</string>
+    <string name="qiandao_time">签到时间</string>
+    <string name="total_price">总价</string>
 </resources>

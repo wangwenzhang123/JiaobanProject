@@ -8,19 +8,19 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
-import com.example.library_main.MyViewPagerAdapter;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 import com.tongdada.base.util.ToastUtils;
-import com.tongdada.library_main.order.ui.OrderListFragment;
+import com.tongdada.library_main.user.ui.MessageFragment;
 import com.tongdada.library_main.utils.TalUtils;
 
 import java.util.ArrayList;
@@ -55,8 +55,11 @@ public class TransportCarActivity extends BaseActivity {
     TabLayout transportTab;
     @BindView(R2.id.pager)
     ViewPager pager;
-    List<String> list=new ArrayList<>()/*{"进行中","已完成","已卸货"}*/;
-    private List<Fragment> fragments=new ArrayList<>();
+    List<String> list = new ArrayList<>()/*{"进行中","已完成","已卸货"}*/;
+    @BindView(R2.id.transport_content)
+    FrameLayout transportContent;
+    private List<Fragment> fragments = new ArrayList<>();
+
     @Override
     public int getView() {
         return R.layout.activity_transport_car;
@@ -69,7 +72,11 @@ public class TransportCarActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        pager.setOffscreenPageLimit(5);
+        //pager.setOffscreenPageLimit(5);
+        getSupportFragmentManager()    //
+                .beginTransaction()
+                .add(R.id.transport_content, new TransportCarFragment(""))
+                .commit();
     }
 
     @Override
@@ -79,7 +86,7 @@ public class TransportCarActivity extends BaseActivity {
 
     @Override
     public void getData() {
-        list.add("已接单");
+       /* list.add("已接单");
         list.add("已装货");
         list.add("已卸货");
         list.add("已核算");
@@ -120,32 +127,34 @@ public class TransportCarActivity extends BaseActivity {
                         transportTab.post(new Runnable() {
                             @Override
                             public void run() {
-                                TalUtils.setIndicator(transportTab,15,15);
+                                TalUtils.setIndicator(transportTab, 15, 15);
                             }
                         });
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        ToastUtils.showToast(mContext,throwable.getMessage());
+                        ToastUtils.showToast(mContext, throwable.getMessage());
                     }
-                });
+                });*/
     }
-    private void initTab(){
-        for (int i = 0; i <list.size() ; i++) {
-            View  view= LayoutInflater.from(mContext).inflate(R.layout.item_tab,null);
+
+    private void initTab() {
+        for (int i = 0; i < list.size(); i++) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_tab, null);
             view.setLayoutParams(new LinearLayout.LayoutParams(
-                            100,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    ));
-            TextView title=view.findViewById(R.id.text_day);
+                    100,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            TextView title = view.findViewById(R.id.text_day);
             title.setText(list.get(i));
-            TabLayout.Tab tab=transportTab.newTab();
+            TabLayout.Tab tab = transportTab.newTab();
             tab.setCustomView(view);
             transportTab.addTab(tab);
         }
         //transportTab.setupWithViewPager(pager);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,16 +1,24 @@
 package com.tongdada.library_main.finance.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventUpdateOrderList;
 import com.example.library_commen.model.DriverOrderDetailBean;
+import com.example.library_commen.utils.CheckUtils;
+import com.example.library_commen.utils.PhoneCallUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
+import com.tongdada.base.config.BaseUrl;
 import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.finance.presenter.FinaceOrderDetailContract;
@@ -71,8 +79,17 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
     TextView orderEnd;
     @BindView(R2.id.reject_tv)
     TextView rejectTv;
+    @BindView(R2.id.loading_pic)
+    ImageView loadingPic;
+    @BindView(R2.id.unload_pic)
+    ImageView unloadPic;
+    @BindView(R2.id.bottom_ll)
+    LinearLayout bottomLl;
+    @BindView(R2.id.order_state)
+    TextView orderState;
     private DriverOrderDetailBean transportCarBean;
     private String id;
+
     @Override
     public int getView() {
         return R.layout.activity_finance_order;
@@ -102,20 +119,38 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
         distanceText.setText(transportCarBean.getTotalDistance() + "km");
         driverName.setText(transportCarBean.getDriverName());
         driverPhone.setText(transportCarBean.getPsDriver().getDriverMobile());
+        driverPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PhoneCallUtils.call(driverPhone.getText().toString(),mContext);
+            }
+        });
         nowLoading.setText(transportCarBean.getOrderAmount() + "方");
         transportCarnumber.setText(transportCarBean.getCarNo());
         orderRemark.setText(transportCarBean.getOrderRemark());
         orderStartTime.setText(transportCarBean.getAcceptTime());
-        orderCode.setText(transportCarBean.getStationName());
         unitPrice.setText(transportCarBean.getOrderPrice());
+        RequestOptions requestOptions = new RequestOptions()
+                .error(R.mipmap.defult)
+                .placeholder(R.mipmap.defult)
+                .diskCacheStrategy(DiskCacheStrategy.DATA);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + transportCarBean.getLoadLicense()).apply(requestOptions).into(loadingPic);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + transportCarBean.getUnloadLicense()).apply(requestOptions).into(unloadPic);
         orderReleaseName.setText(transportCarBean.getStation().getStationName());
         orderTotal.setText(transportCarBean.getPsTotalOrder().getOrderAmount());
         if (transportCarBean.getPsCar().getCarType().equals("B")) {
             carType.setText("泵车");
-            carXinghao.setText("无");
+            carXinghao.setText(CheckUtils.getBangName(transportCarBean.getPsCar().getCarType()));
         } else {
             carType.setText("砼车");
-            carXinghao.setText(transportCarBean.getPsCar().getCarType());
+            carXinghao.setText(CheckUtils.getTongName(transportCarBean.getPsCar().getCarType()));
+        }
+        if (transportCarBean.getOrderStatus().equals("H")) {
+            bottomLl.setVisibility(View.VISIBLE);
+            orderState.setText("待核算");
+        } else if (transportCarBean.getOrderStatus().equals("S")) {
+            orderState.setText("已核算");
+            bottomLl.setVisibility(View.GONE);
         }
     }
 
@@ -139,11 +174,11 @@ public class FinaceOrderActivity extends BaseMvpActivity<FinaceOrderDetailPresen
 
     @OnClick(R2.id.confirm_the_settlement)
     public void onConfirmTheSettlementClicked() {
-        presenter.updateDetailOrders(id,"S");
+        presenter.updateDetailOrders(id, "S");
     }
 
     @OnClick(R2.id.reject_tv)
     public void onViewClicked() {
-        presenter.batchUpdateDetailOrders(id,"X");
+        presenter.batchUpdateDetailOrders(id, "X");
     }
 }
