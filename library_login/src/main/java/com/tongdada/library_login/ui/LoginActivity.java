@@ -103,6 +103,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     }
 
+    @Override
+    public void finishActivity() {
+        finish();
+    }
+
     @OnClick(R2.id.bt_register)
     public void onViewClicked() {
         routerIntent(ArouterKey.LOGIN_REGISTERACTIVITY,null);
