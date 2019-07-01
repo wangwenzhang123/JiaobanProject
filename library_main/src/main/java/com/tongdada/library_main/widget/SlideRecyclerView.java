@@ -215,7 +215,16 @@ public class SlideRecyclerView extends RecyclerView {
             mFlingView.scrollTo(0, 0);
         }
     }
-    private boolean interceptTouch=true;
+    private boolean interceptTouch=false;
+
+    public boolean isInterceptTouch() {
+        return interceptTouch;
+    }
+
+    public void setInterceptTouch(boolean interceptTouch) {
+        this.interceptTouch = interceptTouch;
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // interceptTouch是自定义属性控制是否拦截事件

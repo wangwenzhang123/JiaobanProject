@@ -246,6 +246,7 @@
 
             </View>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginRight="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_8"
@@ -266,6 +267,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <View
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginRight="@dimen/dp_16"
                 android:background="@color/_E0E0E0"
@@ -308,15 +310,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44">
                 <TextView
-                    android:text="@string/unit_price"
+                    android:text="@string/total_price"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textColor="@android:color/holo_red_dark"
                     android:id="@+id/unit_price"
-                    android:text="100元（单位 方/公里）"
+                    android:text="100元"
                     android:gravity="right"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="元"
+                    android:gravity="right"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

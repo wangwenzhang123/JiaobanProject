@@ -1,5 +1,6 @@
 package com.tongdada.library_main.user.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -46,6 +47,13 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
         return R.layout.fragment_message;
     }
 
+    public MessageFragment() {
+    }
+    private boolean isPare=false;
+    @SuppressLint("ValidFragment")
+    public MessageFragment(boolean isPare) {
+        this.isPare=isPare;
+    }
     @Override
     public BaseDialog getDialog() {
         return null;
@@ -54,6 +62,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     @Override
     public void initView() {
         messageRecycle.setLayoutManager(new LinearLayoutManager(mContext));
+        messageRecycle.setInterceptTouch(isPare);
         adapter=new MessageAdapter(R.layout.item_message,messageBeans);
         messageRecycle.setAdapter(adapter);
     }

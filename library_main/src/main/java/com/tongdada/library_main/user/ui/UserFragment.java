@@ -1,6 +1,7 @@
 package com.tongdada.library_main.user.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,8 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
     LinearLayout aboutApp;
     @BindView(R2.id.out_login)
     LinearLayout outLogin;
+    @BindView(R2.id.denglutai)
+    TextView denglutai;
     private DeleteDialog deleteDialog;
     @Override
     public BasePresenter getPresenter() {
@@ -225,6 +228,9 @@ public class UserFragment extends BaseMvpFragment implements UserContract.View {
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(this).load(BaseUrl.BASEURL + "/" + CommenUtils.getIncetance().getUserBean().getIconPic())
                 .apply(requestOptions).into(userIco);
+        if (TextUtils.isEmpty(CommenUtils.getIncetance().getUserBean().getId())) {
+            denglutai.setText("登录");
+        }
         userName.setText(CommenUtils.getIncetance().getUserBean().getUserName());
         userPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
     }
