@@ -171,6 +171,10 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     RadioGroup bengGuType;
     @BindView(R2.id.platform_phone_tv)
     TextView platformPhoneTv;
+    @BindView(R2.id.issue_endtime_et)
+    TextView issueEndtimeEt;
+    @BindView(R2.id.end_order_time_iv)
+    ImageView endOrderTimeIv;
     private OrderBean issueOrderBean = new OrderBean();
     private static final int ORDER_PIC = 0;
     private boolean isUpdate = false;
@@ -279,12 +283,17 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         String beginTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
         String endTime = DateFormatUtils.long2Str(System.currentTimeMillis() + 315360000000L, true);
         issueOrdertimeEt.setText(beginTime);
-
+        issueEndtimeEt.setText(beginTime);
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mTimerPicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
-                issueOrdertimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
+                if (isEnd){
+                    issueEndtimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
+                }else {
+                    issueOrdertimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
+                }
+
             }
         }, beginTime, endTime);
         // 允许点击屏幕或物理返回键关闭
@@ -401,15 +410,15 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             showToast("请选择车辆类型");
             return;
         }
-        if (TextUtils.isEmpty(issueOrderBean.getStartPlace())){
+        if (TextUtils.isEmpty(issueOrderBean.getStartPlace())) {
             showToast("请选择出发地");
             return;
         }
-        if (TextUtils.isEmpty(issueOrderBean.getDestinationPlace())){
+        if (TextUtils.isEmpty(issueOrderBean.getDestinationPlace())) {
             showToast("请选择目的地");
             return;
         }
-        if (TextUtils.isEmpty(issueOrderBean.getTotalDistance())){
+        if (TextUtils.isEmpty(issueOrderBean.getTotalDistance())) {
             showToast("请选择路线");
             return;
         }
@@ -419,9 +428,10 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
             presenter.publishOrder(issueOrderBean);
         }
     }
-
+    private boolean isEnd=false;
     @OnClick(R2.id.issue_ordertime_et)
     public void onViewTimeClicked() {
+        isEnd=false;
         mTimerPicker.show(issueOrdertimeEt.getText().toString());
     }
 
@@ -476,7 +486,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
                 .error(R.mipmap.defult)
                 .placeholder(R.mipmap.defult)
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
-        Glide.with(mContext).load(BaseUrl.BASEURL + "/" +issueOrderBean.getOrderPic()).apply(requestOptions).into(orderPic);
+        Glide.with(mContext).load(BaseUrl.BASEURL + "/" + issueOrderBean.getOrderPic()).apply(requestOptions).into(orderPic);
 
         issueOrdernumberEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
         if (issueOrderBean.getCarType().contains("B")) {
@@ -532,13 +542,13 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
                     rg20.setChecked(true);
                     break;
             }
-            if (!issueOrderBean.getCarType().contains("T16")){
+            if (!issueOrderBean.getCarType().contains("T16")) {
                 rg16.setChecked(false);
             }
-            if (!issueOrderBean.getCarType().contains("T18")){
+            if (!issueOrderBean.getCarType().contains("T18")) {
                 rg18.setChecked(false);
             }
-            if (!issueOrderBean.getCarType().contains("T20")){
+            if (!issueOrderBean.getCarType().contains("T20")) {
                 rg20.setChecked(false);
             }
         }
@@ -608,5 +618,11 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     @OnClick(R2.id.platform_phone_tv)
     public void onViewPhoneClicked() {
 
+    }
+
+    @OnClick({R2.id.issue_endtime_et, R2.id.end_order_time_iv})
+    public void onViewEndClicked(View view) {
+        isEnd=true;
+        mTimerPicker.show(issueEndtimeEt.getText().toString());
     }
 }

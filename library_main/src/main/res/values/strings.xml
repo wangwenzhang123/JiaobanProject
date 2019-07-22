@@ -54,4 +54,5 @@
     <string name="distance">距离</string>
     <string name="jiaoban_phone">搅拌站电话</string>
     <string name="total_price">订单总价</string>
+    <string name="order_end_time">截止时间</string>
 </resources>
