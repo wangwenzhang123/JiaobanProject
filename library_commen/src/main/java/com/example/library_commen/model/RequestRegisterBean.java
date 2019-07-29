@@ -47,6 +47,24 @@ public class RequestRegisterBean {
     private String carPriceSix="";
     private String staticNormalPrice="";
     private String staticPressurePrice="";
+    private String stationLongitude;
+    private String stationLatitude;
+
+    public String getStationLongitude() {
+        return stationLongitude;
+    }
+
+    public void setStationLongitude(String stationLongitude) {
+        this.stationLongitude = stationLongitude;
+    }
+
+    public String getStationLatitude() {
+        return stationLatitude;
+    }
+
+    public void setStationLatitude(String stationLatitude) {
+        this.stationLatitude = stationLatitude;
+    }
 
     public String getCarPriceThree() {
         return carPriceThree;

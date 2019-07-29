@@ -12,10 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.event.EventAdressBean;
 import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
@@ -25,6 +28,10 @@ import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_main.user.presenter.MaintencancePlanContract;
 import com.tongdada.library_main.user.presenter.MaintencancePlanPresenter;
 import com.winfo.photoselector.PhotoSelector;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -117,6 +124,14 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventAdress(EventAdressBean adressBean) {
+        etAddress.setText(adressBean.getAdressName());
+        requestRegisterBean.setStationLatitude(String.valueOf(adressBean.getLatitude()));
+        requestRegisterBean.setStationLongitude(String.valueOf(adressBean.getLongitude()));
     }
 
     @OnClick(R2.id.register_back)
@@ -277,5 +292,16 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
     @OnClick(R2.id.user_logo)
     public void onViewClicked() {
         selectPic(USERLOGO_CODE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @OnClick(R2.id.et_address)
+    public void onViewAddressClicked() {
+        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 0).navigation(mContext);
     }
 }

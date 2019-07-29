@@ -189,12 +189,15 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         orderPrice.setText(CommenUtils.getIncetance().getRequestRegisterBean().getTongPrice());
         orderPriceBeng.setText(CommenUtils.getIncetance().getRequestRegisterBean().getCarPriceThree());
         issueOrdernumberEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
+        issueorderStartTv.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationAddress());
+        issueOrderBean.setStartLatitude(CommenUtils.getIncetance().getRequestRegisterBean().getStationLatitude());
+        issueOrderBean.setStartLongitude(CommenUtils.getIncetance().getRequestRegisterBean().getStationLongitude());
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.mipmap.defult)
                 .placeholder(R.mipmap.defult)
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + CommenUtils.getIncetance().getRequestRegisterBean().getLogoPic()).apply(requestOptions).into(orderPic);
-        issueOrderBean.setOrderPic(CommenUtils.getIncetance().getRequestRegisterBean().getLogoPic());
+        //issueOrderBean.setOrderPic(CommenUtils.getIncetance().getRequestRegisterBean().getLogoPic());
     }
 
     @Override
@@ -226,7 +229,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
 
     @OnClick(R2.id.issueorder_start_tv)
     public void onIssueorderStartTvClicked() {
-        ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 0).navigation(mContext);
+        //ARouter.getInstance().build(ArouterKey.MAP_SELECTADRESSACTIVITY).withInt(IntentKey.MAP_TYPE, 0).navigation(mContext);
     }
 
     @OnClick(R2.id.select_route)

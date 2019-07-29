@@ -132,7 +132,6 @@ public class RouteActivity extends BaseActivity implements LocationSource, AMap.
         aMap.setOnMapTouchListener(this);
         routeSearch = new RouteSearch(this);
         routeSearch.setRouteSearchListener(this);
-
         issueOrderBean = (OrderBean) getIntent().getSerializableExtra(IntentKey.MAP_ADDRESS);
         if (issueOrderBean != null) {
             routeStart.setText(issueOrderBean.getStartPlace());

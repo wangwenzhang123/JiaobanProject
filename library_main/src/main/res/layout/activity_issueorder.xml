@@ -87,16 +87,16 @@
 
                 <TextView
                     android:layout_marginRight="@dimen/dp_11"
+                    android:layout_marginTop="@dimen/dp_18"
+                    app:layout_constraintRight_toLeftOf="@id/issue_go_start_iv"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/issueorder_start_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:hint="请选择出发地"
-                    android:layout_marginTop="@dimen/dp_19"
                     android:maxLines="16"
                     android:textColor="@color/_333333"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/issue_go_start_iv"
                      />
                 <ImageView
                     android:id="@+id/issue_go_start_iv"
@@ -224,6 +224,7 @@
 
             </android.support.constraint.ConstraintLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/pic_ll"
                 app:layout_constraintTop_toBottomOf="@id/issueorder_route_cl"
                 android:orientation="horizontal"
@@ -248,7 +249,7 @@
                     android:layout_height="@dimen/dp_69" />
             </LinearLayout>
             <View
-
+                android:visibility="gone"
                 android:id="@+id/view4"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="@dimen/dp_17"
@@ -329,7 +330,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_13"
-                app:layout_constraintTop_toBottomOf="@id/number_view"
+                app:layout_constraintTop_toBottomOf="@id/number_view1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
@@ -342,7 +343,7 @@
                 android:hint="的手机卡的凯撒"
                 android:background="@null"
                 android:layout_marginTop="@dimen/dp_13"
-                app:layout_constraintTop_toBottomOf="@id/number_view"
+                app:layout_constraintTop_toBottomOf="@id/number_view1"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -398,52 +399,12 @@
                 android:layout_height="@dimen/dp_1">
             </View>
             <TextView
-                android:text="@string/order_end_time"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_13"
-                app:layout_constraintTop_toBottomOf="@id/order_time_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/_333333"
-                android:id="@+id/issue_endtime_et"
-                android:textSize="@dimen/sp_14"
-                android:layout_marginRight="@dimen/dp_11"
-                android:hint="的手机卡的凯撒"
-                android:background="@null"
-                android:layout_marginTop="@dimen/dp_13"
-                app:layout_constraintTop_toBottomOf="@id/order_time_view"
-                app:layout_constraintRight_toLeftOf="@id/start_order_time_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/end_order_time_iv"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_14"
-                app:layout_constraintTop_toBottomOf="@id/order_time_view"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="@dimen/dp_6"
-                android:layout_height="@dimen/dp_11"
-                android:src="@mipmap/go"
-                />
-            <View
-                android:id="@+id/order_time_view1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="@dimen/dp_17"
-                android:layout_marginTop="@dimen/dp_12"
-                app:layout_constraintTop_toBottomOf="@id/issue_endtime_et"
-                android:background="@color/_E0E0E0"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_1">
-            </View>
-            <TextView
                 android:id="@+id/issue_total_tv"
                 android:layout_marginTop="@dimen/dp_13"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:text="@string/total_amount"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/order_time_view1"
+                app:layout_constraintTop_toBottomOf="@id/order_time_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
@@ -453,7 +414,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/issue_total_tv1"
                 android:layout_marginTop="@dimen/dp_12"
                 android:background="@null"
-                app:layout_constraintTop_toBottomOf="@id/order_time_view1"
+                app:layout_constraintTop_toBottomOf="@id/order_time_view"
                 android:id="@+id/order_amount"
                 android:layout_width="@dimen/dp_200"
                 android:layout_height="wrap_content" />
@@ -463,7 +424,7 @@
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginRight="@dimen/dp_22"
                 android:text="方"
-                app:layout_constraintTop_toBottomOf="@id/order_time_view1"
+                app:layout_constraintTop_toBottomOf="@id/order_time_view"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

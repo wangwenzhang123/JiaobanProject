@@ -64,6 +64,8 @@ public class UserMapUtils {
         map.put("psMixingStations.carPriceSix",requestRegisterBean.getCarPriceSix());
         map.put("psMixingStations.staticNormalPrice",requestRegisterBean.getStaticNormalPrice());
         map.put("psMixingStations.staticPressurePrice",requestRegisterBean.getStaticPressurePrice());
+        map.put("psMixingStations.stationLongitude",requestRegisterBean.getStationLongitude());
+        map.put("psMixingStations.stationLatitude",requestRegisterBean.getStationLatitude());
         return map;
     }
     public static Map<String,Object> getOrderMap(OrderBean requestRegisterBean){
@@ -93,6 +95,7 @@ public class UserMapUtils {
         map.put("psTotalOrders.orderPhone",requestRegisterBean.getOrderPhone());
         map.put("psTotalOrders.leftAmount",requestRegisterBean.getLeftAmount());
         map.put("psTotalOrders.acceptNumber",requestRegisterBean.getAcceptNumber());
+        map.put("psTotalOrders.endTime",requestRegisterBean.getEndTime());
         if (requestRegisterBean.getUpdateTime() !=null){
             map.put("psTotalOrders.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
         }
