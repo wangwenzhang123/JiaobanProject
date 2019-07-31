@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
+                app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="fitXY"
                 android:src="@mipmap/issue_bg"
                 android:layout_width="match_parent"
