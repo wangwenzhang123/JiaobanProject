@@ -55,4 +55,6 @@
     <string name="jiaoban_phone">搅拌站电话</string>
     <string name="total_price">订单总价</string>
     <string name="order_end_time">截止时间</string>
+    <string name="recruit">招聘</string>
+    <string name="publish_job">发布招聘</string>
 </resources>

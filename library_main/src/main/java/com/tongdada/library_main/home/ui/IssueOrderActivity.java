@@ -171,10 +171,10 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
     RadioGroup bengGuType;
     @BindView(R2.id.platform_phone_tv)
     TextView platformPhoneTv;
-    @BindView(R2.id.issue_endtime_et)
+   /* @BindView(R2.id.issue_endtime_et)
     TextView issueEndtimeEt;
     @BindView(R2.id.end_order_time_iv)
-    ImageView endOrderTimeIv;
+    ImageView endOrderTimeIv;*/
     private OrderBean issueOrderBean = new OrderBean();
     private static final int ORDER_PIC = 0;
     private boolean isUpdate = false;
@@ -286,16 +286,17 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         String beginTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
         String endTime = DateFormatUtils.long2Str(System.currentTimeMillis() + 315360000000L, true);
         issueOrdertimeEt.setText(beginTime);
-        issueEndtimeEt.setText(beginTime);
+        //issueEndtimeEt.setText(beginTime);
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mTimerPicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
-                if (isEnd){
-                    issueEndtimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
+                issueOrdertimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
+               /* if (isEnd){
+                    //issueEndtimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
                 }else {
-                    issueOrdertimeEt.setText(DateFormatUtils.long2Str(timestamp, true));
-                }
+
+                }*/
 
             }
         }, beginTime, endTime);
@@ -623,9 +624,9 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
 
     }
 
-    @OnClick({R2.id.issue_endtime_et, R2.id.end_order_time_iv})
+   /* @OnClick({R2.id.issue_endtime_et, R2.id.end_order_time_iv})
     public void onViewEndClicked(View view) {
         isEnd=true;
         mTimerPicker.show(issueEndtimeEt.getText().toString());
-    }
+    }*/
 }
