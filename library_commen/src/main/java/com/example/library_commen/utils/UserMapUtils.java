@@ -1,6 +1,7 @@
 package com.example.library_commen.utils;
 
 import com.example.library_commen.model.OrderBean;
+import com.example.library_commen.model.PublishJobRequestBean;
 import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_commen.model.UserBean;
 import com.google.gson.Gson;
@@ -99,6 +100,21 @@ public class UserMapUtils {
         if (requestRegisterBean.getUpdateTime() !=null){
             map.put("psTotalOrders.updateTime",new Gson().toJson(requestRegisterBean.getUpdateTime()));
         }
+        return map;
+    }
+    public static Map<String,Object> getPublishJobMap(PublishJobRequestBean requestRegisterBean){
+        Map<String,Object> map=new HashMap<>();
+        map.put("psPositions.positionName",requestRegisterBean.getPositionName());
+        map.put("psPositions.positionSalary",requestRegisterBean.getPositionSalary());
+        map.put("psPositions.companyId",requestRegisterBean.getCompanyId());
+        map.put("psPositions.positionRemarks",requestRegisterBean.getPositionRemarks());
+        map.put("psPositions.stationId",requestRegisterBean.getStationId());
+        map.put("psPositions.companyName",requestRegisterBean.getCompanyName());
+        map.put("psPositions.companyAddress",requestRegisterBean.getCompanyAddress());
+        map.put("psPositions.contacts",requestRegisterBean.getContacts());
+        map.put("psPositions.phoneNo",requestRegisterBean.getPhoneNo());
+        map.put("psPositions.endTime",requestRegisterBean.getEndTime());
+        map.put("psPositions.publishTime",requestRegisterBean.getPublishTime());
         return map;
     }
 }

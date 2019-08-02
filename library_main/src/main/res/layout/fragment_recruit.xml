@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44">
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/iv_order_search"
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_gravity="center"
@@ -26,14 +27,16 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/iv_home_message"
+        <TextView
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/FFFFFF"
+            android:gravity="center"
+            android:id="@+id/publish_job"
             android:layout_marginRight="@dimen/dp_11"
             android:layout_gravity="center"
-            android:src="@mipmap/message"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20" />
+           android:text="@string/publish_job"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
     </LinearLayout>
     <android.support.design.widget.TabLayout
         app:tabIndicatorColor="@color/_ffe06e38"

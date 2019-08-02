@@ -193,5 +193,23 @@ public interface MainApi {
             , @Field("psDetailOrders.orderRemark") String orderRemark,
                                                              @Field("page") String pageNumber, @Field("psDetailOrders.orderId") String orderId
     );
-
+    /**
+     * 发布招聘
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/tonghe/publishPosition.action")
+    Observable<PagenationBase<CarOrderBean>> publishPosition(/*@Field("psPositions.positionName") String positionName,
+                                                             @Field("psPositions.positionSalary") String positionSalary,
+                                                             @Field("psPositions.companyId") String companyId,
+                                                             @Field("psPositions.positionRemarks") String positionRemarks,
+                                                             @Field("psPositions.stationId") String stationId,
+                                                             @Field("psPositions.companyName") String companyName,
+                                                             @Field("psPositions.companyAddress") String companyAddress,
+                                                             @Field("psPositions.contacts") String contacts,
+                                                             @Field("psPositions.phoneNo") String phoneNo,
+                                                             @Field("psPositions.endTime") String endTime,
+                                                             @Field("psPositions.publishTime") String publishTime*/
+            @FieldMap Map<String,Object> params
+    );
 }

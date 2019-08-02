@@ -68,6 +68,10 @@
         <activity android:name="com.tongdada.library_main.recruit.ui.ResumeActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.recruit.ui.JobDetailsActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_main.MyViewPagerAdapter;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.base.util.ToastUtils;
-import com.tongdada.library_main.finance.ui.FinanceCompleteFragment;
-import com.tongdada.library_main.finance.ui.FinanceOrderFragment;
-import com.tongdada.library_main.utils.TalUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +46,10 @@ public class RecruitFragment extends BaseMvpFragment {
     @BindView(R2.id.pager)
     ViewPager pager;
     Unbinder unbinder;
-    private List<Fragment> fragments=new ArrayList<>();
+    private List<Fragment> fragments = new ArrayList<>();
     private MyViewPagerAdapter adapter;
-    List<String> list=new ArrayList<>();
+    List<String> list = new ArrayList<>();
+
     @Override
     public BasePresenter getPresenter() {
         return new BasePresenter();
@@ -101,7 +100,7 @@ public class RecruitFragment extends BaseMvpFragment {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        ToastUtils.showToast(mContext,throwable.getMessage());
+                        ToastUtils.showToast(mContext, throwable.getMessage());
                     }
                 });
 
@@ -131,7 +130,8 @@ public class RecruitFragment extends BaseMvpFragment {
         unbinder.unbind();
     }
 
-    @OnClick(R2.id.iv_home_message)
+    @OnClick(R2.id.publish_job)
     public void onViewClicked() {
+        routerIntent(ArouterKey.RECRUIT_PUBLISHJOBACTIVITY,null);
     }
 }

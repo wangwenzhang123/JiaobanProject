@@ -38,4 +38,6 @@ public class ArouterKey {
     public static final String MESSAGE_INFORMDETAILACTIVITY="/message/InformaDetailActivity";
     public static final String MESSAGE_MESSAGEDETAILACTIVITY="/message/MessageDetailActivity";
     public static final String ORDER_SEARCHFINACEACTIVITY="/finace/SearchFinaceActivity";
+    public static final String RECRUIT_PUBLISHJOBACTIVITY="/recruit/PublishJobActivity";
+    public static final String RECRUIT_JOBDETAILSACTIVITY="/recruit/JobDetailsActivity";
 }
