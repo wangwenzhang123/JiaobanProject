@@ -59,7 +59,7 @@ public class MaintenancePlantActivity extends BaseMvpActivity<MaintencancePlanPr
     @BindView(R2.id.et_contact_phone)
     TextView etContactPhone;
     @BindView(R2.id.et_address)
-    EditText etAddress;
+    TextView etAddress;
     @BindView(R2.id.et_registered_capital)
     EditText etRegisteredCapital;
     @BindView(R2.id.iv_add)

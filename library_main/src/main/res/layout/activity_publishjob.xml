@@ -38,6 +38,16 @@
             android:layout_marginTop="@dimen/dp_10"
             android:text="@string/publish_job"
             android:textSize="@dimen/sp_18" />
+        <TextView
+            android:id="@+id/job_detail_tv"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_11"
+            android:text="投递详情"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -83,7 +93,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -99,23 +109,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44">
                 <TextView
+                    android:layout_weight="1"
                     android:textColor="@color/_333333"
                     android:text="@string/salary_range"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <TextView
+
+                <Spinner
+
                     android:id="@+id/salary_range"
                     android:textColor="@color/_333333"
                     android:gravity="right"
                     android:layout_marginRight="@dimen/dp_5"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:text="8K-20K"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
+                    android:visibility="gone"
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_gravity="center"
                     android:src="@mipmap/go"
@@ -187,7 +200,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -215,7 +228,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -243,7 +256,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -271,7 +284,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -293,13 +306,13 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <EditText
+                <TextView
                     android:id="@+id/job_end_time"
                     android:gravity="right"
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -310,17 +323,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp">
             </View>
-            <TextView
-                android:layout_gravity="center"
-                android:id="@+id/release_job"
-                android:gravity="center"
-                android:textColor="@color/FFFFFF"
-                android:text="@string/release_job"
+            <LinearLayout
+                android:layout_marginRight="@dimen/dp_50"
+                android:layout_marginLeft="@dimen/dp_50"
                 android:layout_marginBottom="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_46"
-                android:background="@drawable/shape_login"
-                android:layout_width="@dimen/dp_302"
-                android:layout_height="@dimen/dp_42" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:id="@+id/cancel_tv"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_42"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_login_hollow"
+                    android:gravity="center"
+                    android:text="取消招聘"
+                    android:textColor="@color/_333333" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:id="@+id/release_job"
+                    android:gravity="center"
+                    android:textColor="@color/FFFFFF"
+                    android:text="@string/release_job"
+                    android:background="@drawable/shape_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_42" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

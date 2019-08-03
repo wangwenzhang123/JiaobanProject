@@ -8,6 +8,7 @@ import com.tongdada.base.net.bean.BaseAppEntity;
 import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.home.respose.BannerBean;
 import com.tongdada.library_main.order.respose.OrderListBean;
+import com.tongdada.library_main.recruit.respose.RecruitmentBean;
 import com.tongdada.library_main.user.respose.MessageBean;
 import com.tongdada.library_main.user.respose.UserListBean;
 
@@ -211,5 +212,33 @@ public interface MainApi {
                                                              @Field("psPositions.endTime") String endTime,
                                                              @Field("psPositions.publishTime") String publishTime*/
             @FieldMap Map<String,Object> params
+    );
+    /**
+     * 获取招聘列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/tonghe/listPosition.action")
+    Observable<PagenationBase<RecruitmentBean>> listPosition(@Field("psPositions.positionName") String positionName,
+                                                             @Field("psPositions.companyId") String companyId,
+                                                             @Field("psPositions.stationId") String stationId
+    );
+    /**
+     * 取消招聘
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/tonghe/cancelPosition.action")
+    Observable<PagenationBase<RecruitmentBean>> cancelPosition(@Field("psPositions.id") String positionName
+    );
+    /**
+     * 获取简历中心列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/tonghe/listApply.action")
+    Observable<PagenationBase<CarOrderBean>> listApply(@Field("psPositions.positionName") String positionName,
+                                                          @Field("psPositions.companyId") String companyId,
+                                                          @Field("psPositions.stationId") String stationId
     );
 }

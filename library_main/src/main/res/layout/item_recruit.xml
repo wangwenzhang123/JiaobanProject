@@ -12,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/job_name"
             android:text="运输专员"
             android:textSize="@dimen/dp_14"
             android:textColor="@color/_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/job_people"
             android:textColor="@color/_DE3030"
             android:text="已有20人投递"
             android:textSize="@dimen/dp_12"
@@ -25,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/job_money"
             android:gravity="right"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_weight="1"
@@ -41,12 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/job_gongsi"
             android:text="江苏打野机突然"
             android:textSize="@dimen/dp_12"
             android:textColor="@color/_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/job_time"
             android:text="2019-07-21"
             android:textColor="@color/_999999"
             android:gravity="right"

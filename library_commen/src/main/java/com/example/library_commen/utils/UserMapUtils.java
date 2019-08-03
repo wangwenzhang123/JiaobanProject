@@ -2,6 +2,7 @@ package com.example.library_commen.utils;
 
 import com.example.library_commen.model.OrderBean;
 import com.example.library_commen.model.PublishJobRequestBean;
+import com.example.library_commen.model.RecuritListBean;
 import com.example.library_commen.model.RequestRegisterBean;
 import com.example.library_commen.model.UserBean;
 import com.google.gson.Gson;
@@ -102,7 +103,7 @@ public class UserMapUtils {
         }
         return map;
     }
-    public static Map<String,Object> getPublishJobMap(PublishJobRequestBean requestRegisterBean){
+    public static Map<String,Object> getPublishJobMap(RecuritListBean requestRegisterBean){
         Map<String,Object> map=new HashMap<>();
         map.put("psPositions.positionName",requestRegisterBean.getPositionName());
         map.put("psPositions.positionSalary",requestRegisterBean.getPositionSalary());
@@ -115,6 +116,7 @@ public class UserMapUtils {
         map.put("psPositions.phoneNo",requestRegisterBean.getPhoneNo());
         map.put("psPositions.endTime",requestRegisterBean.getEndTime());
         map.put("psPositions.publishTime",requestRegisterBean.getPublishTime());
+        map.put("psPositions.id",requestRegisterBean.getId());
         return map;
     }
 }

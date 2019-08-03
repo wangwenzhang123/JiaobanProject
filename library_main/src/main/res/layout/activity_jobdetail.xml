@@ -50,7 +50,7 @@
             android:textColor="@drawable/selector_job_text"
             android:textSize="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_16"
-            android:button="null"
+            android:button="@null"
             android:text="@string/resume_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -59,7 +59,7 @@
             android:textColor="@drawable/selector_job_text"
             android:textSize="@dimen/dp_16"
             android:layout_marginLeft="@dimen/dp_10"
-            android:button="null"
+            android:button="@null"
             android:text="@string/job_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

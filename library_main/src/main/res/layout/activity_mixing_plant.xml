@@ -224,7 +224,8 @@
 
             android:orientation="horizontal">
 
-            <EditText
+            <TextView
+                android:textColor="@color/_333333"
                 android:id="@+id/et_address"
                 android:layout_width="@dimen/dp_290"
                 android:layout_height="@dimen/dp_30"

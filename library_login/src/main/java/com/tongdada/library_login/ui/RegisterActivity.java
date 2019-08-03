@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -57,7 +58,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @BindView(R2.id.et_contact_phone)
     EditText etContactPhone;
     @BindView(R2.id.et_address)
-    EditText etAddress;
+    TextView etAddress;
     @BindView(R2.id.et_registered_capital)
     EditText etRegisteredCapital;
     @BindView(R2.id.iv_add)

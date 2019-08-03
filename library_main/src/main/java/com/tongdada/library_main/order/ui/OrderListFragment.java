@@ -50,6 +50,10 @@ import butterknife.Unbinder;
 public class OrderListFragment extends BaseRecyclerRefreshFragment<OrderListContract.View,OrderListPresenter,OrderBean> implements OrderListContract.View {
     private String type;
     private List<OrderBean> orderBeanList=new ArrayList<>();
+
+    public OrderListFragment() {
+    }
+
     @SuppressLint("ValidFragment")
     public OrderListFragment(String type) {
         this.type=type;

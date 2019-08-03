@@ -18,6 +18,7 @@ import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.finance.ui.FinanceFragment;
 import com.tongdada.library_main.home.ui.HomeFragment;
 import com.tongdada.library_main.order.ui.OrderFragment;
+import com.tongdada.library_main.recruit.ui.RecruitFragment;
 import com.tongdada.library_main.statistics.ui.StatisticsFragment;
 import com.tongdada.library_main.user.ui.UserFragment;
 
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         fragments.add(new FinanceFragment());
 
         fragments.add(new HomeFragment());
-        fragments.add(new StatisticsFragment());
+        fragments.add(new RecruitFragment());
         fragments.add(new UserFragment());
         adapter=new MyViewPagerAdapter(getSupportFragmentManager(),fragments);
         mainVp.setOffscreenPageLimit(4);

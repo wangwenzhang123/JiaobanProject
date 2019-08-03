@@ -62,7 +62,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -89,7 +89,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -117,7 +117,7 @@
                     android:layout_marginRight="@dimen/dp_16"
 
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
                     <RadioButton
@@ -153,7 +153,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -180,7 +180,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -207,7 +207,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -235,7 +235,7 @@
                     android:layout_marginRight="@dimen/dp_16"
 
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
                     <RadioButton
@@ -271,7 +271,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -298,7 +298,7 @@
                     android:layout_marginRight="@dimen/dp_16"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -325,7 +325,7 @@
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -359,7 +359,7 @@
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:background="null"
+                    android:background="@null"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView

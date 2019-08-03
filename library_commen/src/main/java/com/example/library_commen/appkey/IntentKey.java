@@ -12,4 +12,5 @@ public class IntentKey {
     public static final String ORDER_ID="ORDER_ID";
     public static final String ORDER_BEAN="ORDER_BEAN";
     public static final String MESSAGE_BEAN="MESSAGE_BEAN";
+    public static final String RECUIRT_BEAN="RECUIRT_BEAN";
 }

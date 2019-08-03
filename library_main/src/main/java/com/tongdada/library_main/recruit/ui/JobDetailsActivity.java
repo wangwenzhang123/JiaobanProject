@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
+import com.example.library_commen.appkey.IntentKey;
+import com.example.library_commen.model.RecuritListBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.app.AppActivityKey;
@@ -53,8 +55,10 @@ public class JobDetailsActivity extends BaseMvpActivity {
 
     @Override
     public void getData() {
+        RecuritListBean recuritListBean= (RecuritListBean) getIntent().getSerializableExtra(IntentKey.RECUIRT_BEAN);
         resumeCenterFragment=new ResumeCenterFragment();
         publishJobFragment=new PublishJobFragment();
+        publishJobFragment.setRequestBean(recuritListBean);
         switchFrament(publishJobFragment,resumeCenterFragment);
     }
 
@@ -95,7 +99,7 @@ public class JobDetailsActivity extends BaseMvpActivity {
                 }
                 //2.添加to
                 if(to != null){
-                    ft.add(R.id.content,to).commit();
+                    ft.add(R.id.content,to).show(to).commit();
                 }
             }else{ //to已经被添加
                 //1.from隐藏

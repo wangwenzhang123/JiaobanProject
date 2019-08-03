@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.PublishJobRequestBean;
+import com.example.library_commen.model.RecuritListBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
@@ -37,9 +38,16 @@ public class PublishJobFragment extends BaseMvpFragment<PublishJobPresenter> imp
     TextView contactPhone;
     @BindView(R2.id.job_end_time)
     TextView jobEndTime;
-    @BindView(R2.id.release_job)
-    TextView releaseJob;
-    private PublishJobRequestBean requestBean=new PublishJobRequestBean();
+    private RecuritListBean requestBean;
+
+    public RecuritListBean getRequestBean() {
+        return requestBean;
+    }
+
+    public void setRequestBean(RecuritListBean requestBean) {
+        this.requestBean = requestBean;
+    }
+
     @Override
     public PublishJobPresenter getPresenter() {
         return new PublishJobPresenter();
@@ -52,7 +60,7 @@ public class PublishJobFragment extends BaseMvpFragment<PublishJobPresenter> imp
 
     @Override
     public void initView() {
-
+        refrshUi();
     }
 
     @Override
@@ -65,4 +73,15 @@ public class PublishJobFragment extends BaseMvpFragment<PublishJobPresenter> imp
 
     }
 
+    @Override
+    public void refrshUi() {
+        jobName.setText(requestBean.getPositionName());
+        jobEndTime.setText(requestBean.getEndTime());
+        salaryRange.setText(requestBean.getPositionSalary());
+        qualifications.setText(requestBean.getPositionRemarks());
+        workAddress.setText(requestBean.getCompanyAddress());
+        workContact.setText(requestBean.getContacts());
+        workName.setText(requestBean.getCompanyName());
+        contactPhone.setText(requestBean.getPhoneNo());
+    }
 }
