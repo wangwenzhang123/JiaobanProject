@@ -9,6 +9,7 @@ import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.home.respose.BannerBean;
 import com.tongdada.library_main.order.respose.OrderListBean;
 import com.tongdada.library_main.recruit.respose.RecruitmentBean;
+import com.tongdada.library_main.recruit.respose.ResumeBean;
 import com.tongdada.library_main.user.respose.MessageBean;
 import com.tongdada.library_main.user.respose.UserListBean;
 
@@ -214,6 +215,25 @@ public interface MainApi {
             @FieldMap Map<String,Object> params
     );
     /**
+     * 修改招聘
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/tonghe/editPosition.action")
+    Observable<PagenationBase<CarOrderBean>> editPosition(/*@Field("psPositions.positionName") String positionName,
+                                                             @Field("psPositions.positionSalary") String positionSalary,
+                                                             @Field("psPositions.companyId") String companyId,
+                                                             @Field("psPositions.positionRemarks") String positionRemarks,
+                                                             @Field("psPositions.stationId") String stationId,
+                                                             @Field("psPositions.companyName") String companyName,
+                                                             @Field("psPositions.companyAddress") String companyAddress,
+                                                             @Field("psPositions.contacts") String contacts,
+                                                             @Field("psPositions.phoneNo") String phoneNo,
+                                                             @Field("psPositions.endTime") String endTime,
+                                                             @Field("psPositions.publishTime") String publishTime*/
+            @FieldMap Map<String,Object> params
+    );
+    /**
      * 获取招聘列表
      * @return
      */
@@ -221,7 +241,8 @@ public interface MainApi {
     @POST("/tonghe/listPosition.action")
     Observable<PagenationBase<RecruitmentBean>> listPosition(@Field("psPositions.positionName") String positionName,
                                                              @Field("psPositions.companyId") String companyId,
-                                                             @Field("psPositions.stationId") String stationId
+                                                             @Field("psPositions.stationId") String stationId,
+                                                             @Field("page") int page
     );
     /**
      * 取消招聘
@@ -237,8 +258,20 @@ public interface MainApi {
      */
     @FormUrlEncoded
     @POST("/tonghe/listApply.action")
-    Observable<PagenationBase<CarOrderBean>> listApply(@Field("psPositions.positionName") String positionName,
-                                                          @Field("psPositions.companyId") String companyId,
-                                                          @Field("psPositions.stationId") String stationId
+    Observable<PagenationBase<ResumeBean>> listApply(@Field("psPositions.positionName") String positionName,
+                                                     @Field("psPositions.companyId") String companyId,
+                                                     @Field("psPositions.stationId") String stationId
+    );
+    /**
+     * 获取简历列表
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/tonghe/listUsersOfPostion.action")
+    Observable<PagenationBase<ResumeBean>> listUsersOfPostion(@Field("psPositionApply.positionId") String positionId,
+                                                              @Field("psPositionApply.stationId") String stationId,
+                                                              @Field("psPositionApply.companyId") String companyId,
+                                                              @Field("page") int page
+
     );
 }

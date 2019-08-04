@@ -19,7 +19,6 @@ import com.example.library_main.R2;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.base.util.ToastUtils;
-import com.tongdada.library_main.statistics.ui.StatistisOrderFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +60,7 @@ public class RecruitFragment extends BaseMvpFragment {
 
     @Override
     public void initView() {
-        list.add("已发职位");
+        list.add("职位列表");
         list.add("简历中心");
        // pager.setOffscreenPageLimit(2);
         Observable.create(new ObservableOnSubscribe<List<Fragment>>() {

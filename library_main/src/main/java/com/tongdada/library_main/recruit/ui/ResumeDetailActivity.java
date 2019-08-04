@@ -2,7 +2,7 @@ package com.tongdada.library_main.recruit.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -10,21 +10,21 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
-import com.example.library_commen.model.CommenUtils;
+import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.model.UserBean;
-
+import com.example.library_commen.utils.PhoneCallUtils;
 import com.example.library_main.R;
 import com.example.library_main.R2;
-import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
-import com.tongdada.library_main.user.presenter.UserInfoContract;
-import com.tongdada.library_main.user.presenter.UserInfoPresenter;
+import com.tongdada.base.dialog.base.BaseDialog;
+import com.tongdada.base.ui.mvp.base.ui.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@Route(path = ArouterKey.RECUIT_RESUMEACTIVITY)
-public class ResumeActivity extends BaseMvpActivity<UserInfoPresenter> implements UserInfoContract.View {
+@Route(path = ArouterKey.RECUIT_RESUMEDETAILACTIVITY)
+public class ResumeDetailActivity extends BaseActivity {
+
     @BindView(R2.id.register_back)
     ImageView registerBack;
     @BindView(R2.id.back_tv)
@@ -36,15 +36,15 @@ public class ResumeActivity extends BaseMvpActivity<UserInfoPresenter> implement
     @BindView(R2.id.resume_name)
     TextView resumeName;
     @BindView(R2.id.resume_age)
-    EditText resumeAge;
+    TextView resumeAge;
     @BindView(R2.id.age_nan)
     RadioButton ageNan;
     @BindView(R2.id.age_nv)
     RadioButton ageNv;
     @BindView(R2.id.native_place)
-    EditText nativePlace;
+    TextView nativePlace;
     @BindView(R2.id.level_of_education)
-    EditText levelOfEducation;
+    TextView levelOfEducation;
     @BindView(R2.id.contract_phone)
     TextView contractPhone;
     @BindView(R2.id.resume_address)
@@ -58,33 +58,47 @@ public class ResumeActivity extends BaseMvpActivity<UserInfoPresenter> implement
     @BindView(R2.id.working_state_wei)
     RadioButton workingStateWei;
     @BindView(R2.id.political_landscape)
-    EditText politicalLandscape;
+    TextView politicalLandscape;
     @BindView(R2.id.religious_beliefs)
-    EditText religiousBeliefs;
+    TextView religiousBeliefs;
     @BindView(R2.id.working_years)
-    EditText workingYears;
+    TextView workingYears;
     @BindView(R2.id.expected_salary)
-    EditText expectedSalary;
+    TextView expectedSalary;
     @BindView(R2.id.work_experience)
-    EditText workExperience;
-    @BindView(R2.id.release_order)
-    TextView releaseOrder;
-    UserBean userBean;
+    TextView workExperience;
+
     @Override
-    public UserInfoPresenter getPresenter() {
-        return new UserInfoPresenter();
+    public int getView() {
+        return R.layout.activity_resumedtail;
+    }
+
+    @Override
+    public BaseDialog getDialog() {
+        return null;
     }
 
     @Override
     public void initView() {
-        try {
-            userBean= (UserBean) CommenUtils.getIncetance().getUserBean().clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        contractPhone.setText(CommenUtils.getIncetance().getUserBean().getUserContacts());
-        resumeName.setText(CommenUtils.getIncetance().getUserBean().getUserName());
-        resumeAddress.setText(CommenUtils.getIncetance().getUserBean().getUserAddress());
+
+    }
+
+    @Override
+    public void initLinsenterner() {
+        contractPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PhoneCallUtils.call(contractPhone.getText().toString(),mContext);
+            }
+        });
+    }
+
+    @Override
+    public void getData() {
+        UserBean userBean= (UserBean) getIntent().getSerializableExtra(IntentKey.USER_DETAIL);
+        contractPhone.setText(userBean.getUserContacts());
+        resumeName.setText(userBean.getUserName());
+        resumeAddress.setText(userBean.getUserAddress());
         workExperience.setText(userBean.getWorkExperience());
         levelOfEducation.setText(userBean.getEducationInfo());
         workingYears.setText(userBean.getWorkAge());
@@ -115,11 +129,6 @@ public class ResumeActivity extends BaseMvpActivity<UserInfoPresenter> implement
     }
 
     @Override
-    public int getView() {
-        return R.layout.activity_resume;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
@@ -134,62 +143,5 @@ public class ResumeActivity extends BaseMvpActivity<UserInfoPresenter> implement
     @OnClick(R2.id.back_tv)
     public void onBackTvClicked() {
         finish();
-    }
-
-    @OnClick(R2.id.age_nan)
-    public void onAgeNanClicked() {
-        userBean.setUserSex("男");
-    }
-
-    @OnClick(R2.id.age_nv)
-    public void onAgeNvClicked() {
-        userBean.setUserSex("女");
-    }
-
-    @OnClick(R2.id.marriage_wei)
-    public void onMarriageWeiClicked() {
-        userBean.setMarriageInfo("未婚");
-    }
-
-    @OnClick(R2.id.marriage_yi)
-    public void onMarriageYiClicked() {
-        userBean.setMarriageInfo("已婚");
-    }
-
-    @OnClick(R2.id.working_state_zai)
-    public void onWorkingStateZaiClicked() {
-        userBean.setWorkInfo("在职");
-    }
-
-    @OnClick(R2.id.working_state_wei)
-    public void onWorkingStateWeiClicked() {
-        userBean.setWorkInfo("离职");
-    }
-
-    @OnClick(R2.id.release_order)
-    public void onReleaseOrderClicked() {
-        userBean.setWorkExperience(workExperience.getText().toString());
-        userBean.setEducationInfo(levelOfEducation.getText().toString());
-        userBean.setWorkAge(workingYears.getText().toString());
-        userBean.setPloticsInfo(politicalLandscape.getText().toString());
-        userBean.setExpectSalary(expectedSalary.getText().toString());
-        userBean.setUserOrigin(nativePlace.getText().toString());
-        presenter.editUser(userBean);
-    }
-
-
-    @Override
-    public void editUserSuccess() {
-        finish();
-    }
-
-    @Override
-    public void selectPic(int code) {
-
-    }
-
-    @Override
-    public void uploadSuccess(String path, String url, int dex) {
-
     }
 }

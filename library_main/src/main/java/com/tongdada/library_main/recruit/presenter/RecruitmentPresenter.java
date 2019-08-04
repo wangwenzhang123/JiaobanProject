@@ -4,19 +4,23 @@ import android.os.Handler;
 
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.PagenationBase;
+
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
-import com.tongdada.base.ui.mvp.base.refresh.BaseRecyclerRefreshPresenter;
-import com.tongdada.base.ui.mvp.base.refresh.RequestCallback;
-import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.net.MainApiUtils;
 import com.tongdada.library_main.recruit.respose.RecruitmentBean;
 
 import io.reactivex.functions.Consumer;
 
 public class RecruitmentPresenter extends BasePresenter<RecruitmentContract.View> implements RecruitmentContract.Presenter {
+    private int index=0;
     @Override
-    public void getData() {
-        MainApiUtils.getMainApi().listPosition("","", CommenUtils.getIncetance().getRequestRegisterBean().getId())
+    public void getData(final boolean is) {
+        if (is){
+            index=1;
+        }else {
+            index++;
+        }
+        MainApiUtils.getMainApi().listPosition("", "", CommenUtils.getIncetance().getRequestRegisterBean().getId(),index)
                 .compose(this.<PagenationBase<RecruitmentBean>>handleEverythingResult())
                 .subscribe(new Consumer<PagenationBase<RecruitmentBean>>() {
                     @Override
@@ -24,8 +28,14 @@ public class RecruitmentPresenter extends BasePresenter<RecruitmentContract.View
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                getView().getAdapter().setNewData(carOrderBeanPagenationBase.getPagenation().getList());
-                                getView().getRefrshView().finishRefresh();
+                                if (is){
+                                    getView().getAdapter().setNewData(carOrderBeanPagenationBase.getPagenation().getList());
+                                    getView().getRefrshView().finishRefresh();
+                                }else {
+                                    getView().getAdapter().addData(carOrderBeanPagenationBase.getPagenation().getList());
+                                    getView().getRefrshView().finishLoadMore();
+                                }
+
                             }
                         },2000);
                     }
@@ -33,8 +43,15 @@ public class RecruitmentPresenter extends BasePresenter<RecruitmentContract.View
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         getView().showToast(throwable.getMessage());
+                        getView().getRefrshView().finishRefresh();
+                        getView().getRefrshView().finishLoadMore();
                     }
                 });
+    }
+
+    @Override
+    public void getData(String userid,boolean is) {
+
     }
 
 }

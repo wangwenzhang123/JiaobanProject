@@ -49,7 +49,7 @@
         <TextView
             android:textColor="@color/_333333"
             android:layout_marginLeft="@dimen/dp_13"
-            android:text="砼车（单位 方/公里）"
+            android:text="砼车"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -70,15 +70,22 @@
             android:textColor="@color/_000000"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_gravity="center"
-            android:text="元"
+            android:text="元/方"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <TextView
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="注：25公里以内 运价=运量*单价 \n 25公里以上 每多一公里加1元/方 "
+        android:background="@color/FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
         android:layout_marginLeft="@dimen/dp_13"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:text="泵车（单位 方）"
+        android:text="泵车"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout
@@ -110,7 +117,7 @@
             android:textColor="@color/_000000"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_gravity="center"
-            android:text="元"
+            android:text="元/方"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -144,7 +151,7 @@
             android:textColor="@color/_000000"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_gravity="center"
-            android:text="元"
+            android:text="元/方"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -177,7 +184,7 @@
             android:textColor="@color/_000000"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_gravity="center"
-            android:text="元"
+            android:text="元/方"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -210,7 +217,7 @@
             android:textColor="@color/_000000"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_gravity="center"
-            android:text="元"
+            android:text="元/方"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -243,7 +250,7 @@
             android:textColor="@color/_000000"
             android:layout_marginRight="@dimen/dp_13"
             android:layout_gravity="center"
-            android:text="元"
+            android:text="元/方"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

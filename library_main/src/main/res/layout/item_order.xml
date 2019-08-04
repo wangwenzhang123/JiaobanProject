@@ -5,6 +5,7 @@
     android:background="@color/FFFFFF"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <View
+        app:layout_constraintTop_toTopOf="parent"
         android:visibility="invisible"
         android:id="@+id/order_v"
         android:layout_width="match_parent"

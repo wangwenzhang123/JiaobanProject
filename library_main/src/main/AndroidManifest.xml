@@ -71,7 +71,9 @@
         <activity android:name="com.tongdada.library_main.recruit.ui.JobDetailsActivity">
 
         </activity>
+        <activity android:name="com.tongdada.library_main.recruit.ui.ResumeDetailActivity">
 
+        </activity>
     </application>
 
 </manifest>

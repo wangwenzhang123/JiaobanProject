@@ -1,13 +1,18 @@
 package com.tongdada.library_main.recruit.presenter;
 
+import android.text.TextUtils;
+
 import com.example.library_commen.event.EventJobBean;
+import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.PagenationBase;
+import com.example.library_commen.model.RecuritListBean;
+
 import com.example.library_commen.utils.UserMapUtils;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.library_main.home.net.CarOrderBean;
 import com.tongdada.library_main.net.MainApiUtils;
 import com.tongdada.library_main.recruit.respose.RecruitmentBean;
-import com.example.library_commen.model.RecuritListBean;
+import com.tongdada.library_main.recruit.respose.ResumeBean;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,20 +22,38 @@ public class PublishJobPresenter extends BasePresenter<PublishJobContract.View> 
 
     @Override
     public void publishJob(RecuritListBean publishJobRequestBean) {
-        MainApiUtils.getMainApi().publishPosition(UserMapUtils.getPublishJobMap(publishJobRequestBean))
-                .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
-                .subscribe(new Consumer<PagenationBase<CarOrderBean>>() {
-                    @Override
-                    public void accept(PagenationBase<CarOrderBean> carOrderBeanPagenationBase) throws Exception {
-                        EventBus.getDefault().post(new EventJobBean());
-                        getView().finishActivity();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        getView().showToast(throwable.getMessage());
-                    }
-                });
+        if (TextUtils.isEmpty(publishJobRequestBean.getId())){
+            MainApiUtils.getMainApi().publishPosition(UserMapUtils.getPublishJobMap(publishJobRequestBean))
+                    .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
+                    .subscribe(new Consumer<PagenationBase<CarOrderBean>>() {
+                        @Override
+                        public void accept(PagenationBase<CarOrderBean> carOrderBeanPagenationBase) throws Exception {
+                            EventBus.getDefault().post(new EventJobBean());
+                            getView().finishActivity();
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getView().showToast(throwable.getMessage());
+                        }
+                    });
+        }else {
+            MainApiUtils.getMainApi().editPosition(UserMapUtils.getPublishJobMap(publishJobRequestBean))
+                    .compose(this.<PagenationBase<CarOrderBean>>handleEverythingResult())
+                    .subscribe(new Consumer<PagenationBase<CarOrderBean>>() {
+                        @Override
+                        public void accept(PagenationBase<CarOrderBean> carOrderBeanPagenationBase) throws Exception {
+                            EventBus.getDefault().post(new EventJobBean());
+                            getView().finishActivity();
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            getView().showToast(throwable.getMessage());
+                        }
+                    });
+        }
+
     }
 
     @Override
@@ -49,5 +72,10 @@ public class PublishJobPresenter extends BasePresenter<PublishJobContract.View> 
                         getView().showToast(throwable.getMessage());
                     }
                 });
+    }
+
+    @Override
+    public void applyJob(String id) {
+
     }
 }

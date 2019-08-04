@@ -58,5 +58,8 @@
     <string name="recruit">招聘</string>
     <string name="publish_job">发布招聘</string>
     <string name="publish_job_detail">招聘详情</string>
+    <string name="contract_phone">联系电话</string>
+    <string name="resume_address">家庭住址</string>
+    <string name="job">招聘</string>
 
 </resources>

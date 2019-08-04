@@ -117,6 +117,8 @@ public class UserMapUtils {
         map.put("psPositions.endTime",requestRegisterBean.getEndTime());
         map.put("psPositions.publishTime",requestRegisterBean.getPublishTime());
         map.put("psPositions.id",requestRegisterBean.getId());
+        map.put("psPositions.applyNumber",requestRegisterBean.getApplyNumber());
+        map.put("psPositions.delFlag",requestRegisterBean.getDelFlag());
         return map;
     }
 }

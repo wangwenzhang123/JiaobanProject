@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.event.EventJobBean;
+import com.example.library_commen.model.RecuritListBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -24,7 +25,6 @@ import com.tongdada.base.view.empty.StateLayout;
 import com.tongdada.library_main.recruit.adapter.RecruitAdapter;
 import com.tongdada.library_main.recruit.presenter.RecruitmentContract;
 import com.tongdada.library_main.recruit.presenter.RecruitmentPresenter;
-import com.example.library_commen.model.RecuritListBean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,7 +63,7 @@ public class RecruitmentFragment extends BaseMvpFragment<RecruitmentPresenter> i
         adapter=new RecruitAdapter(R.layout.item_recruit,new ArrayList<RecuritListBean>());
         rvContent.setAdapter(adapter);
         srlLayout.setOnLoadMoreListener(this);
-        srlLayout.setEnableLoadMore(false);
+        srlLayout.setEnableLoadMore(true);
         srlLayout.setOnRefreshListener(this);
         srlLayout.autoRefresh();
     }
@@ -125,11 +125,11 @@ public class RecruitmentFragment extends BaseMvpFragment<RecruitmentPresenter> i
 
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
-
+        presenter.getData(false);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
-        presenter.getData();
+        presenter.getData(true);
     }
 }

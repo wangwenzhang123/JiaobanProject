@@ -17,6 +17,7 @@ import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.model.CommenUtils;
 import com.example.library_commen.model.RecuritListBean;
+
 import com.example.library_main.R;
 import com.example.library_main.R2;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
@@ -25,7 +26,6 @@ import com.tongdada.library_main.recruit.presenter.PublishJobPresenter;
 import com.tongdada.library_main.widget.datepicker.CustomDatePicker;
 import com.tongdada.library_main.widget.datepicker.DateFormatUtils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import butterknife.BindView;
@@ -155,11 +155,11 @@ public class PublishJobActivity extends BaseMvpActivity<PublishJobPresenter> imp
 
         String beginTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
         String endTime = DateFormatUtils.long2Str(System.currentTimeMillis() + 31536000000L, true);
-        jobEndTime.setText(DateFormatUtils.long2Str(System.currentTimeMillis()+86400000,false));
+        jobEndTime.setText(DateFormatUtils.long2Str(System.currentTimeMillis()+(86400000*30),true));
         mTimerPicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
-                jobEndTime.setText(DateFormatUtils.long2Str(timestamp, false));
+                jobEndTime.setText(DateFormatUtils.long2Str(timestamp, true));
             }
         }, beginTime, endTime);
         // 允许点击屏幕或物理返回键关闭
@@ -181,7 +181,7 @@ public class PublishJobActivity extends BaseMvpActivity<PublishJobPresenter> imp
         String workContactStr = workContact.getText().toString();
         String contactPhoneStr = contactPhone.getText().toString();
         String jobEndTimeStr = jobEndTime.getText().toString();
-        requestBean.setStationId(CommenUtils.getIncetance().getRequestRegisterBean().getId());
+        requestBean.setStationId(CommenUtils.getIncetance().getUserBean().getStationId());
         requestBean.setCompanyId(CommenUtils.getIncetance().getUserBean().getCompanyId());
         requestBean.setCompanyAddress(workAddressStr);
         requestBean.setPhoneNo(contactPhoneStr);

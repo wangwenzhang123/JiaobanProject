@@ -3,22 +3,14 @@ package com.tongdada.library_main.recruit.ui;
 
 import android.widget.TextView;
 
-
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.library_commen.appkey.ArouterKey;
-import com.example.library_commen.model.CommenUtils;
-import com.example.library_commen.model.PublishJobRequestBean;
 import com.example.library_commen.model.RecuritListBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
-import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpFragment;
 import com.tongdada.library_main.recruit.presenter.PublishJobContract;
 import com.tongdada.library_main.recruit.presenter.PublishJobPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class PublishJobFragment extends BaseMvpFragment<PublishJobPresenter> implements PublishJobContract.View {
 

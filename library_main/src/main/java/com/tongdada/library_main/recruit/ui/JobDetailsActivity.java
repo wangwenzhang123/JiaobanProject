@@ -16,13 +16,13 @@ import com.example.library_commen.appkey.IntentKey;
 import com.example.library_commen.model.RecuritListBean;
 import com.example.library_main.R;
 import com.example.library_main.R2;
-import com.tongdada.base.app.AppActivityKey;
 import com.tongdada.base.ui.mvp.base.presenter.BasePresenter;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 @Route(path = ArouterKey.RECRUIT_JOBDETAILSACTIVITY)
 public class JobDetailsActivity extends BaseMvpActivity {
     @BindView(R2.id.register_back)
@@ -56,7 +56,7 @@ public class JobDetailsActivity extends BaseMvpActivity {
     @Override
     public void getData() {
         RecuritListBean recuritListBean= (RecuritListBean) getIntent().getSerializableExtra(IntentKey.RECUIRT_BEAN);
-        resumeCenterFragment=new ResumeCenterFragment();
+        resumeCenterFragment=new ResumeCenterFragment(recuritListBean.getId());
         publishJobFragment=new PublishJobFragment();
         publishJobFragment.setRequestBean(recuritListBean);
         switchFrament(publishJobFragment,resumeCenterFragment);

@@ -3,24 +3,33 @@ package com.example.library_commen.model;
 import java.io.Serializable;
 
 public class RecuritListBean implements Serializable {
-    private String companyAddress;
-    private String companyId;
-    private String companyName;
-    private String contacts;
+    private String companyAddress="";
+    private String companyId="";
+    private String companyName="";
+    private String contacts="";
     private CreateTimeBean createTime;
-    private String createUserID;
-    private int delFlag;
-    private String deptId;
-    private String endTime;
+    private String createUserID="";
+    private int delFlag=0;
+    private String deptId="";
+    private String endTime="";
     private String id="";
-    private String phoneNo;
-    private String positionName;
-    private String positionRemarks;
-    private String positionSalary;
+    private String phoneNo="";
+    private String positionName="";
+    private String positionRemarks="";
+    private String positionSalary="";
     private String publishTime="";
-    private String stationId;
-    private Object updateTime;
-    private String updateUserID;
+    private String stationId="";
+    private Object updateTime="";
+    private String updateUserID="";
+    private String applyNumber="";
+
+    public String getApplyNumber() {
+        return applyNumber;
+    }
+
+    public void setApplyNumber(String applyNumber) {
+        this.applyNumber = applyNumber;
+    }
 
     public String getCompanyAddress() {
         return companyAddress;

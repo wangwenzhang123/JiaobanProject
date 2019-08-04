@@ -191,6 +191,7 @@ public class IssueOrderActivity extends BaseMvpActivity<IssueOrderPresenter> imp
         issueOrdernumberEt.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationName());
         issueorderStartTv.setText(CommenUtils.getIncetance().getRequestRegisterBean().getStationAddress());
         issueOrderBean.setStartLatitude(CommenUtils.getIncetance().getRequestRegisterBean().getStationLatitude());
+        issueOrderBean.setStartPlace(CommenUtils.getIncetance().getRequestRegisterBean().getStationAddress());
         issueOrderBean.setStartLongitude(CommenUtils.getIncetance().getRequestRegisterBean().getStationLongitude());
         RequestOptions requestOptions = new RequestOptions()
                 .error(R.mipmap.defult)

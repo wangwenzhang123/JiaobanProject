@@ -39,6 +39,7 @@
             android:textSize="@dimen/sp_18" />
     </RelativeLayout>
     <RadioGroup
+        android:visibility="gone"
         android:id="@+id/job_detail_rg"
         android:layout_marginTop="@dimen/dp_16"
         android:orientation="horizontal"

@@ -852,7 +852,7 @@
                 android:paddingTop="@dimen/dp_10"
                 android:paddingLeft="@dimen/dp_10"
                 android:gravity="start"
-                android:hint="请输入备注"
+                android:hint="请输入备注(如最低接单次数)"
                 android:background="@drawable/shape_issue_et"
                 android:id="@+id/et_note"
                 app:layout_constraintLeft_toLeftOf="parent"
