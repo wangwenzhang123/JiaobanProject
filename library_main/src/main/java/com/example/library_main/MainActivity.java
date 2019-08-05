@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.event.EventMainFinishBean;
+import com.tencent.bugly.beta.Beta;
 import com.tongdada.base.util.ToastUtils;
 import com.tongdada.library_main.finance.ui.FinanceFragment;
 import com.tongdada.library_main.home.ui.HomeFragment;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getView());
+        Beta.checkUpgrade();
         EventBus.getDefault().register(this);
         ARouter.getInstance().inject(this);
         ButterKnife.bind(this);

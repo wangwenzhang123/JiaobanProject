@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.library_commen.appkey.ArouterKey;
 import com.example.library_commen.utils.CheckUtils;
-import com.tongdada.base.dialog.base.BaseDialog;
 import com.tongdada.base.ui.mvp.base.ui.BaseMvpActivity;
 import com.tongdada.library_login.R;
 import com.tongdada.library_login.R2;
@@ -54,15 +53,20 @@ public class ForgotPasswordActivity extends BaseMvpActivity<ForgotPresenter> imp
 
     @OnClick(R2.id.retrieve_password)
     public void onRetrievePasswordClicked() {
-        String phone=etContactPhone.getText().toString().trim();
-        if (TextUtils.isEmpty(phone)){
+        String phone = etContactPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)) {
             showToast("手机号不能为空！");
             return;
         }
-        if (CheckUtils.isChinaPhoneLegal(phone)){
+        if (CheckUtils.isChinaPhoneLegal(phone)) {
             presenter.getForgotPassword(etContactPhone.getText().toString().trim());
-        }else {
+        } else {
             showToast("请输入正确的手机号！");
         }
+    }
+
+    @OnClick(R2.id.back_tv)
+    public void onBackViewClicked() {
+        finish();
     }
 }
