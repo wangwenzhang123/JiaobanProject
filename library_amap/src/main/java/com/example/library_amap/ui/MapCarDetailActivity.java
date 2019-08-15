@@ -362,8 +362,8 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
         conten.setText(carBean.getCarNo());
         view.setDrawingCacheEnabled(true);
         //调用下面这个方法非常重要，如果没有调用这个方法，得到的bitmap为null
-        view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.EXACTLY));
+        view.measure(View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(256, View.MeasureSpec.UNSPECIFIED));
         //这个方法也非常重要，设置布局的尺寸和位置
         view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
         //获得绘图缓存中的Bitmap
