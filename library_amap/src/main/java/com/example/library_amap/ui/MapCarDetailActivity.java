@@ -340,11 +340,12 @@ public class MapCarDetailActivity extends BaseMvpActivity<MapCarDetailPresenter>
                 .diskCacheStrategy(DiskCacheStrategy.DATA);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + detailOrder.getLoadLicense()).apply(requestOptions).into(loadingPic);
         Glide.with(mContext).load(BaseUrl.BASEURL + "/" + detailOrder.getUnloadLicense()).apply(requestOptions).into(unloadPic);
-        if (detailOrder.getOrderStatus().equals("R")) {
+        bottomLl.setVisibility(View.GONE);
+       /* if (detailOrder.getOrderStatus().equals("R")) {
             bottomLl.setVisibility(View.VISIBLE);
         } else {
             bottomLl.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     @Override
