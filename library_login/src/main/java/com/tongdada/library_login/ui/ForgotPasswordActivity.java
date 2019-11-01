@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ public class ForgotPasswordActivity extends BaseMvpActivity<ForgotPresenter> imp
     @BindView(R2.id.register_back)
     ImageView resetpasswordBack;
     @BindView(R2.id.top_rl)
-    RelativeLayout topRl;
+    LinearLayout topRl;
     @BindView(R2.id.et_contact_phone)
     EditText etContactPhone;
     @BindView(R2.id.retrieve_password)
